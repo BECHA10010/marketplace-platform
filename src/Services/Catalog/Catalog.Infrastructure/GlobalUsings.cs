@@ -1,2 +1,9 @@
+global using Catalog.Domain.Entities;
+global using Catalog.Domain.Repositories;
+global using Catalog.Domain.Specifications;
+global using Catalog.Infrastructure.Data.Seed;
+global using Catalog.Infrastructure.Repositories;
+global using Marten;
+global using Marten.Schema;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;

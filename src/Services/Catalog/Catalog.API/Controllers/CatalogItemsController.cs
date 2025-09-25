@@ -1,10 +1,3 @@
-using Catalog.Application.Commands.CatalogItemCommands;
-using Catalog.Application.Queries.CatalogItemQueries;
-using Catalog.Application.Responses.CatalogItemResponses;
-using Catalog.Domain.Specifications;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Catalog.API.Controllers;
 
 [ApiController]

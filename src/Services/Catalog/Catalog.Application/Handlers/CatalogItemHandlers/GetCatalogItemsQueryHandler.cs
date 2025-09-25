@@ -1,9 +1,3 @@
-using Catalog.Application.Queries.CatalogItemQueries;
-using Catalog.Application.Responses.CatalogItemResponses;
-using Catalog.Domain.Repositories;
-using Catalog.Domain.Specifications;
-using MediatR;
-
 namespace Catalog.Application.Handlers.CatalogItemHandlers;
 
 public class GetCatalogItemsQueryHandler(ICatalogItemRepository catalogItemRepository) : IRequestHandler<GetCatalogItemsQuery, GetCatalogItemsResult>

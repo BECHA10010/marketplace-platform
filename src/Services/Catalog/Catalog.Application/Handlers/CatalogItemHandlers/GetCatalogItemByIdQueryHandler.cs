@@ -1,6 +1,3 @@
-using Catalog.Application.Queries.CatalogItemQueries;
-using Catalog.Domain.Repositories;
-
 namespace Catalog.Application.Handlers.CatalogItemHandlers;
 
 public class GetCatalogItemByIdQueryHandler(ICatalogItemRepository repository) : IRequestHandler<GetCatalogItemByIdQuery, GetCatalogItemByIdResult>

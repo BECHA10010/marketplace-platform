@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace Catalog.Application.Handlers.CatalogItemHandlers;
 
 public class UpdateCatalogItemCommandHandler(ICatalogItemRepository repository) 
