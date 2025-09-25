@@ -1,5 +1,3 @@
-using Catalog.Domain.Entities;
-
 namespace Catalog.Infrastructure.Data.Seed;
 
 public static class InitialData

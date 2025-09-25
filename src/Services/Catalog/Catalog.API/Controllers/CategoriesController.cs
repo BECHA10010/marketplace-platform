@@ -1,8 +1,3 @@
-using Catalog.Application.Queries.CategoryQueries;
-using Catalog.Application.Responses.CategoryResponses;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Catalog.API.Controllers;
 
 [ApiController]

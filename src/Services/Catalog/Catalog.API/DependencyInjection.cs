@@ -1,6 +1,3 @@
-using System.Reflection;
-using Catalog.Application.Queries.BrandQueries;
-
 namespace Catalog.API;
 
 public static class DependencyInjection

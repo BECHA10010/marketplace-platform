@@ -1,8 +1,3 @@
-using Catalog.Application.Queries.CategoryQueries;
-using Catalog.Application.Responses.CategoryResponses;
-using Catalog.Domain.Repositories;
-using MediatR;
-
 namespace Catalog.Application.Handlers.CategoryHandlers;
 
 public class GetCategoriesQueryHandler(ICategoryRepository categoryRepository) : IRequestHandler<GetCategoriesQuery, GetCategoriesResult>

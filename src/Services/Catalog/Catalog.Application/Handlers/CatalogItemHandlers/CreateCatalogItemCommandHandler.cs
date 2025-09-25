@@ -1,7 +1,3 @@
-using Catalog.Application.Commands.CatalogItemCommands;
-using Catalog.Domain.Repositories;
-using Mapster;
-
 namespace Catalog.Application.Handlers.CatalogItemHandlers;
 
 public class CreateCatalogItemCommandHandler(ICatalogItemRepository repository) 

@@ -1,6 +1,3 @@
-using Catalog.Domain.Entities;
-using Catalog.Domain.Specifications;
-
 namespace Catalog.Domain.Repositories;
 
 public interface ICatalogItemRepository
