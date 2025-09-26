@@ -1,3 +1,4 @@
 namespace Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItemsByBrand;
 
-public record GetCatalogItemsByBrandQuery(string BrandTitle) : IRequest<GetCatalogItemsByBrandResult>;
+public sealed partial record GetCatalogItemsByBrandQuery(string BrandTitle)
+    : IRequest<OneOf<GetCatalogItemsByBrandQuery.Results.SuccessResult, GetCatalogItemsByBrandQuery.Results.FailResult>>;

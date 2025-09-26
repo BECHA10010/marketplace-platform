@@ -1,3 +1,4 @@
 namespace Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItemById;
 
-public record GetCatalogItemByIdQuery(Guid Id) : IRequest<GetCatalogItemByIdResult>;
+public sealed partial record GetCatalogItemByIdQuery(Guid Id) 
+    : IRequest<OneOf<GetCatalogItemByIdQuery.Results.SuccessResult, GetCatalogItemByIdQuery.Results.FailResult>>;

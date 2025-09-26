@@ -1,3 +1,4 @@
 namespace Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItems;
 
-public record GetCatalogItemsQuery(QueryArgs Args) : IRequest<GetCatalogItemsResult>;
+public sealed partial record GetCatalogItemsQuery(QueryArgs Args) 
+    : IRequest<OneOf<GetCatalogItemsQuery.Results.SuccessResult, GetCatalogItemsQuery.Results.FailResult>>;
