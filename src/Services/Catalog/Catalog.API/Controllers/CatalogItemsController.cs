@@ -37,11 +37,14 @@ public class CatalogItemsController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<CreateCatalogItemResult>> CreateItem([FromBody] CreateCatalogItemCommand command)
+    public async Task<IActionResult> CreateItem([FromBody] CreateCatalogItemCommand command)
     {
         var result = await mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+        return result.Match(
+            success => Ok(success.Id),
+            fail => Ok(fail.Code)
+        );
     }
     
     [HttpPut]
