@@ -1,6 +1,6 @@
 namespace Catalog.Application.Domains.CatalogItems.Commands.UpdateCatalogItem;
 
-public record UpdateCatalogItemCommand(
+public sealed partial record UpdateCatalogItemCommand(
     Guid Id,
     string? Title,
     string? ShortDescription,
@@ -8,4 +8,4 @@ public record UpdateCatalogItemCommand(
     string? ImageUrl,
     Brand? Brand,
     Category? Category,
-    decimal Price) : IRequest<UpdateCatalogItemResult>;
+    decimal Price) : IRequest<OneOf<UpdateCatalogItemCommand.Results.SuccessResult, UpdateCatalogItemCommand.Results.FailResult>>;
