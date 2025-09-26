@@ -1,10 +1,3 @@
-global using Catalog.Application.Commands.CatalogItemCommands;
-global using Catalog.Application.Queries.BrandQueries;
-global using Catalog.Application.Queries.CatalogItemQueries;
-global using Catalog.Application.Queries.CategoryQueries;
-global using Catalog.Application.Responses.BrandResponses;
-global using Catalog.Application.Responses.CatalogItemResponses;
-global using Catalog.Application.Responses.CategoryResponses;
 global using Catalog.Domain.Entities;
 global using Catalog.Domain.Repositories;
 global using Catalog.Domain.Specifications;
