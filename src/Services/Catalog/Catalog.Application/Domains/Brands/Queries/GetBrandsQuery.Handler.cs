@@ -9,6 +9,9 @@ public sealed partial record GetBrandsQuery
         {
             var brands = await repository.GetAllBrandsAsync();
 
+            if (!brands.Any())
+                return NotFound();
+            
             return Success(brands);
         }
     }

@@ -10,7 +10,7 @@ sealed partial record DeleteCatalogItemByIdCommand
             var existingItem = await repository.GetCatalogItemAsync(command.Id);
 
             if (existingItem is null)
-                return NotFound(command.Id.ToString());
+                return NotFound(command.Id);
 
             var isSuccess = await repository.DeleteCatalogItemAsync(command.Id);
             

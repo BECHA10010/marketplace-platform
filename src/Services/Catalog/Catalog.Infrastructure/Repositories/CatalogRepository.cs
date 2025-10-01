@@ -2,12 +2,12 @@ namespace Catalog.Infrastructure.Repositories;
 
 public class CatalogRepository(IDocumentSession session) : IBrandRepository, ICategoryRepository, ICatalogItemRepository
 {
-    public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
+    public async Task<IReadOnlyList<Brand>> GetAllBrandsAsync()
     {
         return await session.Query<Brand>().ToListAsync();
     }
 
-    public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+    public async Task<IReadOnlyList<Category>> GetAllCategoriesAsync()
     {
         var categories = await session.Query<Category>().ToListAsync();
 
@@ -61,7 +61,7 @@ public class CatalogRepository(IDocumentSession session) : IBrandRepository, ICa
         return await session.Query<CatalogItem>().SingleOrDefaultAsync(x => x.Title == title);
     }
 
-    public async Task<IEnumerable<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle)
+    public async Task<IReadOnlyList<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle)
     {
         return await session.Query<CatalogItem>().Where(i => i.Brand!.Title == brandTitle).ToListAsync();
     }

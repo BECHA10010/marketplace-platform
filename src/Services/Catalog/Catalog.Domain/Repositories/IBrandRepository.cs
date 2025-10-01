@@ -2,5 +2,5 @@ namespace Catalog.Domain.Repositories;
 
 public interface IBrandRepository
 {
-    Task<IEnumerable<Brand>> GetAllBrandsAsync();
+    Task<IReadOnlyList<Brand>> GetAllBrandsAsync();
 }

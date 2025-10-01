@@ -8,7 +8,10 @@ public sealed partial record GetCatalogItemsQuery
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(GetCatalogItemsQuery query, CancellationToken cancellationToken)
         {
             var items = await repository.GetCatalogItemsAsync(query.Args);
-        
+
+            if (!items.Items.Any())
+                return NotFound();
+            
             return Success(items);
         }
     }

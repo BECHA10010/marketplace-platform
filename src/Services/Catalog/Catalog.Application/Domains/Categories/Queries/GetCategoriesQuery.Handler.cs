@@ -9,6 +9,9 @@ public sealed partial record GetCategoriesQuery
         {
             var categories = await repository.GetAllCategoriesAsync();
 
+            if (!categories.Any())
+                return NotFound();
+            
             return Success(categories);
         }
     }

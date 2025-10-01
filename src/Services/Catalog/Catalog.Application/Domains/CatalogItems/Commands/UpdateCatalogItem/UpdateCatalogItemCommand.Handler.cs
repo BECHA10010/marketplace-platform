@@ -10,7 +10,7 @@ public sealed partial record UpdateCatalogItemCommand
             var existingItem = await repository.GetCatalogItemAsync(command.Id);
 
             if (existingItem is null)
-                return AlreadyExist(command.Title!);
+                return NotFound(command.Id);
 
             var catalogItem = command.Adapt<CatalogItem>();
             var isSuccess = await repository.UpdateCatalogItemAsync(catalogItem);

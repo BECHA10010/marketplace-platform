@@ -9,6 +9,9 @@ public sealed partial record GetCatalogItemsByBrandQuery
         {
             var items = await repository.GetCatalogItemsByBrandAsync(query.BrandTitle);
 
+            if (!items.Any())
+                return NotFound(query.BrandTitle);
+            
             return Success(items);
         }
     }

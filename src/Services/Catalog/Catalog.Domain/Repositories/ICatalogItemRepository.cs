@@ -6,7 +6,7 @@ public interface ICatalogItemRepository
     Task<Pagination<CatalogItem>> GetCatalogItemsAsync(QueryArgs args);
     Task<CatalogItem?> GetCatalogItemAsync(Guid id);
     Task<CatalogItem?> GetCatalogItemByTitleAsync(string title);
-    Task<IEnumerable<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle);
+    Task<IReadOnlyList<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle);
     Task<bool> UpdateCatalogItemAsync(CatalogItem item);
     Task<bool> DeleteCatalogItemAsync(Guid id);
 }

@@ -9,7 +9,7 @@ public sealed partial record CreateCatalogItemCommand
         {
             var existingItem = await repository.GetCatalogItemByTitleAsync(command.Title!); // required поле
 
-            if (existingItem is null)
+            if (existingItem is not null)
                 return AlreadyExist(command.Title!);
 
             var newItem = command.Adapt<CatalogItem>();

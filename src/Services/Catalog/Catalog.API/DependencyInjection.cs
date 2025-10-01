@@ -13,8 +13,7 @@ public static class DependencyInjection
             config.IncludeXmlComments(Path.Combine(basePath, "Catalog.Domain.xml"));
         });
         
-        var assembly = typeof(GetBrandsQuery).Assembly;
-
+        var assembly = typeof(ApplicationErrors).Assembly;
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(assembly);

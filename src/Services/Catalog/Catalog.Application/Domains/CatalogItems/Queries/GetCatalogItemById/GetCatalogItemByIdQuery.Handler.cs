@@ -10,7 +10,7 @@ public sealed partial record GetCatalogItemByIdQuery
             var item = await repository.GetCatalogItemAsync(query.Id);
 
             if (item is null)
-                return NotFound(query.Id.ToString());
+                return NotFound(query.Id);
 
             return Success(item);
         }
