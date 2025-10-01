@@ -7,7 +7,7 @@ public sealed partial record CreateCatalogItemCommand
     {
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(CreateCatalogItemCommand command, CancellationToken cancellationToken)
         {
-            var existingItem = await repository.GetCatalogItemByTitleAsync(command.Title!); // required поле
+            var existingItem = await repository.GetCatalogItemByTitleAsync(command.Title!, cancellationToken); // required поле
 
             if (existingItem is not null)
                 return AlreadyExist(command.Title!);
@@ -15,7 +15,7 @@ public sealed partial record CreateCatalogItemCommand
             var newItem = command.Adapt<CatalogItem>();
             newItem.Id = Guid.NewGuid();
             
-            await repository.CreateCatalogItemAsync(newItem);
+            await repository.CreateCatalogItemAsync(newItem, cancellationToken);
 
             return Success(newItem.Id);
         }

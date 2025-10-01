@@ -5,9 +5,9 @@ namespace Catalog.API.Controllers;
 public class BrandsController(IMediator mediator) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetBrands()
+    public async Task<IActionResult> GetBrands(CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetBrandsQuery());
+        var result = await mediator.Send(new GetBrandsQuery(), cancellationToken);
 
         return result.Match(
             success => Ok(success.Brands),

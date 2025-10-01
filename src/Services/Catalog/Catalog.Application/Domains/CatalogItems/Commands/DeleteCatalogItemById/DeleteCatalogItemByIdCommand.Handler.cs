@@ -7,12 +7,12 @@ sealed partial record DeleteCatalogItemByIdCommand
     {
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(DeleteCatalogItemByIdCommand command, CancellationToken cancellationToken)
         {
-            var existingItem = await repository.GetCatalogItemAsync(command.Id);
+            var existingItem = await repository.GetCatalogItemAsync(command.Id, cancellationToken);
 
             if (existingItem is null)
                 return NotFound(command.Id);
 
-            var isSuccess = await repository.DeleteCatalogItemAsync(command.Id);
+            var isSuccess = await repository.DeleteCatalogItemAsync(command.Id, cancellationToken);
             
             return Success(isSuccess);
         }

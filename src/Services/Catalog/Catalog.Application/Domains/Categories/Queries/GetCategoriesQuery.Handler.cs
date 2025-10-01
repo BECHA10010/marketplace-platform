@@ -7,7 +7,7 @@ public sealed partial record GetCategoriesQuery
     {
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)
         {
-            var categories = await repository.GetAllCategoriesAsync();
+            var categories = await repository.GetAllCategoriesAsync(cancellationToken);
 
             if (!categories.Any())
                 return NotFound();

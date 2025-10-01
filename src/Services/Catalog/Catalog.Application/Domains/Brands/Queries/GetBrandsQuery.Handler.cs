@@ -7,7 +7,7 @@ public sealed partial record GetBrandsQuery
     {
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(GetBrandsQuery query, CancellationToken cancellationToken)
         {
-            var brands = await repository.GetAllBrandsAsync();
+            var brands = await repository.GetAllBrandsAsync(cancellationToken);
 
             if (!brands.Any())
                 return NotFound();

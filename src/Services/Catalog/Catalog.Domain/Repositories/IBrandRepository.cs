@@ -2,5 +2,5 @@ namespace Catalog.Domain.Repositories;
 
 public interface IBrandRepository
 {
-    Task<IReadOnlyList<Brand>> GetAllBrandsAsync();
+    Task<IReadOnlyList<Brand>> GetAllBrandsAsync(CancellationToken cancellationToken);
 }

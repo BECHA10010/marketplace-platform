@@ -5,9 +5,9 @@ namespace Catalog.API.Controllers;
 public class CategoriesController(IMediator mediator) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetCategories()
+    public async Task<IActionResult> GetCategories(CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCategoriesQuery());
+        var result = await mediator.Send(new GetCategoriesQuery(), cancellationToken);
 
         return result.Match(
             success => Ok(success.Categories),

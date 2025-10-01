@@ -7,13 +7,13 @@ public sealed partial record UpdateCatalogItemCommand
     {
         public async Task<OneOf<Results.SuccessResult, Results.FailResult>> Handle(UpdateCatalogItemCommand command, CancellationToken cancellationToken)
         {
-            var existingItem = await repository.GetCatalogItemAsync(command.Id);
+            var existingItem = await repository.GetCatalogItemAsync(command.Id, cancellationToken);
 
             if (existingItem is null)
                 return NotFound(command.Id);
 
             var catalogItem = command.Adapt<CatalogItem>();
-            var isSuccess = await repository.UpdateCatalogItemAsync(catalogItem);
+            var isSuccess = await repository.UpdateCatalogItemAsync(catalogItem, cancellationToken);
 
             return Success(isSuccess);
         }

@@ -5,9 +5,9 @@ namespace Catalog.API.Controllers;
 public class CatalogItemsController(IMediator mediator) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] QueryArgs args)
+    public async Task<IActionResult> GetAll([FromQuery] QueryArgs args, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemsQuery(args));
+        var result = await mediator.Send(new GetCatalogItemsQuery(args), cancellationToken);
         
         return result.Match(
             success => Ok(success.Pagination),
@@ -19,9 +19,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemByIdQuery(id));
+        var result = await mediator.Send(new GetCatalogItemByIdQuery(id), cancellationToken);
         
         return result.Match(
             success => Ok(success.Item),
@@ -33,9 +33,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
     
     [HttpGet("title/{itemTitle}")]
-    public async Task<IActionResult> GetByTitle(string itemTitle)
+    public async Task<IActionResult> GetByTitle(string itemTitle, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemByTitleQuery(itemTitle));
+        var result = await mediator.Send(new GetCatalogItemByTitleQuery(itemTitle), cancellationToken);
         
         return result.Match(
             success => Ok(success.Item),
@@ -47,9 +47,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
     
     [HttpGet("brand/{brandTitle}")]
-    public async Task<IActionResult> GetByBrand(string brandTitle)
+    public async Task<IActionResult> GetByBrand(string brandTitle, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemsByBrandQuery(brandTitle));
+        var result = await mediator.Send(new GetCatalogItemsByBrandQuery(brandTitle), cancellationToken);
         
         return result.Match(
             success => Ok(success.Items),
@@ -61,12 +61,12 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCatalogItemCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateCatalogItemCommand command, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(command, cancellationToken);
 
         return result.Match(
-            success => Ok(success.Id),
+            success => CreatedAtAction(nameof(GetById), new { id = success.Id}, success.Id),
             fail => fail.Code switch
             {
                 ApplicationErrors.AlreadyExist => Conflict(fail.Code, fail.Message),
@@ -75,9 +75,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UpdateCatalogItemCommand command)
+    public async Task<IActionResult> Update([FromBody] UpdateCatalogItemCommand command, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(command, cancellationToken);
 
         return result.Match(
             success => Ok(success.IsSuccess),
@@ -89,9 +89,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
     }
     
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new DeleteCatalogItemByIdCommand(id));
+        var result = await mediator.Send(new DeleteCatalogItemByIdCommand(id), cancellationToken);
 
         return result.Match(
             success => Ok(success.IsSuccess),
@@ -102,23 +102,3 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
         });
     }
 }
-/*
- * {
-  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
-  "title": "Not Found",
-  "status": 404,
-  "detail": "Items not found",
-  "instance": "/api/CatalogItems",
-  "traceId": "00-2a240fcf44ffb7b4e63def0e3d35a925-152c91aa7731ee3b-00",
-  "error": "not_found"
-}
-
-{
-  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
-  "title": "Not Found",
-  "status": 404,
-  "detail": "Item with id b0000001-0000-0000-0000-000000000001 not found",
-  "instance": "/api/CatalogItems/b0000001-0000-0000-0000-000000000001",
-  "traceId": "00-ddcf4fb104aeca24c08282dd6cf6f281-e9fa8155f7ad99b0-00"
-}
- */
