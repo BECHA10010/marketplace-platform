@@ -24,8 +24,6 @@ services:
       - "7301:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      # - ConnectionString__PgConnection=...
-      # - MediatR__LicenseKey=...
     depends_on:
       - catalog_db
     restart: unless-stopped

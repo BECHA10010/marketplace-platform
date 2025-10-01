@@ -1,7 +1,3 @@
-using FluentValidation;
-using Hellang.Middleware.ProblemDetails;
-using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
-
 namespace Catalog.API.Extensions;
 
 public static class ProblemDetailsOptionsExtensions

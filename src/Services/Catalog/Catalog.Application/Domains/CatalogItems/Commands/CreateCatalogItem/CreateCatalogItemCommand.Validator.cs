@@ -1,6 +1,3 @@
-using Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItemById;
-using FluentValidation;
-
 namespace Catalog.Application.Domains.CatalogItems.Commands.CreateCatalogItem;
 
 public sealed partial record CreateCatalogItemCommand

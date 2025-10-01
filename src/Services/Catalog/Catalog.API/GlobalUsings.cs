@@ -13,3 +13,7 @@ global using Catalog.Domain.Specifications;
 global using Catalog.Infrastructure;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Hellang.Middleware.ProblemDetails;
+global using Catalog.API.Extensions;
+global using FluentValidation;
+global using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;

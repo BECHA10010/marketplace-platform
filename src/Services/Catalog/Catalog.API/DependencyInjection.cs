@@ -1,6 +1,3 @@
-using Hellang.Middleware.ProblemDetails;
-using Catalog.API.Extensions;
-
 namespace Catalog.API;
 
 public static class DependencyInjection

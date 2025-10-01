@@ -1,9 +1,3 @@
-# docker build --no-cache -t catalog.api:latest -f dockerfile-catalog .
-
-# docker network ls
-
-# docker run -d --name catalog.api --network marketplace_default -p 7201:8080 {-e ConnectionStrings__PgConnection="..."} catalog.api:latest
-
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 8080

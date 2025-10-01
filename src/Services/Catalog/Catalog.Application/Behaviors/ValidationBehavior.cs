@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace Catalog.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> (IEnumerable<IValidator<TRequest>> validators)

@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItemById;
 
 public sealed partial record GetCatalogItemByIdQuery

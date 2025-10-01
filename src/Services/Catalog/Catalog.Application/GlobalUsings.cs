@@ -6,3 +6,6 @@ global using MediatR;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using OneOf;
+global using Catalog.Application.Behaviors;
+global using Catalog.Application.Domains.CatalogItems.Queries.GetCatalogItemById;
+global using FluentValidation;
