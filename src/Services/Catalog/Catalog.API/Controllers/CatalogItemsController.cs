@@ -13,9 +13,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
             success => Ok(success.Pagination),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
 
     [HttpGet("{id:guid}")]
@@ -27,9 +27,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
             success => Ok(success.Item),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
     
     [HttpGet("title/{itemTitle}")]
@@ -41,9 +41,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
             success => Ok(success.Item),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
     
     [HttpGet("brand/{brandTitle}")]
@@ -55,9 +55,9 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
             success => Ok(success.Items),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
     
     [HttpPost]
@@ -66,12 +66,12 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
         var result = await mediator.Send(command, cancellationToken);
 
         return result.Match(
-            success => CreatedAtAction(nameof(GetById), new { id = success.Id}, success.Id),
+            success => CreatedAtAction(nameof(GetById), new { id = success.Id }, success.Id),
             fail => fail.Code switch
             {
                 ApplicationErrors.AlreadyExist => Conflict(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
     
     [HttpPut]
@@ -80,12 +80,12 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
         var result = await mediator.Send(command, cancellationToken);
 
         return result.Match(
-            success => Ok(success.IsSuccess),
+            success => Ok(success.UpdatedItem),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
     
     [HttpDelete("{id:guid}")]
@@ -94,11 +94,11 @@ public class CatalogItemsController(IMediator mediator) : ApiControllerBase
         var result = await mediator.Send(new DeleteCatalogItemByIdCommand(id), cancellationToken);
 
         return result.Match(
-            success => Ok(success.IsSuccess),
+            success => NoContent(),
             fail => fail.Code switch
             {
-                ApplicationErrors.NotFound => NotFound(fail.Message),
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
                 _ => InternalServerError(fail.Message)
-        });
+            });
     }
 }

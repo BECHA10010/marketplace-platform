@@ -4,12 +4,12 @@ public sealed partial record UpdateCatalogItemCommand
 {
     public static class Results
     {
-        public sealed record SuccessResult(bool IsSuccess);
+        public sealed record SuccessResult(CatalogItem UpdatedItem);
         public sealed record FailResult(string Code, string Message);
     }
     
-    private static Results.SuccessResult Success(bool isSuccess) 
-        => new(isSuccess);
+    private static Results.SuccessResult Success(CatalogItem updatedItem) 
+        => new(updatedItem);
 
     private static Results.FailResult NotFound(Guid id) 
         => new(ApplicationErrors.NotFound, $"Catalog item with id {id} was not found");

@@ -4,12 +4,12 @@ sealed partial record DeleteCatalogItemByIdCommand
 {
     public static class Results
     {
-        public sealed record SuccessResult(bool IsSuccess);
+        public sealed record SuccessResult();
         public sealed record FailResult(string Code, string Message);
     }
     
-    private static Results.SuccessResult Success(bool isSuccess) 
-        => new(isSuccess);
+    private static Results.SuccessResult Success() 
+        => new();
 
     private static Results.FailResult NotFound(Guid id) 
         => new(ApplicationErrors.NotFound, $"Catalog item with id {id} was not found");

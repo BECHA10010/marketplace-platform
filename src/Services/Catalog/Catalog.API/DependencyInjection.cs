@@ -1,3 +1,6 @@
+using Hellang.Middleware.ProblemDetails;
+using Catalog.API.Extensions;
+
 namespace Catalog.API;
 
 public static class DependencyInjection
@@ -13,10 +16,18 @@ public static class DependencyInjection
             config.IncludeXmlComments(Path.Combine(basePath, "Catalog.Domain.xml"));
         });
         
-        var assembly = typeof(ApplicationErrors).Assembly;
+        var applicationAssembly = typeof(ApplicationErrors).Assembly;
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssembly(assembly);
+            config.RegisterServicesFromAssembly(applicationAssembly);
+        });
+
+        services.AddProblemDetails(options =>
+        {
+            options.MapFluentValidationException();
+            options.ValidationProblemStatusCode = StatusCodes.Status422UnprocessableEntity;
+            options.IncludeExceptionDetails = (_, _) => false;
+            options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
         });
         
         return services;
@@ -24,10 +35,12 @@ public static class DependencyInjection
 
     public static WebApplication UseApiServices(this WebApplication app)
     {
-        app.MapControllers();
-        
         app.UseSwagger();
         app.UseSwaggerUI();
+     
+        app.UseProblemDetails();
+        
+        app.MapControllers();
         
         return app;
     }

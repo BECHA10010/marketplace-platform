@@ -12,9 +12,9 @@ sealed partial record DeleteCatalogItemByIdCommand
             if (existingItem is null)
                 return NotFound(command.Id);
 
-            var isSuccess = await repository.DeleteCatalogItemAsync(command.Id, cancellationToken);
+            await repository.DeleteCatalogItemAsync(command.Id, cancellationToken);
             
-            return Success(isSuccess);
+            return Success();
         }
     }
 }

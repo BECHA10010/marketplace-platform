@@ -15,7 +15,7 @@ public sealed partial record UpdateCatalogItemCommand
             var catalogItem = command.Adapt<CatalogItem>();
             var isSuccess = await repository.UpdateCatalogItemAsync(catalogItem, cancellationToken);
 
-            return Success(isSuccess);
+            return Success(catalogItem);
         }
     }
 }
