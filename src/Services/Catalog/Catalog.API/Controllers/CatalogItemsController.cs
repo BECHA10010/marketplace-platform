@@ -2,61 +2,103 @@ namespace Catalog.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CatalogItemsController(IMediator mediator) : ControllerBase
+public class CatalogItemsController(IMediator mediator) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<GetCatalogItemsResult>> GetAll([FromQuery] QueryArgs args)
+    public async Task<IActionResult> GetAll([FromQuery] QueryArgs args, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemsQuery(args));
+        var result = await mediator.Send(new GetCatalogItemsQuery(args), cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            success => Ok(success.Pagination),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<GetCatalogItemByIdResult>> GetById(Guid id)
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemByIdQuery(id));
+        var result = await mediator.Send(new GetCatalogItemByIdQuery(id), cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            success => Ok(success.Item),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
     
     [HttpGet("title/{itemTitle}")]
-    public async Task<ActionResult<GetCatalogItemByIdResult>> GetByTitle(string itemTitle)
+    public async Task<IActionResult> GetByTitle(string itemTitle, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemByTitleQuery(itemTitle));
+        var result = await mediator.Send(new GetCatalogItemByTitleQuery(itemTitle), cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            success => Ok(success.Item),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
     
     [HttpGet("brand/{brandTitle}")]
-    public async Task<ActionResult<GetCatalogItemsByBrandResult>> GetByBrand(string brandTitle)
+    public async Task<IActionResult> GetByBrand(string brandTitle, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetCatalogItemsByBrandQuery(brandTitle));
+        var result = await mediator.Send(new GetCatalogItemsByBrandQuery(brandTitle), cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            success => Ok(success.Items),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
     
     [HttpPost]
-    public async Task<ActionResult<CreateCatalogItemResult>> CreateItem([FromBody] CreateCatalogItemCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateCatalogItemCommand command, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(command, cancellationToken);
 
-        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+        return result.Match(
+            success => CreatedAtAction(nameof(GetById), new { id = success.Id }, success.Id),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.AlreadyExist => Conflict(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
     
     [HttpPut]
-    public async Task<ActionResult<UpdateCatalogItemResult>> UpdateItem([FromBody] UpdateCatalogItemCommand command)
+    public async Task<IActionResult> Update([FromBody] UpdateCatalogItemCommand command, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(command, cancellationToken);
 
-        return Ok(result);
+        return result.Match(
+            success => Ok(success.UpdatedItem),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
     
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult<DeleteCatalogItemByIdResult>> UpdateItem(Guid id)
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new DeleteCatalogItemByIdCommand(id));
+        var result = await mediator.Send(new DeleteCatalogItemByIdCommand(id), cancellationToken);
 
-        return Ok(result);
+        return result.Match(
+            success => NoContent(),
+            fail => fail.Code switch
+            {
+                ApplicationErrors.NotFound => NotFound(fail.Code, fail.Message),
+                _ => InternalServerError(fail.Message)
+            });
     }
 }

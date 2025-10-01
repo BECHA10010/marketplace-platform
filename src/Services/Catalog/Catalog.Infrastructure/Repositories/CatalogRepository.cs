@@ -2,19 +2,19 @@ namespace Catalog.Infrastructure.Repositories;
 
 public class CatalogRepository(IDocumentSession session) : IBrandRepository, ICategoryRepository, ICatalogItemRepository
 {
-    public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
+    public async Task<IReadOnlyList<Brand>> GetAllBrandsAsync(CancellationToken cancellationToken)
     {
-        return await session.Query<Brand>().ToListAsync();
+        return await session.Query<Brand>().ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+    public async Task<IReadOnlyList<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken)
     {
-        var categories = await session.Query<Category>().ToListAsync();
+        var categories = await session.Query<Category>().ToListAsync(cancellationToken);
 
         return categories;
     }
 
-    public async Task<Pagination<CatalogItem>> GetCatalogItemsAsync(QueryArgs args)
+    public async Task<Pagination<CatalogItem>> GetCatalogItemsAsync(QueryArgs args, CancellationToken cancellationToken)
     {
         var allItems = session.Query<CatalogItem>().AsQueryable(); // .AsQueryable() преобразует => IQueryable<CatalogItem>
 
@@ -41,51 +41,51 @@ public class CatalogRepository(IDocumentSession session) : IBrandRepository, ICa
             };
         }
         
-        var itemsCount = await allItems.CountAsync();
+        var itemsCount = await allItems.CountAsync(cancellationToken);
 
         var items = await allItems
             .Skip((args.PageIndex - 1) * args.PageSize)
             .Take(args.PageSize)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         
-        return new Pagination<CatalogItem>(args.PageIndex, args.PageSize, itemsCount, items);;
+        return new Pagination<CatalogItem>(args.PageIndex, args.PageSize, itemsCount, items);
     }
 
-    public async Task<CatalogItem?> GetCatalogItemAsync(Guid id)
+    public async Task<CatalogItem?> GetCatalogItemAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await session.LoadAsync<CatalogItem>(id);
+        return await session.LoadAsync<CatalogItem>(id, cancellationToken);
     }
 
-    public async Task<CatalogItem?> GetCatalogItemByTitleAsync(string title)
+    public async Task<CatalogItem?> GetCatalogItemByTitleAsync(string title, CancellationToken cancellationToken)
     {
-        return await session.Query<CatalogItem>().SingleOrDefaultAsync(x => x.Title == title);
+        return await session.Query<CatalogItem>().SingleOrDefaultAsync(x => x.Title == title, cancellationToken);
     }
 
-    public async Task<IEnumerable<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle)
+    public async Task<IReadOnlyList<CatalogItem>> GetCatalogItemsByBrandAsync(string brandTitle, CancellationToken cancellationToken)
     {
-        return await session.Query<CatalogItem>().Where(i => i.Brand!.Title == brandTitle).ToListAsync();
+        return await session.Query<CatalogItem>().Where(i => i.Brand!.Title == brandTitle).ToListAsync(cancellationToken);
     }
     
-    public async Task<CatalogItem> CreateCatalogItemAsync(CatalogItem item)
+    public async Task<CatalogItem> CreateCatalogItemAsync(CatalogItem item, CancellationToken cancellationToken)
     {
         session.Store(item);
-        await session.SaveChangesAsync();
+        await session.SaveChangesAsync(cancellationToken);
         
         return item;
     }
 
-    public async Task<bool> UpdateCatalogItemAsync(CatalogItem item)
+    public async Task<bool> UpdateCatalogItemAsync(CatalogItem item, CancellationToken cancellationToken)
     {
         session.Store(item);
-        await session.SaveChangesAsync();
+        await session.SaveChangesAsync(cancellationToken);
 
         return true;
     }
 
-    public async Task<bool> DeleteCatalogItemAsync(Guid id)
+    public async Task<bool> DeleteCatalogItemAsync(Guid id, CancellationToken cancellationToken)
     {
         session.Delete<CatalogItem>(id);
-        await session.SaveChangesAsync();
+        await session.SaveChangesAsync(cancellationToken);
 
         return true;
     }

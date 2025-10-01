@@ -5,7 +5,6 @@ public record QueryArgs(
     int PageSize = 5,
     Guid? BrandId = null,
     Guid? CategoryId = null,
-    //string? Sort = null,
     string? Search = null)
 {
     private const int MaxPageSize = 25;

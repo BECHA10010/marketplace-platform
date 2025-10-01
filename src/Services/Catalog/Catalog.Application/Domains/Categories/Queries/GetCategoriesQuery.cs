@@ -1,3 +1,4 @@
 namespace Catalog.Application.Domains.Categories.Queries;
 
-public record GetCategoriesQuery() : IRequest<GetCategoriesResult>;
+public sealed partial record GetCategoriesQuery
+    : IRequest<OneOf<GetCategoriesQuery.Results.SuccessResult, GetCategoriesQuery.Results.FailResult>>;
