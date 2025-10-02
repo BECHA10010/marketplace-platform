@@ -16,8 +16,8 @@ services:
   catalog_api:
     container_name: catalog-api
     build:
-      context: .
-      dockerfile: ./dockerfile-catalog
+      context: ./src/Services/Catalog/Catalog.API
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=0
     ports:
