@@ -1,6 +1,3 @@
-using Basket.API.Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
-
 namespace Basket.API.Infrastructure;
 
 public class BasketDbContext(DbContextOptions<BasketDbContext> options) : DbContext(options)

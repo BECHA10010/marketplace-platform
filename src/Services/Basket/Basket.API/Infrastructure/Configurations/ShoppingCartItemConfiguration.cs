@@ -1,7 +1,3 @@
-using Basket.API.Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Basket.API.Infrastructure.Configurations;
 
 public class ShoppingCartItemConfiguration : IEntityTypeConfiguration<ShoppingCartItemEntity>

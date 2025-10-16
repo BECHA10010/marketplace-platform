@@ -1,8 +1,3 @@
-using Basket.API.Infrastructure;
-using Basket.API.Infrastructure.Repositories;
-using Carter;
-using Microsoft.EntityFrameworkCore;
-
 namespace Basket.API;
 
 public static class DependencyInjection

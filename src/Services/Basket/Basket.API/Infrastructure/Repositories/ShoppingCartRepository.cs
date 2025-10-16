@@ -1,6 +1,3 @@
-using Basket.API.Infrastructure.Entities;
-using Basket.API.Models;
-
 namespace Basket.API.Infrastructure.Repositories;
 
 public class ShoppingCartRepository : IShoppingCartRepository
