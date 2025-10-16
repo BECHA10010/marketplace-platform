@@ -4,6 +4,5 @@ public interface IShoppingCartRepository
 {
     Task<ShoppingCartEntity?> GetByAccountAsync(string accountName, CancellationToken ct);
     Task<bool> DeleteByAccountAsync(string accountName, CancellationToken ct);
-    Task AddAsync(ShoppingCartEntity entity, CancellationToken ct);
-    Task UpdateAsync(ShoppingCartEntity entity, CancellationToken ct);
+    Task AddOrUpdateAsync(ShoppingCartEntity entity, CancellationToken ct);
 }
