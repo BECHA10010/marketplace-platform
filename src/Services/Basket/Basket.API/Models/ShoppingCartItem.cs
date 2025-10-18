@@ -1,3 +1,9 @@
 namespace Basket.API.Models;
 
-public record ShoppingCartItem(Guid Id, int Quantity, decimal Price, string Title);
+public class ShoppingCartItem
+{
+    public Guid Id { get; set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+    public string? Title { get; set; }
+}
