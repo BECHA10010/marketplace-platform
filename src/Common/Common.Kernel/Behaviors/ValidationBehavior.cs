@@ -1,7 +1,3 @@
-using Common.Kernel.CQRS.Commands;
-using FluentValidation;
-using MediatR;
-
 namespace Common.Kernel.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) 

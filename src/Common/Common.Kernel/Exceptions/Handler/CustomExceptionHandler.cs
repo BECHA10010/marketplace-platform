@@ -1,8 +1,3 @@
-using FluentValidation;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Common.Kernel.Exceptions.Handler;
 
 public class CustomExceptionHandler : IExceptionHandler
