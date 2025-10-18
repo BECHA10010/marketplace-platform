@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart

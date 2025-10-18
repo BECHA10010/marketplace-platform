@@ -1,6 +1,3 @@
-using Mapster;
-using MediatR;
-
 namespace Basket.API.Features.Queries.GetShoppingCart;
 
 public static partial class GetShoppingCart

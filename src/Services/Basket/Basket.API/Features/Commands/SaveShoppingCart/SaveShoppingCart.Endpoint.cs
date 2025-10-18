@@ -1,6 +1,3 @@
-using Mapster;
-using MediatR;
-
 namespace Basket.API.Features.Commands.SaveShoppingCart;
 
 public static partial class SaveShoppingCart

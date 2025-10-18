@@ -1,14 +1,11 @@
-using Common.Kernel.Behaviors;
-using Common.Kernel.Exceptions;
-using Common.Kernel.Exceptions.Handler;
-using FluentValidation;
-
 namespace Basket.API;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
+        var assembly = typeof(Program).Assembly;
+        
         services.AddExceptionHandler<CustomExceptionHandler>();
         
         services.AddEndpointsApiExplorer();
@@ -18,11 +15,11 @@ public static class DependencyInjection
 
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            config.RegisterServicesFromAssembly(assembly);
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
-        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+        services.AddValidatorsFromAssembly(assembly);
         
         return services;
     }

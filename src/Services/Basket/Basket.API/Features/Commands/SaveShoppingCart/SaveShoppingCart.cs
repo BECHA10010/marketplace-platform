@@ -1,6 +1,3 @@
-using Basket.API.Models;
-using Common.Kernel.CQRS.Commands;
-
 namespace Basket.API.Features.Commands.SaveShoppingCart;
 
 public static partial class SaveShoppingCart

@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace Basket.API.Features.Queries.GetShoppingCart;
 
 public static partial class GetShoppingCart

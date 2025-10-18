@@ -1,5 +1,3 @@
-using Common.Kernel.Exceptions;
-
 namespace Basket.API.Exceptions;
 
 public class CartNotFoundException : NotFoundException

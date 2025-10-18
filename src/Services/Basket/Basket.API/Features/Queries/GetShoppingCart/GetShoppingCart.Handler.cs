@@ -1,6 +1,3 @@
-using Basket.API.Exceptions;
-using Common.Kernel.CQRS.Queries;
-
 namespace Basket.API.Features.Queries.GetShoppingCart;
 
 public static partial class GetShoppingCart

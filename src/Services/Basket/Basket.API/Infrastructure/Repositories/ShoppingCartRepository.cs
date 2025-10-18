@@ -1,6 +1,3 @@
-using Basket.API.Models;
-using Mapster;
-
 namespace Basket.API.Infrastructure.Repositories;
 
 public class ShoppingCartRepository(BasketDbContext context) : IShoppingCartRepository
@@ -29,7 +26,7 @@ public class ShoppingCartRepository(BasketDbContext context) : IShoppingCartRepo
             .FirstOrDefaultAsync(c => c.AccountName == cart.AccountName, ct);
 
         if (existing is null)
-            throw new InvalidOperationException("Cart not found");
+            throw new CartNotFoundException(cart.AccountName);
 
         var cartEntity = cart.Adapt<ShoppingCartEntity>();
         
@@ -44,10 +41,10 @@ public class ShoppingCartRepository(BasketDbContext context) : IShoppingCartRepo
         var cartEntity = await context.ShoppingCarts
             .FirstOrDefaultAsync(c => c.AccountName == accountName, ct);
 
-        if (cartEntity is not null)
-        {
-            context.ShoppingCarts.Remove(cartEntity);
-            await context.SaveChangesAsync(ct);
-        }
+        if (cartEntity is null)
+            throw new CartNotFoundException(accountName);
+        
+        context.ShoppingCarts.Remove(cartEntity);
+        await context.SaveChangesAsync(ct);
     }
 }

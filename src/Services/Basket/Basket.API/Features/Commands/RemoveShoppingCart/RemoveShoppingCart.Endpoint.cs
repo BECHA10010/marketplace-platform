@@ -1,7 +1,3 @@
-using Mapster;
-using MediatR;
-using Results = Microsoft.AspNetCore.Http.Results;
-
 namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart

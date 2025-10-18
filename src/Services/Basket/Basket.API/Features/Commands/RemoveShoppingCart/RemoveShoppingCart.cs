@@ -1,5 +1,3 @@
-using Common.Kernel.CQRS.Commands;
-
 namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart
