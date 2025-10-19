@@ -1,0 +1,78 @@
+# docker compose -p prod -f docker-compose-prod.yaml up -d --build
+# docker compose -p prod -f docker-compose-prod.yaml down -v
+
+services:
+  
+  catalog_api:
+    container_name: catalog-api
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=0
+    ports:
+      - "7301:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - catalog_db
+    restart: unless-stopped
+  
+  catalog_db:
+    container_name: catalog-db-prod
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=catalog-db
+    restart: always
+    ports:
+      - "7411:5432"
+    volumes:
+      - postgres_catalog_prod:/var/lib/postgresql/data/
+
+
+  basket_api:
+    container_name: basket-api
+    build:
+      context: .
+      dockerfile: src/Services/Basket/Basket.API/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=0
+    ports:
+      - "7302:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - basket_db
+      - basket_redis
+    restart: unless-stopped
+  
+  basket_db:
+    container_name: basket-db-prod
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=basket-db
+    restart: always
+    ports:
+      - "7412:5432"
+    volumes:
+      - postgres_basket_prod:/var/lib/postgresql/data/
+
+  basket_redis:
+    container_name: basket-redis-prod
+    image: redis
+    command: redis-server --requirepass "123456789" --protected-mode no
+    restart: always
+    ports:
+      - "7422:6379"
+    volumes:
+      - redis_basket_prod:/data
+
+
+volumes:
+  postgres_catalog_prod:
+  postgres_basket_prod:
+  redis_basket_prod:

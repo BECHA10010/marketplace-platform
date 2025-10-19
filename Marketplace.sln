@@ -4,8 +4,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{587F6F5D-CDE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C419909C-24E8-453E-B76C-BB88BCB84FB3}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yaml = docker-compose.yaml
 		.gitignore = .gitignore
+		docker-compose-dev.yaml = docker-compose-dev.yaml
+		docker-compose-prod.yaml = docker-compose-prod.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{08FF5D94-7041-4A56-9F14-F9D6F1F0C278}"
@@ -24,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{FA4E7A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "src\Services\Basket\Basket.API\Basket.API.csproj", "{0B24F75B-5655-4239-80F9-D8632C083378}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Kernel", "src\Common\Common.Kernel\Common.Kernel.csproj", "{DC2E08A7-4C61-462E-B2F5-B70172CD90D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +43,8 @@ Global
 		{9C66D32A-5868-4967-AB39-9E3836FF6DF5} = {5B199586-7C43-41C1-9B70-17B605271F62}
 		{FA4E7AB5-F9BB-4761-819C-803BBC2E2D7C} = {08FF5D94-7041-4A56-9F14-F9D6F1F0C278}
 		{0B24F75B-5655-4239-80F9-D8632C083378} = {FA4E7AB5-F9BB-4761-819C-803BBC2E2D7C}
+		{F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004} = {587F6F5D-CDED-4BEC-9D13-E6BDA9E6738C}
+		{DC2E08A7-4C61-462E-B2F5-B70172CD90D5} = {F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{840AA71B-0E52-4CC2-B46F-905E2F82E101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,5 +67,9 @@ Global
 		{0B24F75B-5655-4239-80F9-D8632C083378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B24F75B-5655-4239-80F9-D8632C083378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B24F75B-5655-4239-80F9-D8632C083378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2E08A7-4C61-462E-B2F5-B70172CD90D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2E08A7-4C61-462E-B2F5-B70172CD90D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2E08A7-4C61-462E-B2F5-B70172CD90D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2E08A7-4C61-462E-B2F5-B70172CD90D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

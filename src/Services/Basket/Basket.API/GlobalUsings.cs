@@ -1,0 +1,14 @@
+global using Basket.API;
+global using Basket.API.Models;
+global using Carter;
+global using Common.Kernel.Behaviors;
+global using Common.Kernel.CQRS.Commands;
+global using Common.Kernel.CQRS.Queries;
+global using Common.Kernel.Exceptions;
+global using Common.Kernel.Exceptions.Handler;
+global using FluentValidation;
+global using Mapster;
+global using MediatR;
+global using Basket.API.Infrastructure.Repositories;
+global using Marten;
+global using Basket.API.Infrastructure.Exceptions;

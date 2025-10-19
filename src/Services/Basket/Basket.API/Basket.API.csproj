@@ -6,4 +6,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Carter" Version="9.0.0" />
+        <PackageReference Include="Marten" Version="8.13.1" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.10" />
+        <PackageReference Include="Scrutor" Version="6.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Common.Kernel\Common.Kernel.csproj" />
+    </ItemGroup>
+    
 </Project>
