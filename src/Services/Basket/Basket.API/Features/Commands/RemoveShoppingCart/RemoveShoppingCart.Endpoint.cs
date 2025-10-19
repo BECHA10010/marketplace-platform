@@ -6,15 +6,15 @@ public static partial class RemoveShoppingCart
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapDelete("/basket/{accountName}", async ([AsParameters] Request removeCartRequest, ISender sender) =>
+            app.MapDelete("/basket/{accountName}", async ([AsParameters] RemoveShoppingCartRequest request, ISender sender) =>
             {
-                var command = removeCartRequest.Adapt<Command>();
+                var command = request.Adapt<RemoveShoppingCartCommand>();
                 var response = await sender.Send(command);
 
                 return Results.Ok(response);
             })
             .WithName("RemoveShoppingCart")
-            .Produces<Response>(StatusCodes.Status200OK)
+            .Produces<RemoveShoppingCartResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)

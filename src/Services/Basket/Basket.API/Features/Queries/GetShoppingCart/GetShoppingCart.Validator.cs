@@ -2,7 +2,7 @@ namespace Basket.API.Features.Queries.GetShoppingCart;
 
 public static partial class GetShoppingCart
 {
-    public class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<GetShoppingCartQuery>
     {
         public Validator()
         {

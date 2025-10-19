@@ -2,8 +2,8 @@ namespace Basket.API.Features.Queries.GetShoppingCart;
 
 public static partial class GetShoppingCart
 {
-    public record Request(string AccountName);
-    public record Query(string AccountName) : IQuery<Response>;
+    public record GetShoppingCartRequest(string AccountName);
+    public record GetShoppingCartQuery(string AccountName) : IQuery<GetShoppingCartResponse>;
 
-    public record Response(ShoppingCart Cart);
+    public record GetShoppingCartResponse(ShoppingCart Cart);
 }

@@ -2,7 +2,7 @@ namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart
 {
-    public class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<RemoveShoppingCartCommand>
     {
         public Validator()
         {

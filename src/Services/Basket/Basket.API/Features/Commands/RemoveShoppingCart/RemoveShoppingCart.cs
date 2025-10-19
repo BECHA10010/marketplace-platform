@@ -2,9 +2,9 @@ namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart
 {
-    public record Request(string AccountName);
+    public record RemoveShoppingCartRequest(string AccountName);
     
-    public record Command(string AccountName) : ICommand<Response>;
+    public record RemoveShoppingCartCommand(string AccountName) : ICommand<RemoveShoppingCartResponse>;
 
-    public record Response(bool IsSuccess);
+    public record RemoveShoppingCartResponse(bool IsSuccess);
 }

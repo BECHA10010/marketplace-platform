@@ -6,15 +6,15 @@ public static partial class SaveShoppingCart
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost("/basket", async (Request saveCartRequest, ISender sender) =>
+            app.MapPost("/basket", async (SaveShoppingCartRequest request, ISender sender) =>
             {
-                var command = saveCartRequest.Adapt<Command>();
+                var command = request.Adapt<SaveShoppingCartCommand>();
                 var response = await sender.Send(command);
                 
                 return Results.Created($"/basket/{response.AccountName}", response);
             })
             .WithName("SaveShoppingCart")
-            .Produces<Response>(StatusCodes.Status201Created)
+            .Produces<SaveShoppingCartResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status409Conflict)

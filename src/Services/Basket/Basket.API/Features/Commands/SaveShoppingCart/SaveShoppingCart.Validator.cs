@@ -2,7 +2,7 @@ namespace Basket.API.Features.Commands.SaveShoppingCart;
 
 public static partial class SaveShoppingCart
 {
-    public class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<SaveShoppingCartCommand>
     {
         public Validator()
         {

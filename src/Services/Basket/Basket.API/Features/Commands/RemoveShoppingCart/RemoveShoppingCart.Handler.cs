@@ -2,13 +2,13 @@ namespace Basket.API.Features.Commands.RemoveShoppingCart;
 
 public static partial class RemoveShoppingCart
 {
-    public class Handler(IShoppingCartRepository repository) : ICommandHandler<Command, Response>
+    public class Handler(IShoppingCartRepository repository) : ICommandHandler<RemoveShoppingCartCommand, RemoveShoppingCartResponse>
     {
-        public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
+        public async Task<RemoveShoppingCartResponse> Handle(RemoveShoppingCartCommand command, CancellationToken cancellationToken)
         {
             await repository.DeleteAsync(command.AccountName, cancellationToken);
         
-            return new Response(true);
+            return new RemoveShoppingCartResponse(true);
         }
     }
 }
