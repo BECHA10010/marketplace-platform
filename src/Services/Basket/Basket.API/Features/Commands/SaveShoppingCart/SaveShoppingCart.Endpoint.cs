@@ -15,8 +15,12 @@ public static partial class SaveShoppingCart
             })
             .WithName("SaveShoppingCart")
             .Produces<Response>(StatusCodes.Status201Created)
-            .WithSummary("Сохранение/обновление корзины")
-            .WithDescription("Сохраняет/обновляет корзину пользователя и возвращает имя аккаунта");
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithSummary("Сохранение корзины")
+            .WithDescription("Сохраняет корзину пользователя и возвращает имя аккаунта");
         }
     }
 }

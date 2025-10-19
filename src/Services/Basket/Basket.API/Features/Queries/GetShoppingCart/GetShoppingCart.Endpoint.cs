@@ -14,8 +14,10 @@ public static partial class GetShoppingCart
                 return Results.Ok(response);
             })
             .WithName("GetShoppingCart")
-            .Produces(StatusCodes.Status200OK)
+            .Produces<Response>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Получение корзины")
             .WithDescription("Возвращает корзину пользователя по имени аккаунта");
         }

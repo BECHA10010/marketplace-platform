@@ -14,8 +14,10 @@ public static partial class RemoveShoppingCart
                 return Results.Ok(response);
             })
             .WithName("RemoveShoppingCart")
-            .Produces(StatusCodes.Status200OK)
+            .Produces<Response>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Удаление корзины")
             .WithDescription("Удаляет корзину пользователя по имени аккаунта");
         }
