@@ -26,15 +26,23 @@ public static class DependencyInjection
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("PgConnection")!;
+        var pgConnectionString = configuration.GetConnectionString("PgConnection")!;
+        var redisConnectionString = configuration.GetConnectionString("RedisConnection")!;
         
         services.AddMarten(options =>
         {
-            options.Connection(connectionString);
+            options.Connection(pgConnectionString);
             options.Schema.For<ShoppingCart>().Identity(x => x.AccountName);
         }).UseLightweightSessions();
 
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = redisConnectionString;
+            options.InstanceName = "ShoppingCart";
+        });
+        
         services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+        services.Decorate<IShoppingCartRepository, RedisCachedShoppingCartRepository>();
         
         return services;
     }
