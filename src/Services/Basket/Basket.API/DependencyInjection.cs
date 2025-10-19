@@ -26,16 +26,16 @@ public static class DependencyInjection
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("PgConnection")
-            ?? throw new InvalidOperationException("Connection string 'PgConnection' not found");
-
-        services.AddDbContext<BasketDbContext>(options =>
+        var connectionString = configuration.GetConnectionString("PgConnection")!;
+        
+        services.AddMarten(options =>
         {
-            options.UseNpgsql(connectionString);
-        });
+            options.Connection(connectionString);
+            options.Schema.For<ShoppingCart>().Identity(x => x.AccountName);
+        }).UseLightweightSessions();
 
         services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-
+        
         return services;
     }
     

@@ -7,14 +7,8 @@ public static partial class SaveShoppingCart
      public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
      {
          var cart = command.Cart;
+         await repository.AddAsync(cart, cancellationToken);
          
-         var existing = await repository.GetAsync(cart.AccountName, cancellationToken);
-
-         if (existing is null)
-             await repository.AddAsync(cart, cancellationToken);
-         else
-             await repository.UpdateAsync(cart, cancellationToken);
-     
          return new Response(cart.AccountName);
      }
  }

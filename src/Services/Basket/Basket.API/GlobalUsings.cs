@@ -1,8 +1,4 @@
 global using Basket.API;
-global using Basket.API.Exceptions;
-global using Basket.API.Infrastructure;
-global using Basket.API.Infrastructure.Entities;
-global using Basket.API.Infrastructure.Repositories;
 global using Basket.API.Models;
 global using Carter;
 global using Common.Kernel.Behaviors;
@@ -13,5 +9,6 @@ global using Common.Kernel.Exceptions.Handler;
 global using FluentValidation;
 global using Mapster;
 global using MediatR;
-global using Microsoft.EntityFrameworkCore;
-global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Basket.API.Infrastructure.Repositories;
+global using Marten;
+global using Basket.API.Infrastructure.Exceptions;

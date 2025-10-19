@@ -7,6 +7,7 @@ public class CustomExceptionHandler : IExceptionHandler
         var (title, detail, statusCode) = exception switch
         {
             NotFoundException ex => ("Ресурс не найден", ex.Message, StatusCodes.Status404NotFound),
+            AlreadyExistException ex => ("Ресурс уже существует", ex.Message, StatusCodes.Status404NotFound),
             ValidationException ex => ("Ошибка валидации", ex.Message, StatusCodes.Status400BadRequest),
             _ => ("Внутренняя ошибка сервера", "Произошла непредвиденная ошибка.", StatusCodes.Status500InternalServerError)
         };

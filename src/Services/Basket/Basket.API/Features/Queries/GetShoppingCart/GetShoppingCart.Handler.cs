@@ -7,9 +7,6 @@ public static partial class GetShoppingCart
         public async Task<Response> Handle(Query query, CancellationToken cancellationToken)
         {
             var cart = await repository.GetAsync(query.AccountName, cancellationToken);
-
-            if (cart is null)
-                throw new CartNotFoundException(query.AccountName);
             
             return new Response(cart);
         }
