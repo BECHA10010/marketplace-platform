@@ -13,31 +13,17 @@ public static class DependencyInjection
             config.IncludeXmlComments(Path.Combine(basePath, "Catalog.Domain.xml"));
         });
         
-        var applicationAssembly = typeof(ApplicationErrors).Assembly;
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(applicationAssembly);
-        });
-
-        services.AddProblemDetails(options =>
-        {
-            options.MapFluentValidationException();
-            options.ValidationProblemStatusCode = StatusCodes.Status422UnprocessableEntity;
-            options.IncludeExceptionDetails = (_, _) => false;
-            options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
-        });
-        
         return services;
     }
 
     public static WebApplication UseApiServices(this WebApplication app)
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-     
-        app.UseProblemDetails();
+        app.UseExceptionHandler(options => { });
         
         app.MapControllers();
+        
+        app.UseSwagger();
+        app.UseSwaggerUI();
         
         return app;
     }
