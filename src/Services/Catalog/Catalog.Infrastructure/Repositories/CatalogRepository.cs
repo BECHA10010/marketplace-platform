@@ -39,6 +39,11 @@ public class CatalogRepository(IDocumentSession session) : ICatalogItemRepositor
         return new Pagination<CatalogItem>(args.PageIndex, args.PageSize, itemsCount, items);
     }
 
+    public async Task<IReadOnlyList<CatalogItem>> GetAllAsyncV2(CancellationToken ct)
+    {
+        return await session.Query<CatalogItem>().ToListAsync(ct);
+    }
+
     public async Task<CatalogItem?> GetAsync(Guid id, CancellationToken ct)
     {
         return await session.LoadAsync<CatalogItem>(id, ct);

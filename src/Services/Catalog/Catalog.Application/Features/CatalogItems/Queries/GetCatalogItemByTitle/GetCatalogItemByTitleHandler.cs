@@ -1,9 +1,5 @@
 namespace Catalog.Application.Features.CatalogItems.Queries.GetCatalogItemByTitle;
 
-public record GetCatalogItemByTitleQuery(string Title) : IQuery<GetCatalogItemByTitleResponse>;
-
-public record GetCatalogItemByTitleResponse(CatalogItem Item);
-
 public class GetCatalogItemByTitleHandler(ICatalogItemRepository repository)
     : IQueryHandler<GetCatalogItemByTitleQuery, GetCatalogItemByTitleResponse>
 {

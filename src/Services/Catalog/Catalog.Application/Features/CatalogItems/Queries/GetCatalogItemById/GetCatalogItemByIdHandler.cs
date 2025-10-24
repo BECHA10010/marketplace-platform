@@ -1,9 +1,4 @@
-
 namespace Catalog.Application.Features.CatalogItems.Queries.GetCatalogItemById;
-
-public record GetCatalogItemByIdQuery(Guid Id) : IQuery<GetCatalogItemByIdResponse>;
-
-public record GetCatalogItemByIdResponse(CatalogItem Item);
 
 public class GetCatalogItemByIdHandler(ICatalogItemRepository repository)
     : IQueryHandler<GetCatalogItemByIdQuery, GetCatalogItemByIdResponse>

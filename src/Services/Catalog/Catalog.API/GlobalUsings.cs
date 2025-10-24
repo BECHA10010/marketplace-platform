@@ -14,3 +14,7 @@ global using Catalog.Application.Features.CatalogItems.Queries.GetCatalogItemByT
 global using Catalog.Application.Features.CatalogItems.Queries.GetCatalogItems;
 global using Catalog.Application.Features.CatalogItems.Queries.GetCatalogItemsByBrand;
 global using Mapster;
+global using System.Net;
+global using Asp.Versioning;
+global using Swashbuckle.AspNetCore.Annotations;
+global using Microsoft.OpenApi.Models;

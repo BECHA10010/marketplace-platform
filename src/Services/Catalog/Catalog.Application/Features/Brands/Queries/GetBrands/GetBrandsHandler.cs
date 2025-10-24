@@ -1,8 +1,5 @@
 namespace Catalog.Application.Features.Brands.Queries.GetBrands;
 
-public record GetBrandsQuery() : IQuery<GetBrandsResponse>;
-public record GetBrandsResponse(IReadOnlyList<Brand> Brands);
-
 public class GetBrandsHandler(IBrandRepository repository) 
     : IQueryHandler<GetBrandsQuery, GetBrandsResponse>
 {

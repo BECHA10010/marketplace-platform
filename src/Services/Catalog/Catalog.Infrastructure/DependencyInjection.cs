@@ -9,7 +9,7 @@ public static class DependencyInjection
         services.AddMarten(options =>
         {
             options.Connection(connectionString);
-        }).UseLightweightSessions().InitializeWith<InitializeDatabaseAsync>();
+        }).UseLightweightSessions();//.InitializeWith<InitializeDatabaseAsync>();
 
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<ICatalogItemRepository, CatalogRepository>();
