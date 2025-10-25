@@ -5,7 +5,7 @@ public class GetCatalogItemByIdHandler(ICatalogItemRepository repository)
 {
     public async Task<GetCatalogItemByIdResponse> Handle(GetCatalogItemByIdQuery query, CancellationToken cancellationToken)
     {
-        var item = await repository.GetAsync(query.Id, cancellationToken);
+        var item = await repository.GetByIdAsync(query.Id, cancellationToken);
 
         if (item is null)
             throw new CatalogItemNotFoundException(query.Id);

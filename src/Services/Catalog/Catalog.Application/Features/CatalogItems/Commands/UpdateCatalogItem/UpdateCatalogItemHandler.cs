@@ -5,7 +5,7 @@ public class UpdateCatalogItemHandler(ICatalogItemRepository repository)
 {
     public async Task<UpdateCatalogItemResponse> Handle(UpdateCatalogItemCommand command, CancellationToken cancellationToken)
     {
-        var existing = await repository.GetAsync(command.Id, cancellationToken);
+        var existing = await repository.GetByIdAsync(command.Id, cancellationToken);
 
         if (existing is null)
             throw new CatalogItemNotFoundException(command.Id);

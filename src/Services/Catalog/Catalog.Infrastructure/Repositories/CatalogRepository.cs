@@ -2,7 +2,7 @@ namespace Catalog.Infrastructure.Repositories;
 
 public class CatalogRepository(IDocumentSession session) : ICatalogItemRepository
 {
-    public async Task<Pagination<CatalogItem>> GetAllAsync(QueryArgs args, CancellationToken ct)
+    public async Task<Pagination<CatalogItem>> GetAllWithPaginationAsync(QueryArgs args, CancellationToken ct)
     {
         var allItems = session.Query<CatalogItem>().AsQueryable();
 
@@ -39,12 +39,12 @@ public class CatalogRepository(IDocumentSession session) : ICatalogItemRepositor
         return new Pagination<CatalogItem>(args.PageIndex, args.PageSize, itemsCount, items);
     }
 
-    public async Task<IReadOnlyList<CatalogItem>> GetAllAsyncV2(CancellationToken ct)
+    public async Task<IReadOnlyList<CatalogItem>> GetAllAsync(CancellationToken ct)
     {
         return await session.Query<CatalogItem>().ToListAsync(ct);
     }
 
-    public async Task<CatalogItem?> GetAsync(Guid id, CancellationToken ct)
+    public async Task<CatalogItem?> GetByIdAsync(Guid id, CancellationToken ct)
     {
         return await session.LoadAsync<CatalogItem>(id, ct);
     }

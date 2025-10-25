@@ -5,7 +5,7 @@ public class GetCatalogItemsHandler(ICatalogItemRepository repository)
 {
     public async Task<GetCatalogItemsResponse> Handle(GetCatalogItemsQuery query, CancellationToken cancellationToken)
     {
-        var items = await repository.GetAllAsyncV2(cancellationToken);
+        var items = await repository.GetAllAsync(cancellationToken);
         
         return new GetCatalogItemsResponse(items);
     }

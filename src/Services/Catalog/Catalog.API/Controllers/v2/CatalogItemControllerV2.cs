@@ -1,4 +1,4 @@
-using Catalog.Application.Features.CatalogItems.Queries.GetCatalogItemsV2;
+using Catalog.Application.Features.CatalogItems.Queries.GetPaginationCatalogItems;
 
 namespace Catalog.API.Controllers.v2;
 
@@ -8,11 +8,11 @@ namespace Catalog.API.Controllers.v2;
 public class CatalogItemControllerV2 : ApiControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(GetCatalogItemsResponseV2), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(GetPaginationCatalogItemsResponse), (int)HttpStatusCode.OK)]
     [SwaggerOperation(Tags = new[] {"CatalogItemControllerV2"})]
-    public async Task<ActionResult<GetCatalogItemsResponseV2>> GetAll([FromQuery] QueryArgs args, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetPaginationCatalogItemsResponse>> GetAll([FromQuery] QueryArgs args, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(new GetCatalogItemsQueryV2(args), cancellationToken);
+        var response = await Mediator.Send(new GetPaginationCatalogItemsQuery(args), cancellationToken);
 
         return Ok(response);
     }

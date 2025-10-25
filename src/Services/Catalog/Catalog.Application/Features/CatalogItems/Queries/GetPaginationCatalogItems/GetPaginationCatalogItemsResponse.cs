@@ -1,0 +1,3 @@
+namespace Catalog.Application.Features.CatalogItems.Queries.GetPaginationCatalogItems;
+
+public record GetPaginationCatalogItemsResponse(Pagination<CatalogItem> Pagination);
