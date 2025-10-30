@@ -11,9 +11,9 @@ public static class DependencyInjection
             options.Connection(connectionString);
         }).UseLightweightSessions();//.InitializeWith<InitializeDatabaseAsync>();
 
-        services.AddScoped<IBrandRepository, CatalogRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<ICatalogItemRepository, CatalogRepository>();
-        services.AddScoped<ICategoryRepository, CatalogRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         
         return services;
     }
