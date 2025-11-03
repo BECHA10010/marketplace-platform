@@ -1,7 +1,4 @@
-using Grpc.Core;
-using Promotion.Grps;
-
-namespace Promotion.Grps.Services;
+namespace Promotion.Grpc.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {
