@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Kernel", "src\Common
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Promotion", "Promotion", "{4E75FDF0-78D9-477A-B477-657131902441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion.Grps", "src\Services\Promotion\Promotion.Grps\Promotion.Grps.csproj", "{13013969-73BA-405E-8FE6-106FF1111B3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion.Grpc", "src\Services\Promotion\Promotion.Grpc\Promotion.Grpc.csproj", "{13013969-73BA-405E-8FE6-106FF1111B3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
