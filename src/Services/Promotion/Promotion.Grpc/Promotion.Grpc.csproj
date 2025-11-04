@@ -21,4 +21,9 @@
         <Protobuf Include="Protos/promo.proto" GrpcServices="Server" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Protos\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
