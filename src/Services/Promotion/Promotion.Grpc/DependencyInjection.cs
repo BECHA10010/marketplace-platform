@@ -1,5 +1,3 @@
-using Promotion.Grpc.Services;
-
 namespace Promotion.Grpc;
 
 public static class DependencyInjection
@@ -29,7 +27,7 @@ public static class DependencyInjection
         await connection.SeedAsync();
         app.MapGrpcReflectionService();
 
-        app.MapGrpcService<PromoGrpcService>();
+        app.MapGrpcService<GreeterService>();
         
         return app;
     }
