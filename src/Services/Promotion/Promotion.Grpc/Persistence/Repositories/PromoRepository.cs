@@ -23,4 +23,17 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
         var result = await connection.ExecuteAsync(insertPromo, promo);
         return result > 0;
     }
+
+    public async Task<bool> UpdateAsync(Promo? promo)
+    {
+        const string updatePromo = """
+                                   UPDATE Promo
+                                   SET Title = @Title,
+                                       Value = @Value
+                                   WHERE Id = @Id;
+                                   """;
+
+        var result = await connection.ExecuteAsync(updatePromo, promo);
+        return result > 0;
+    }
 }
