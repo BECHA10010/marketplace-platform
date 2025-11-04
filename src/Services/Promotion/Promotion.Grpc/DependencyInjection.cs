@@ -15,6 +15,8 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(typeof(Program).Assembly);
         });
+
+        services.AddScoped<IPromoRepository, PromoRepository>();
         
         return services;
     }
@@ -27,7 +29,7 @@ public static class DependencyInjection
         await connection.SeedAsync();
         app.MapGrpcReflectionService();
 
-        //app.MapGrpcService<GreeterService>();
+        app.MapGrpcService<PromoGrpcService>();
         
         return app;
     }
