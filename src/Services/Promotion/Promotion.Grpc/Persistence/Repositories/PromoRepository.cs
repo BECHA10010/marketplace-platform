@@ -6,10 +6,21 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
     {  
         ArgumentNullException.ThrowIfNull(catalogItemId);  
   
-        const string selectByCatalogItemId = "SELECT * FROM Promo WHERE CatalogItemId = @catalogItemId LIMIT 1";  
+        const string selectByCatalogItemId = "SELECT * FROM Promo WHERE CatalogItemId = @catalogItemId LIMIT 1;";  
   
         var result = await connection.QueryFirstOrDefaultAsync<Promo>(selectByCatalogItemId, new { catalogItemId });  
   
         return result;  
-    }  
+    }
+
+    public async Task<bool> CreateAsync(Promo? promo)
+    {
+        const string insertPromo = """
+                                   INSERT INTO Promo (Id, CatalogItemId, Title, Value)
+                                   VALUES (@Id, @CatalogItemId, @Title, @Value);
+                                   """;
+
+        var result = await connection.ExecuteAsync(insertPromo, promo);
+        return result > 0;
+    }
 }

@@ -14,3 +14,5 @@ global using Promotion.Grpc.UseCases.GetPromo;
 global using Mapster;
 global using Promotion.Grpc.Services;
 global using Promotion.Grpc.Persistence.Repositories;
+global using Common.Kernel.CQRS.Commands;
+global using Promotion.Grpc.UseCases.CreatePromo;
