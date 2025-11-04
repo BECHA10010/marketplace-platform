@@ -1,9 +1,11 @@
 namespace Promotion.Grpc.Services;
 
-public class PromoGrpcService : PromoService.PromoServiceBase
+public class PromoGrpcService(IMediator mediator) : PromoService.PromoServiceBase
 {
-    public override Task<PromoModel> GetPromo(GetPromoRequest request, ServerCallContext context)
+    public override async Task<PromoModel> GetPromo(GetPromoRequest request, ServerCallContext context)
     {
-        return base.GetPromo(request, context);
+        var query = new GetPromoByCatalogItemIdQuery(request.CatalogItemId);
+        var result = await mediator.Send(query);
+        return result;
     }
 }

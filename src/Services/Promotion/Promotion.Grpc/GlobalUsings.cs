@@ -8,3 +8,8 @@ global using Promotion.Grpc.Domain;
 global using Promotion.Grpc.Services;
 global using Grpc.Core;
 global using Promotion.Grpc.Protos;
+global using Promotion.Grpc.Persistence.Interfaces;
+global using Promotion.Grpc.Persistence.Repositories;
+global using Common.Kernel.CQRS.Queries;
+global using MediatR;
+global using Promotion.Grpc.UseCases.GetPromo;

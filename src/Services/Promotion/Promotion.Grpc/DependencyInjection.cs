@@ -15,6 +15,8 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(typeof(Program).Assembly);
         });
+
+        services.AddScoped<IPromoRepository, PromoRepository>();
         
         return services;
     }
