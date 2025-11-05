@@ -1,4 +1,4 @@
-namespace Promotion.Grpc.Persistence.Interfaces;
+namespace Promotion.Grpc.Domain.Interfaces;
 
 public interface IPromoRepository
 {

@@ -1,6 +1,4 @@
-using Promotion.Grpc.UseCases.UpdatePromo;
-
-namespace Promotion.Grpc.Services;  
+namespace Promotion.Grpc.GrpcService;  
   
 public class PromoGrpcService(IMediator mediator) : PromoService.PromoServiceBase  
 {  

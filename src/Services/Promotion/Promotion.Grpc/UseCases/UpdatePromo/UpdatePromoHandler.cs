@@ -1,3 +1,5 @@
+using Promotion.Grpc.Domain.Interfaces;
+
 namespace Promotion.Grpc.UseCases.UpdatePromo;
 
 public class UpdatePromoHandler(IPromoRepository repository)
@@ -5,12 +7,7 @@ public class UpdatePromoHandler(IPromoRepository repository)
 {
     public async Task<UpdatePromoResponse> Handle(UpdatePromoCommand command, CancellationToken cancellationToken)
     {
-        var updatePromo = new Promo
-        {
-            Id = Guid.Parse(command.Request.Id),
-            Title = command.Request.Title,
-            Value = (decimal)command.Request.Value
-        };
+        var updatePromo = command.Request.Adapt<Promo>();
         
         var success = await repository.UpdateAsync(updatePromo);
 

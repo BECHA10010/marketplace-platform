@@ -1,3 +1,5 @@
+using Promotion.Grpc.Domain.Interfaces;
+
 namespace Promotion.Grpc.Persistence.Repositories;
 
 public class PromoRepository(IDbConnection connection) : IPromoRepository  

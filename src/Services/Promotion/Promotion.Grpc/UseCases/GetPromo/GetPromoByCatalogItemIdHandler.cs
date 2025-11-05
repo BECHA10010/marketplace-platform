@@ -1,3 +1,5 @@
+using Promotion.Grpc.Domain.Interfaces;
+
 namespace Promotion.Grpc.UseCases.GetPromo;
 
 public class GetPromoByCatalogItemIdHandler(IPromoRepository repository)   

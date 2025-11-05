@@ -1,3 +1,5 @@
+using Promotion.Grpc.Domain.Interfaces;
+
 namespace Promotion.Grpc.UseCases.CreatePromo;
 
 public class CreatePromoHandler(IPromoRepository repository)
@@ -5,13 +7,7 @@ public class CreatePromoHandler(IPromoRepository repository)
 {
     public async Task<CreatePromoResponse> Handle(CreatePromoCommand command, CancellationToken cancellationToken)
     {
-        var promo = new Promo
-        {
-            Id = Guid.NewGuid(),
-            CatalogItemId = command.Promo.CatalogItemId,
-            Title = command.Promo.Title,
-            Value = (decimal)command.Promo.Value
-        };
+        var promo = command.Promo.Adapt<Promo>();
 
         var success = await repository.CreateAsync(promo);
 
