@@ -1,5 +1,3 @@
-using Promotion.Grpc.Domain.Interfaces;
-
 namespace Promotion.Grpc.UseCases.UpdatePromo;
 
 public class UpdatePromoHandler(IPromoRepository repository)

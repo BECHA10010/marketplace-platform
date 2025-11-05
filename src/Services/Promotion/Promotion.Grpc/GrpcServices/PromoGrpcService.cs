@@ -1,4 +1,4 @@
-namespace Promotion.Grpc.GrpcService;  
+namespace Promotion.Grpc.GrpcServices;  
   
 public class PromoGrpcService(IMediator mediator) : PromoService.PromoServiceBase  
 {  
@@ -19,6 +19,13 @@ public class PromoGrpcService(IMediator mediator) : PromoService.PromoServiceBas
     public override async Task<UpdatePromoResponse> UpdatePromo(UpdatePromoRequest request, ServerCallContext context)
     {
         var command = new UpdatePromoCommand(request);
+        var result = await mediator.Send(command);
+        return result;
+    }
+
+    public override async Task<DeletePromoResponse> DeletePromo(DeletePromoRequest request, ServerCallContext context)
+    {
+        var command = new DeletePromoCommand(request.CatalogItemId);
         var result = await mediator.Send(command);
         return result;
     }

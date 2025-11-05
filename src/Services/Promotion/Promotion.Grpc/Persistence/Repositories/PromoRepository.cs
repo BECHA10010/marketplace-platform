@@ -1,5 +1,3 @@
-using Promotion.Grpc.Domain.Interfaces;
-
 namespace Promotion.Grpc.Persistence.Repositories;
 
 public class PromoRepository(IDbConnection connection) : IPromoRepository  
@@ -36,6 +34,16 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
                                    """;
 
         var result = await connection.ExecuteAsync(updatePromo, promo);
+        return result > 0;
+    }
+
+    public async Task<bool> DeleteByCatalogItemIdAsync(string? catalogItemId)
+    {
+        const string deletePromo = """
+                                   DELETE FROM Promo WHERE CatalogItemId = @id;
+                                   """;
+        
+        var result = await connection.ExecuteAsync(deletePromo, new { catalogItemId });
         return result > 0;
     }
 }

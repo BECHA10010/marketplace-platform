@@ -1,3 +1,5 @@
+using Promotion.Grpc.GrpcServices;
+
 namespace Promotion.Grpc.Configuration;
 
 public static class DependencyInjection

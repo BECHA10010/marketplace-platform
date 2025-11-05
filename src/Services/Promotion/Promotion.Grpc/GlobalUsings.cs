@@ -16,4 +16,4 @@ global using Common.Kernel.CQRS.Commands;
 global using Promotion.Grpc.UseCases.CreatePromo;
 global using Promotion.Grpc.UseCases.UpdatePromo;
 global using Promotion.Grpc.Domain.Interfaces;
-global using Promotion.Grpc.GrpcService;
+global using Promotion.Grpc.UseCases.DeletePromo;
