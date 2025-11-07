@@ -20,6 +20,12 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(assembly);
+
+        var promotionService = configuration.GetSection("GrpcServices:PromotionService").Value!;
+        services.AddGrpcClient<PromoService.PromoServiceClient>(options =>
+        {
+            options.Address = new Uri(promotionService);
+        });
         
         return services;
     }

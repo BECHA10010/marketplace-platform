@@ -30,7 +30,9 @@ public static class DependencyInjection
         using var scope = app.Services.CreateScope();
         var connection = scope.ServiceProvider.GetRequiredService<IDbConnection>();
         
-        await connection.SeedAsync();
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        await connection.SeedAsync(logger);
+        
         app.MapGrpcReflectionService();
 
         app.MapGrpcService<PromoGrpcService>();

@@ -7,9 +7,12 @@ public class GetPromoByCatalogItemIdHandler(IPromoRepository repository)
     {  
         var promo = await repository.GetByCatalogItemIdAsync(query.CatalogItemId);  
   
-        if (promo is null)  
-        {  
-            throw new RpcException(new Status(StatusCode.NotFound, $"Promotion for key {query.CatalogItemId} was not found"));  
+        if (promo is null)
+        {
+            return new PromoModel
+            {
+                Value = 0
+            };
         }  
   
         var result = promo.Adapt<PromoModel>();  
