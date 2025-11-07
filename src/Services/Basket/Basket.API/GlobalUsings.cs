@@ -12,3 +12,4 @@ global using MediatR;
 global using Basket.API.Infrastructure.Repositories;
 global using Marten;
 global using Basket.API.Infrastructure.Exceptions;
+global using Promotion.Grpc.Protos;
