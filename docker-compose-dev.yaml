@@ -1,4 +1,4 @@
-# docker compose -f docker-compose-dev.yaml up -d --build 
+# docker compose -f docker-compose-dev.yaml up -d --build
 # docker compose -f docker-compose-dev.yaml down -v
 
 services:
@@ -55,7 +55,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-      start_period: 120s
 
   promotion_api:
     container_name: promotion-api-dev
