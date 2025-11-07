@@ -1,5 +1,3 @@
-using Promotion.Grpc.Protos;
-
 namespace Basket.API;
 
 public static class DependencyInjection

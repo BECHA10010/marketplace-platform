@@ -46,6 +46,7 @@ services:
     depends_on:
       - basket_db
       - basket_redis
+      - promotion_api
     restart: unless-stopped
   
   basket_db:
@@ -88,7 +89,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-      start_period: 30s
+      start_period: 120s
 
   promotion_api:
     container_name: promotion-api
