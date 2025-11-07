@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="GrpcServices\Protos\promo.proto">
+      <Protobuf Include="GrpcServices\Protos\promo.proto" GrpcServices="Server">
         <Generator>MSBuild:Compile</Generator>
       </Protobuf>
     </ItemGroup>

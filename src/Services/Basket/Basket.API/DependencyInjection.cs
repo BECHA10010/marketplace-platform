@@ -1,3 +1,5 @@
+using Promotion.Grpc.Protos;
+
 namespace Basket.API;
 
 public static class DependencyInjection
@@ -20,6 +22,12 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(assembly);
+
+        var promotionService = configuration.GetSection("GrpcServices:PromotionService").Value!;
+        services.AddGrpcClient<PromoService.PromoServiceClient>(options =>
+        {
+            options.Address = new Uri(promotionService);
+        });
         
         return services;
     }
