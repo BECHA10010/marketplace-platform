@@ -40,7 +40,7 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
     public async Task<bool> DeleteByCatalogItemIdAsync(string? catalogItemId)
     {
         const string deletePromo = """
-                                   DELETE FROM Promo WHERE CatalogItemId = @id;
+                                   DELETE FROM Promo WHERE CatalogItemId = @catalogItemId;
                                    """;
         
         var result = await connection.ExecuteAsync(deletePromo, new { catalogItemId });
