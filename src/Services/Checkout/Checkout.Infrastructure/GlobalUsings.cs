@@ -1,0 +1,14 @@
+global using Checkout.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using System.Reflection;
+global using Checkout.Domain.Enums;
+global using Checkout.Domain.ValueObjects;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Linq.Expressions;
+global using Checkout.Domain.Common;
+global using Checkout.Domain.Repositories;
+global using Checkout.Infrastructure.Data;
+global using Checkout.Infrastructure.Repositories;
+global using Checkout.Infrastructure.Data.Seed;
