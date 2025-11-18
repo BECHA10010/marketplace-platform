@@ -3,3 +3,8 @@ global using Checkout.Infrastructure;
 global using Checkout.Application;
 global using Carter;
 global using Checkout.Infrastructure.Data.Extensions;
+global using MediatR;
+global using Checkout.Application.Queries.Orders.GetOrdersByAccountName;
+global using Common.Kernel.Exceptions.Handler;
+global using Mapster;
+global using Checkout.Application.DTOs;
