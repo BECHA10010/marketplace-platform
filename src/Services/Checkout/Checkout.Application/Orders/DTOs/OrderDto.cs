@@ -1,4 +1,4 @@
-namespace Checkout.Application.DTOs;
+namespace Checkout.Application.Orders.DTOs;
 
 public record OrderDto(
     Guid Id,
@@ -9,7 +9,7 @@ public record OrderDto(
     AddressDto DeliveryAddress,
     IEnumerable<OrderItemDto> Items,
     string PaymentMethod,
-    PaymentDetailsDto? PaymentDetails,
+    GetOrdersPaymentDetailsDto? PaymentDetails,
     string PaymentStatus,
     DateTime CreatedAt
 );

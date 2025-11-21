@@ -1,4 +1,4 @@
-namespace Checkout.Application.Queries.Orders.GetOrdersByAccountName;
+namespace Checkout.Application.Orders.Queries.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameValidator : AbstractValidator<GetOrdersByAccountNameQuery>
 {

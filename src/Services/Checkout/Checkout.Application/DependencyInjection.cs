@@ -18,7 +18,7 @@ public static class DependencyInjection
         services.AddScoped<IMapper, ServiceMapper>();
 
         services.AddValidatorsFromAssembly(assembly);
-        
+            
         return services;
     }
 }

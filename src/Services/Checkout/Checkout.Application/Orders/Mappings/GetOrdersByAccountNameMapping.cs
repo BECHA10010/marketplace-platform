@@ -1,6 +1,6 @@
-namespace Checkout.Application.Mappings;
+namespace Checkout.Application.Orders.Mappings;
 
-public class GetOrdersByAccountNameConfig : IRegister
+public class GetOrdersByAccountNameMapping : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
@@ -11,7 +11,7 @@ public class GetOrdersByAccountNameConfig : IRegister
             .Map(dest => dest.TotalPrice, src => src.TotalAmount)
             .Map(dest => dest.PaymentDetails, src 
                 => src.CardDetails != null 
-                    ? new PaymentDetailsDto(src.CardDetails.CardName,
+                    ? new GetOrdersPaymentDetailsDto(src.CardDetails.CardName,
                         MaskCardNumber(src.CardDetails.CardNumber),
                         src.CardDetails.Expiration)
                     : null)

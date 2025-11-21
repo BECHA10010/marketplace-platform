@@ -1,4 +1,4 @@
-namespace Checkout.Application.Queries.Orders.GetOrdersByAccountName;
+namespace Checkout.Application.Orders.Queries.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameHandler(IOrderRepository repository)
     : IQueryHandler<GetOrdersByAccountNameQuery, GetOrdersByAccountNameResult>
@@ -7,6 +7,6 @@ public class GetOrdersByAccountNameHandler(IOrderRepository repository)
     {
         var orders = await repository.GetOrdersByAccountName(query.AccountName);
 
-        return new GetOrdersByAccountNameResult(orders);
+        return new GetOrdersByAccountNameResult(orders); //.Adapt<IEnumerable<OrderDto>>());
     }
 }
