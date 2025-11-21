@@ -16,9 +16,9 @@ public static class InitialData
             CardDetails = new("Иван Иванов", "4111111111111111", "12/25", "123"),
             Items = new List<OrderItem>
             {
-                new("Мультиварка Redmond RMC-M90", 1, 5890m),
-                new("Бюджетный смартфон с хорошей камерой", 1, 7990m),
-                new("Фен Polaris PHD 2077", 1, 1790m)
+                new(1, "Мультиварка Redmond RMC-M90", 1, 5890m),
+                new(2, "Бюджетный смартфон с хорошей камерой", 1, 7990m),
+                new(3, "Фен Polaris PHD 2077", 1, 1790m)
             }
         },
         new Order
@@ -33,7 +33,7 @@ public static class InitialData
             CardDetails = null,
             Items = new List<OrderItem>
             {
-                new("Кофеварка Polaris PCM 1516E", 1, 3290m)
+                new(4, "Кофеварка Polaris PCM 1516E", 1, 3290m)
             }
         }
     ];
