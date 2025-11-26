@@ -15,3 +15,4 @@ global using MapsterMapper;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Common.Kernel.Exceptions;
+global using Checkout.Application.Orders.Commands.UpdateOrder.DTOs;

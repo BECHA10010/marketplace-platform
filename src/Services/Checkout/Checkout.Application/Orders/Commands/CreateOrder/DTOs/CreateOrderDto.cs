@@ -5,7 +5,7 @@ public record CreateOrderDto(
     ContactDto ContactInfo,
     AddressDto DeliveryAddress,
     PaymentMethod PaymentMethod,
-    CreateOrderCardDetailsDto? CardDetails,
+    CardDetailsDto? CardDetails,
     decimal TotalPrice,
     List<OrderItemDto> Items
 );
