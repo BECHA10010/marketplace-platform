@@ -1,3 +1,3 @@
-namespace Checkout.Application.Orders.Commands.DeleteOrderById;
+namespace Checkout.Application.Features.Orders.DeleteOrderById;
 
-public record DeleteOrderByIdCommand(string OrderId) : ICommand<DeleteOrderByIdResult>;
+public record DeleteOrderByIdCommand(Guid OrderId) : ICommand<DeleteOrderByIdResult>;

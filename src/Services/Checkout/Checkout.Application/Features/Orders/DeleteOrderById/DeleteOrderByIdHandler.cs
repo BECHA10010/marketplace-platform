@@ -1,18 +1,17 @@
-namespace Checkout.Application.Orders.Commands.DeleteOrderById;
+namespace Checkout.Application.Features.Orders.DeleteOrderById;
 
 public class DeleteOrderByIdHandler(IOrderRepository repository)
     : ICommandHandler<DeleteOrderByIdCommand, DeleteOrderByIdResult>
 {
     public async Task<DeleteOrderByIdResult> Handle(DeleteOrderByIdCommand command, CancellationToken cancellationToken)
     {
-        var orderId = Guid.Parse(command.OrderId);
-        var existing = await repository.GetByIdAsync(orderId);
+        var order = await repository.GetByIdAsync(command.OrderId);
 
-        if (existing is null)
-            throw new NotFoundException(nameof(existing), orderId);
+        if (order is null)
+            return new DeleteOrderByIdResult(false);
         
-        var result = await repository.DeleteAsync(existing);
+        await repository.DeleteAsync(order);
         
-        return new DeleteOrderByIdResult(result);
+        return new DeleteOrderByIdResult(true);
     }
 }

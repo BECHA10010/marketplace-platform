@@ -7,6 +7,5 @@ global using Common.Kernel.Exceptions.Handler;
 global using Mapster;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
-global using Checkout.Application.Orders.Commands.DeleteOrderById;
 global using Checkout.Domain.Enums;
 global using FluentValidation;
