@@ -1,3 +1,3 @@
-namespace Checkout.Application.Orders.Queries.GetOrdersByAccountName;
+namespace Checkout.Application.Features.Orders.GetOrdersByAccountName;
 
 public record GetOrdersByAccountNameQuery(string AccountName) : IQuery<GetOrdersByAccountNameResult>;

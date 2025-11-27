@@ -5,7 +5,7 @@ public class CreateOrderHandler(IOrderRepository repository)
 {
     public async Task<CreateOrderResult> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
-        var orderData = command.OrderData;
+        var orderData = command.OrderData; // .ToDto
         
         var order = Order.Create(
             accountName: orderData.AccountName,

@@ -1,4 +1,4 @@
-namespace Checkout.Application.Orders.Queries.GetOrdersByAccountName;
+namespace Checkout.Application.Features.Orders.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameHandler(IOrderRepository repository)
     : IQueryHandler<GetOrdersByAccountNameQuery, GetOrdersByAccountNameResult>
@@ -6,7 +6,7 @@ public class GetOrdersByAccountNameHandler(IOrderRepository repository)
     public async Task<GetOrdersByAccountNameResult> Handle(GetOrdersByAccountNameQuery query, CancellationToken ct)
     {
         var orders = await repository.GetOrdersByAccountName(query.AccountName);
-
-        return new GetOrdersByAccountNameResult(orders); //.Adapt<IEnumerable<OrderDto>>());
+        
+        return new GetOrdersByAccountNameResult(orders.Adapt<List<OrderDto>>());
     }
 }

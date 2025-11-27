@@ -1,5 +1,4 @@
 global using System.Reflection;
-global using Checkout.Application.Orders.Queries.GetOrdersByAccountName;
 global using Checkout.Domain.Entities;
 global using Checkout.Domain.Enums;
 global using Checkout.Domain.Repositories;

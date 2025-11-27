@@ -1,3 +1,17 @@
-namespace Checkout.Application.Orders.Queries.GetOrdersByAccountName;
+using Checkout.Application.Features.Orders.CreateOrder;
 
-public record GetOrdersByAccountNameResult(IEnumerable<Order> Orders);
+namespace Checkout.Application.Features.Orders.GetOrdersByAccountName;
+
+public record GetOrdersByAccountNameResult(List<OrderDto> Orders);
+
+public record OrderDto(
+    Guid Id,
+    string AccountName,
+    decimal Amount,
+    string Status,
+    AddressDto Address,
+    string PaymentMethod,
+    string PaymentStatus,
+    List<OrderItemDto> Items,
+    DateTime CreatedAt
+);

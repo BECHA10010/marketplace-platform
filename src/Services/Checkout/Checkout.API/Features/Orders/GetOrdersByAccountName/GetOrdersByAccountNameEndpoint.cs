@@ -1,3 +1,5 @@
+using Checkout.Application.Features.Orders.GetOrdersByAccountName;
+
 namespace Checkout.API.Features.Orders.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameEndpoint : ICarterModule
@@ -8,7 +10,10 @@ public class GetOrdersByAccountNameEndpoint : ICarterModule
         {
             var query = new GetOrdersByAccountNameQuery(request.AccountName);
             var result = await sender.Send(query);
-            var response = result.Adapt<GetOrdersByAccountNameResponse>();
+            
+            var response = new GetOrdersByAccountNameResponse(
+                request.AccountName,
+                result.Orders.Adapt<List<OrderDataResponse>>());
 
             return Results.Ok(response);
         });

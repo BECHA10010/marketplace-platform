@@ -1,8 +1,8 @@
-namespace Checkout.Application.Orders.Commands.DeleteOrderById;
+namespace Checkout.API.Features.Orders.DeleteOrderById;
 
-public class DeleteOrderByIdValidator : AbstractValidator<DeleteOrderByIdCommand>
+public class DeleteOrderByIdRequestValidator : AbstractValidator<DeleteOrderByIdRequest>
 {
-    public DeleteOrderByIdValidator()
+    public DeleteOrderByIdRequestValidator()
     {
         RuleFor(x => x.OrderId)
             .NotEmpty().WithMessage("OrderId cannot be empty")

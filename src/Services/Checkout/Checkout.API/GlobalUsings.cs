@@ -1,8 +1,6 @@
 global using Carter;
 global using Checkout.API;
 global using Checkout.Application;
-global using Checkout.Application.Orders.DTOs;
-global using Checkout.Application.Orders.Queries.GetOrdersByAccountName;
 global using Checkout.Infrastructure;
 global using Checkout.Infrastructure.Data.Extensions;
 global using Common.Kernel.Exceptions.Handler;
