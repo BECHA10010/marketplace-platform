@@ -2,14 +2,48 @@ namespace Checkout.Domain.Entities;
 
 public class Order : BaseEntity, IAggregateRoot
 {
-    public string AccountName { get; set; } = default!;
-    public decimal TotalAmount { get; set; }
-    public List<OrderItem> Items { get; set; } = [];
+    private readonly List<OrderItem> _items = [];
+    
+    public string AccountName { get; private set; }
+    public decimal TotalAmount => _items.Sum(i => i.UnitPrice * i.Quantity);
+    public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
+    public OrderStatus CurrentOrderStatus { get; private set; }
+    public Contact ContactInfo { get; private set; }
+    public Address DeliveryAddress { get; private set; }
+    public PaymentMethod CurrentPaymentMethod { get; private set; }
+    public CardDetails? CardDetails { get; private set; }
+    public PaymentStatus CurrentPaymentStatus { get; private set; }
 
-    public OrderStatus CurrentOrderStatus { get; set; } = OrderStatus.Draft;
-    public Contact ContactInfo { get; set; } = default!;
-    public Address DeliveryAddress { get; set; } = default!;
-    public PaymentMethod CurrentPaymentMethod { get; set; }
-    public CardDetails? CardDetails { get; set; }
-    public PaymentStatus CurrentPaymentStatus { get; set; } = PaymentStatus.Pending;
+    private Order() {}
+    
+    private Order(string accountName,
+        Contact contactInfo,
+        Address deliveryAddress,
+        PaymentMethod paymentMethod,
+        CardDetails? cardDetails,
+        List<OrderItem> items)
+    {
+        AccountName = accountName;
+        ContactInfo = contactInfo;
+        DeliveryAddress = deliveryAddress;
+        CurrentPaymentMethod = paymentMethod;
+        CardDetails = cardDetails;
+
+        CurrentOrderStatus = OrderStatus.Draft;
+        CurrentPaymentStatus = PaymentStatus.Pending;
+        
+        _items = items;
+    }
+
+    public static Order Create(string accountName,
+        Contact contactInfo,
+        Address deliveryAddress,
+        PaymentMethod paymentMethod,
+        CardDetails? cardDetails,
+        List<OrderItem> items)
+    {
+        var order = new Order(accountName, contactInfo, deliveryAddress, paymentMethod, cardDetails, items);
+        
+        return order;
+    }
 }

@@ -4,37 +4,38 @@ public static class InitialData
 {
     public static IEnumerable<Order> Orders =>
     [
-        new Order
-        {
-            AccountName = "test_account",
-            TotalAmount = 15670m,
-            CurrentOrderStatus = OrderStatus.Paid,
-            CurrentPaymentMethod = PaymentMethod.CreditCard,
-            CurrentPaymentStatus = PaymentStatus.Completed,
-            ContactInfo = new("Иван", "Иванов", "ivan@test.com"),
-            DeliveryAddress = new("Ленина 1", "Москва", "Московская", "101000"),
-            CardDetails = new("Иван Иванов", "4111111111111111", "12/25", "123"),
-            Items = new List<OrderItem>
+        Order.Create
+        (
+            "test_account",
+            new Contact("Иван", "Иванов", "ivan@test.com"),
+            new Address("Ленина 1", "Москва"),
+            PaymentMethod.CreditCard,
+            new CardDetails("4111111111111111", "12/25", "123"),
+            new List<OrderItem>()
             {
-                new(1, "Мультиварка Redmond RMC-M90", 1, 5890m),
-                new(2, "Бюджетный смартфон с хорошей камерой", 1, 7990m),
-                new(3, "Фен Polaris PHD 2077", 1, 1790m)
+                new OrderItem("Мультиварка Redmond RMC-M90", 1, 5890m),
+                new OrderItem("Бюджетный смартфон с хорошей камерой", 1, 7990m),
+                new OrderItem("Фен Polaris PHD 2077", 1, 1790m)
             }
-        },
-        new Order
-        {
-            AccountName = "admin@example.com",
-            TotalAmount = 3290m,
-            CurrentOrderStatus = OrderStatus.Submitted,
-            CurrentPaymentMethod = PaymentMethod.BankTransfer,
-            CurrentPaymentStatus = PaymentStatus.Pending,
-            ContactInfo = new("Анна", "Петрова", "anna@example.com"),
-            DeliveryAddress = new("Тверская 12", "Москва", "Московская", "101001"),
-            CardDetails = null,
-            Items = new List<OrderItem>
+            
+            
+            //CurrentOrderStatus = OrderStatus.Paid,
+            //CurrentPaymentStatus = PaymentStatus.Completed,
+        ),
+        Order.Create
+        (
+            "admin@example.com",
+            new Contact("Анна", "Петрова", "anna@example.com"),
+            new Address("Тверская 12", "Москва"),
+            PaymentMethod.BankTransfer,
+            null,
+            new List<OrderItem>
             {
-                new(4, "Кофеварка Polaris PCM 1516E", 1, 3290m)
+                new OrderItem("Кофеварка Polaris PCM 1516E", 1, 3290m)
             }
-        }
+            
+            //CurrentOrderStatus = OrderStatus.Submitted,
+            //CurrentPaymentStatus = PaymentStatus.Pending,
+        )
     ];
 }

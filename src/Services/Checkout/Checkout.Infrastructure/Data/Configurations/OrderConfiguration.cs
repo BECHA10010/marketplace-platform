@@ -10,8 +10,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(o => o.TotalAmount)
-            .HasColumnType("decimal(18, 2)");
+        builder.Ignore(o => o.TotalAmount);
         
         builder.Property(o => o.CurrentOrderStatus)
             .HasConversion<string>()
@@ -36,13 +35,10 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         {
             address.Property(a => a.Street).HasMaxLength(200);
             address.Property(a => a.City).HasMaxLength(100);
-            address.Property(a => a.Region).HasMaxLength(100);
-            address.Property(a => a.PostalCode).HasMaxLength(20);
         });
 
         builder.OwnsOne(o => o.CardDetails, card =>
         {
-            card.Property(c => c.CardName).HasMaxLength(100);
             card.Property(c => c.CardNumber).HasMaxLength(20);
             card.Property(c => c.Expiration).HasMaxLength(10);
             card.Property(c => c.CvvCode).HasMaxLength(10);

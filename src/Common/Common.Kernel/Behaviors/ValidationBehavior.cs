@@ -1,5 +1,3 @@
-using Common.Kernel.CQRS.Queries;
-
 namespace Common.Kernel.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) 

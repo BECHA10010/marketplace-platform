@@ -1,8 +1,6 @@
 global using Carter;
 global using Checkout.API;
 global using Checkout.Application;
-global using Checkout.Application.Orders.Commands.CreateOrder;
-global using Checkout.Application.Orders.Commands.CreateOrder.DTOs;
 global using Checkout.Application.Orders.DTOs;
 global using Checkout.Application.Orders.Queries.GetOrdersByAccountName;
 global using Checkout.Infrastructure;
@@ -12,3 +10,5 @@ global using Mapster;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Checkout.Application.Orders.Commands.DeleteOrderById;
+global using Checkout.Domain.Enums;
+global using FluentValidation;
