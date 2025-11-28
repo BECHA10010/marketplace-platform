@@ -1,20 +1,37 @@
-namespace Checkout.Application.Orders.Commands.UpdateOrder;
+namespace Checkout.Application.Features.Orders.UpdateOrder;
 
 public class UpdateOrderHandler(IOrderRepository repository)
     : ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
 {
     public async Task<UpdateOrderResult> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
     {
-        var id = Guid.Parse(command.OrderId);
-        var existing = await repository.GetByIdAsync(id);
+        var order = await repository.GetByIdAsync(command.OrderId);
 
-        if (existing is null)
-            throw new NotFoundException(nameof(Order), command.OrderId);
+        if (order is null)
+            return new UpdateOrderResult(false);
+
+        ApplyOrderChanges(order, command.UpdateData);
         
-        command.UpdateData.Adapt(existing);
+        await repository.UpdateAsync(order);
 
-        var result = await repository.UpdateAsync(existing);
-
-        return new UpdateOrderResult(result);
+        return new UpdateOrderResult(true);
     }
+
+    private static void ApplyOrderChanges(Order order, UpdateOrderDto updateOrderData)
+    {
+        var (contactData, addressData, paymentMethod, cardData) = updateOrderData;
+        
+        if (contactData is not null)
+            order.ChangeContactData(contactData.FirstName, contactData.LastName, contactData.Email);
+
+        if (addressData is not null)
+            order.ChangeDeliveryAddress(addressData.Street, addressData.City);
+
+        if (paymentMethod.HasValue)
+            order.ChangePaymentMethod(paymentMethod.Value);
+
+        if (cardData is not null)
+            order.ChangeCardData(cardData.CardNumber, cardData.Expiration, cardData.CvvCode);
+    }
+
 }

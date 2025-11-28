@@ -1,5 +1,3 @@
-using Checkout.Application.Features.Orders.CreateOrder;
-
 namespace Checkout.Application.Features.Orders.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameMapping : IRegister

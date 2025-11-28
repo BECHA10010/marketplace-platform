@@ -46,4 +46,26 @@ public class Order : BaseEntity, IAggregateRoot
         
         return order;
     }
+
+    public void ChangePaymentMethod(PaymentMethod newPaymentMethod)
+    {
+        if (CurrentPaymentStatus == PaymentStatus.Pending){}
+            
+        CurrentPaymentMethod = newPaymentMethod;
+    }
+    
+    public void ChangeDeliveryAddress(string street, string city)
+    {
+        DeliveryAddress = new Address(street, city);
+    }
+    
+    public void ChangeCardData(string cardNumber, string expiration, string cvvCode)
+    {
+        CardDetails = new CardDetails(cardNumber, expiration, cvvCode);
+    }
+    
+    public void ChangeContactData(string firstName, string lastName, string email)
+    {
+        ContactInfo = new Contact(firstName, lastName, email);
+    }
 }

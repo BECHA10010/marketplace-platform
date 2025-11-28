@@ -1,5 +1,3 @@
-using Checkout.Application.Features.Orders.DeleteOrderById;
-
 namespace Checkout.API.Features.Orders.DeleteOrderById;
 
 public class DeleteOrderByIdEndpoint : ICarterModule

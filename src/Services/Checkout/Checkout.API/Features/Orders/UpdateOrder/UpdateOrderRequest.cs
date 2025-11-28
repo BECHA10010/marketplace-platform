@@ -1,5 +1,8 @@
-using Checkout.Application.Orders.Commands.UpdateOrder.DTOs;
-
 namespace Checkout.API.Features.Orders.UpdateOrder;
 
-public record UpdateOrderRequest(UpdateOrderDto UpdateData);
+public record UpdateOrderRequest(
+    ContactDataRequest? ContactData,
+    AddressDataRequest? AddressData,
+    string? PaymentMethod,
+    CardDataRequest? CardData
+);

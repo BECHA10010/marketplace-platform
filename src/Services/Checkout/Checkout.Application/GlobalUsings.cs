@@ -1,4 +1,5 @@
 global using System.Reflection;
+global using Checkout.Application.Features.Orders.CreateOrder;
 global using Checkout.Domain.Entities;
 global using Checkout.Domain.Enums;
 global using Checkout.Domain.Repositories;
@@ -11,5 +12,3 @@ global using Mapster;
 global using MapsterMapper;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using Common.Kernel.Exceptions;
-global using Checkout.Application.Orders.Commands.UpdateOrder.DTOs;

@@ -1,5 +1,3 @@
-using Checkout.Application.Features.Orders.CreateOrder;
-
 namespace Checkout.API.Features.Orders.CreateOrder;
 
 public class CreateOrderMapping : IRegister
@@ -13,7 +11,7 @@ public class CreateOrderMapping : IRegister
                 new AddressDto(src.AddressData.Street, src.AddressData.City),
                 Enum.Parse<PaymentMethod>(src.PaymentMethod),
                 src.CardData != null 
-                    ? new CardDetailsDto(src.CardData.CardNumber, src.CardData.Expiration, src.CardData.CvvCode) 
+                    ? new CardDataDto(src.CardData.CardNumber, src.CardData.Expiration, src.CardData.CvvCode) 
                     : null,
                 src.Items.Select(item => new OrderItemDto(item.CatalogItemName, item.Quantity, item.UnitPrice)).ToList()
             ));

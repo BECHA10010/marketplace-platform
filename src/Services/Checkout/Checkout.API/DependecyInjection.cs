@@ -1,6 +1,3 @@
-using System.Reflection;
-using MapsterMapper;
-
 namespace Checkout.API;
 
 public static class DependencyInjection
@@ -9,10 +6,10 @@ public static class DependencyInjection
     {
         var assembly = Assembly.GetExecutingAssembly();
         
+        TypeAdapterConfig.GlobalSettings.Scan(assembly);
+        
         services.AddValidatorsFromAssembly(assembly);
         
-        TypeAdapterConfig.GlobalSettings.Scan(assembly);
-
         services.AddSingleton(TypeAdapterConfig.GlobalSettings);
         services.AddScoped<IMapper, ServiceMapper>();
         
