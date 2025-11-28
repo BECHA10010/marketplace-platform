@@ -9,15 +9,12 @@ public static class DependencyInjection
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(assembly);
-            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
         TypeAdapterConfig.GlobalSettings.Scan(assembly);
 
         services.AddSingleton(TypeAdapterConfig.GlobalSettings);
         services.AddScoped<IMapper, ServiceMapper>();
-
-        services.AddValidatorsFromAssembly(assembly);
             
         return services;
     }

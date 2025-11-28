@@ -17,12 +17,4 @@ public class GetOrdersByAccountNameMapping : IRegister
             
         config.NewConfig<Address, AddressDto>();
     }
-
-    /*private static string MaskCardNumber(string cardNumber)
-    {
-        if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length < 4)
-            return cardNumber;
-
-        return $"####-{cardNumber[^4..]}";
-    }*/
 }

@@ -3,13 +3,13 @@ namespace Checkout.Domain.Entities;
 public class Order : BaseEntity, IAggregateRoot
 {
     private readonly List<OrderItem> _items = [];
-    
-    public string AccountName { get; private set; }
+
+    public string AccountName { get; private set; } = default!;
     public decimal TotalAmount => _items.Sum(i => i.UnitPrice * i.Quantity);
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
     public OrderStatus CurrentOrderStatus { get; private set; }
-    public Contact ContactInfo { get; private set; }
-    public Address DeliveryAddress { get; private set; }
+    public Contact? ContactInfo { get; private set; }
+    public Address? DeliveryAddress { get; private set; }
     public PaymentMethod CurrentPaymentMethod { get; private set; }
     public CardDetails? CardDetails { get; private set; }
     public PaymentStatus CurrentPaymentStatus { get; private set; }
@@ -49,7 +49,10 @@ public class Order : BaseEntity, IAggregateRoot
 
     public void ChangePaymentMethod(PaymentMethod newPaymentMethod)
     {
-        if (CurrentPaymentStatus == PaymentStatus.Pending){}
+        if (CurrentPaymentStatus == PaymentStatus.Pending)
+        {
+            CurrentOrderStatus = OrderStatus.Paid;
+        }
             
         CurrentPaymentMethod = newPaymentMethod;
     }
