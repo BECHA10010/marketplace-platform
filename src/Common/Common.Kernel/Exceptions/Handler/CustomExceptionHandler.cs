@@ -9,6 +9,7 @@ public class CustomExceptionHandler : IExceptionHandler
             NotFoundException ex => ("Ресурс не найден", ex.Message, StatusCodes.Status404NotFound),
             AlreadyExistException ex => ("Ресурс уже существует", ex.Message, StatusCodes.Status409Conflict),
             ValidationException ex => ("Ошибка валидации", ex.Message, StatusCodes.Status400BadRequest),
+            DomainException ex => ("Нарушение бизнес-правила", ex.Message, StatusCodes.Status400BadRequest),
             _ => ("Внутренняя ошибка сервера", "Произошла непредвиденная ошибка.", StatusCodes.Status500InternalServerError)
         };
         

@@ -42,6 +42,9 @@ public class Order : BaseEntity, IAggregateRoot
         CardDetails? cardDetails,
         List<OrderItem> items)
     {
+        if (paymentMethod == PaymentMethod.CreditCard && cardDetails is null)
+            throw new DomainException("");
+        
         var order = new Order(accountName, contactInfo, deliveryAddress, paymentMethod, cardDetails, items);
         
         return order;
