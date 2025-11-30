@@ -1,3 +1,5 @@
+using Checkout.Application.Features.Orders.Common.DTOs;
+
 namespace Checkout.Application.Features.Orders.GetOrdersByAccountName;
 
 public class GetOrdersByAccountNameMapping : IRegister

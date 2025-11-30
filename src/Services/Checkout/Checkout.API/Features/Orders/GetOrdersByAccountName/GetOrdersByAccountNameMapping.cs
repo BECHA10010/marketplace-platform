@@ -4,7 +4,7 @@ public class GetOrdersByAccountNameMapping : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<OrderDto, OrderDataResponse>()
+        config.NewConfig<OrderDto, OrderResponse>()
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Amount, src => src.Amount)
             .Map(dest => dest.Status, src => src.Status)

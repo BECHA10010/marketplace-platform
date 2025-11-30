@@ -11,8 +11,9 @@ public class DeleteOrderByIdEndpoint : ICarterModule
             
             var command = new DeleteOrderByIdCommand(guid);
             var result = await sender.Send(command);
+            var response = new DeleteOrderByIdResponse(result.IsDeleted);
             
-            return result.IsDeleted 
+            return response.IsDeleted 
                 ? Results.NoContent() 
                 : Results.NotFound(new { Message = $"Order with id: {id} was not found." });
         });

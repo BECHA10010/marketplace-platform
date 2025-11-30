@@ -20,7 +20,7 @@ public class GetOrdersByAccountNameEndpoint : ICarterModule
             
             var response = new GetOrdersByAccountNameResponse(
                 request.AccountName,
-                result.Orders.Adapt<List<OrderDataResponse>>());
+                result.Orders.Adapt<List<OrderResponse>>());
 
             return Results.Ok(response);
         });

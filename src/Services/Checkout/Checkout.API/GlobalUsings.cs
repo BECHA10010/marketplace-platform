@@ -1,8 +1,10 @@
 global using System.Reflection;
 global using Carter;
 global using Checkout.API;
-global using Checkout.API.Features.Orders.CreateOrder;
+global using Checkout.API.Features.Orders.Common.Requests;
+global using Checkout.API.Features.Orders.Common.Responses;
 global using Checkout.Application;
+global using Checkout.Application.Features.Orders.Common.DTOs;
 global using Checkout.Application.Features.Orders.CreateOrder;
 global using Checkout.Application.Features.Orders.DeleteOrderById;
 global using Checkout.Application.Features.Orders.GetOrdersByAccountName;
