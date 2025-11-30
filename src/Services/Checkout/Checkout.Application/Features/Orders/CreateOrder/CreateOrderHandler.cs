@@ -10,10 +10,10 @@ public class CreateOrderHandler(IOrderRepository repository)
         var order = Order.Create(
             accountName: orderData.AccountName,
             contactInfo: new Contact(orderData.ContactInfo.FirstName, orderData.ContactInfo.LastName, orderData.ContactInfo.Email),
-            deliveryAddress: new Address(orderData.DeliveryAddress.Street, orderData.DeliveryAddress.City),
+            deliveryAddress: new DeliveryAddress(orderData.DeliveryAddress.Street, orderData.DeliveryAddress.City),
             paymentMethod: orderData.PaymentMethod,
             cardDetails: orderData.CardDetails is not null 
-                ? new CardDetails(orderData.CardDetails.CardNumber, orderData.CardDetails.Expiration, orderData.CardDetails.CvvCode)
+                ? new CreditCard(orderData.CardDetails.CardNumber, orderData.CardDetails.Expiration, orderData.CardDetails.CvvCode)
                 : null,
             items: orderData.Items.Select(i => new OrderItem(i.CatalogItemName, i.Quantity, i.UnitPrice)).ToList());
         

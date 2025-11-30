@@ -12,19 +12,19 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.Ignore(o => o.TotalAmount);
         
-        builder.Property(o => o.CurrentOrderStatus)
+        builder.Property(o => o.Status)
             .HasConversion<string>()
             .HasMaxLength(50);
         
-        builder.Property(o => o.CurrentPaymentMethod)
+        builder.Property(o => o.PaymentMethod)
             .HasConversion<string>()
             .HasMaxLength(50);
         
-        builder.Property(o => o.CurrentPaymentStatus)
+        builder.Property(o => o.PaymentStatus)
             .HasConversion<string>()
             .HasMaxLength(50);
 
-        builder.OwnsOne(o => o.ContactInfo, contact =>
+        builder.OwnsOne(o => o.CustomerContact, contact =>
         {
             contact.Property(c => c.FirstName).HasMaxLength(100);
             contact.Property(c => c.LastName).HasMaxLength(100);
@@ -37,7 +37,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             address.Property(a => a.City).HasMaxLength(100);
         });
 
-        builder.OwnsOne(o => o.CardDetails, card =>
+        builder.OwnsOne(o => o.PaymentCard, card =>
         {
             card.Property(c => c.CardNumber).HasMaxLength(20);
             card.Property(c => c.Expiration).HasMaxLength(10);
@@ -49,13 +49,13 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             item.WithOwner().HasForeignKey("OrderId");
             item.Property<int>("Id");
             item.HasKey("Id");
-            item.Property(i => i.CatalogItemName).HasMaxLength(100).IsRequired();
+            item.Property(i => i.ProductName).HasMaxLength(100).IsRequired();
             item.Property(i => i.Quantity).IsRequired();
             item.Property(i => i.UnitPrice).HasColumnType("decimal(18, 2)");
         });
 
         builder.HasIndex(o => o.AccountName);
-        builder.HasIndex(o => o.CurrentOrderStatus);
-        builder.HasIndex(o => o.CurrentPaymentStatus);
+        builder.HasIndex(o => o.Status);
+        builder.HasIndex(o => o.PaymentStatus);
     }
 }

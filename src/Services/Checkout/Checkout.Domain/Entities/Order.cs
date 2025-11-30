@@ -7,71 +7,114 @@ public class Order : BaseEntity, IAggregateRoot
     public string AccountName { get; private set; } = default!;
     public decimal TotalAmount => _items.Sum(i => i.UnitPrice * i.Quantity);
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
-    public OrderStatus CurrentOrderStatus { get; private set; }
-    public Contact? ContactInfo { get; private set; }
-    public Address? DeliveryAddress { get; private set; }
-    public PaymentMethod CurrentPaymentMethod { get; private set; }
-    public CardDetails? CardDetails { get; private set; }
-    public PaymentStatus CurrentPaymentStatus { get; private set; }
+    public OrderStatus Status { get; private set; }
+    public Contact? CustomerContact { get; private set; }
+    public DeliveryAddress? DeliveryAddress { get; private set; }
+    public PaymentMethod PaymentMethod { get; private set; }
+    public CreditCard? PaymentCard { get; private set; }
+    public PaymentStatus PaymentStatus { get; private set; }
 
     private Order() {}
     
     private Order(string accountName,
         Contact contactInfo,
-        Address deliveryAddress,
+        DeliveryAddress deliveryDeliveryAddress,
         PaymentMethod paymentMethod,
-        CardDetails? cardDetails,
+        CreditCard? cardDetails,
         List<OrderItem> items)
     {
         AccountName = accountName;
-        ContactInfo = contactInfo;
-        DeliveryAddress = deliveryAddress;
-        CurrentPaymentMethod = paymentMethod;
-        CardDetails = cardDetails;
+        CustomerContact = contactInfo;
+        DeliveryAddress = deliveryDeliveryAddress;
+        PaymentMethod = paymentMethod;
+        PaymentCard = cardDetails;
 
-        CurrentOrderStatus = OrderStatus.Draft;
-        CurrentPaymentStatus = PaymentStatus.Pending;
+        Status = OrderStatus.Draft;
+        PaymentStatus = PaymentStatus.Pending;
         
         _items = items;
     }
 
     public static Order Create(string accountName,
         Contact contactInfo,
-        Address deliveryAddress,
+        DeliveryAddress deliveryAddress,
         PaymentMethod paymentMethod,
-        CardDetails? cardDetails,
+        CreditCard? cardDetails,
         List<OrderItem> items)
     {
         if (paymentMethod == PaymentMethod.CreditCard && cardDetails is null)
-            throw new DomainException("");
+            throw new DomainException("Card details are required for credit card payments.");
+
+        if (paymentMethod == PaymentMethod.BankTransfer && cardDetails is not null)
+            throw new DomainException("Card details must not be provided for bank transfer payments.");
+
+        if (items is null || items.Count == 0)
+            throw new DomainException("Order must contain at least one item.");
         
-        var order = new Order(accountName, contactInfo, deliveryAddress, paymentMethod, cardDetails, items);
+        if (items.Count > 0 && deliveryAddress is null)
+            throw new DomainException("Delivery address is required when the order contains items.");
         
-        return order;
+        if (items.Any(i => i.Quantity <= 0))
+            throw new DomainException("Quantity must be greater than zero.");
+
+        if (items.Any(i => i.UnitPrice <= 0))
+            throw new DomainException("Unit price must be greater than zero.");
+        
+        if (contactInfo is null)
+            throw new DomainException("Contact information is required.");
+        
+        return new Order(accountName, contactInfo, deliveryAddress, paymentMethod, cardDetails, items);
     }
 
-    public void ChangePaymentMethod(PaymentMethod newPaymentMethod)
+    public void ChangePaymentMethod(PaymentMethod newMethod)
     {
-        if (CurrentPaymentStatus == PaymentStatus.Pending)
-        {
-            CurrentOrderStatus = OrderStatus.Paid;
-        }
-            
-        CurrentPaymentMethod = newPaymentMethod;
+        if (newMethod == PaymentMethod.CreditCard && PaymentCard is null)
+            throw new DomainException("Card details must be provided before switching to credit card.");
+
+        if (newMethod == PaymentMethod.BankTransfer)
+            PaymentCard = null;
+
+        if (PaymentStatus == PaymentStatus.Completed)
+            throw new DomainException("Cannot change payment method after payment is completed.");
+        
+        PaymentMethod = newMethod;
     }
     
     public void ChangeDeliveryAddress(string street, string city)
     {
-        DeliveryAddress = new Address(street, city);
+        if (Status != OrderStatus.Draft)
+            throw new DomainException("Delivery address cannot be changed after order submission.");
+        
+        DeliveryAddress = new DeliveryAddress(street, city);
     }
     
-    public void ChangeCardData(string cardNumber, string expiration, string cvvCode)
+    public void ChangeCreditCard(string cardNumber, string expiration, string cvvCode)
     {
-        CardDetails = new CardDetails(cardNumber, expiration, cvvCode);
+        if (PaymentMethod != PaymentMethod.CreditCard)
+            throw new DomainException("Card details can be changed only for credit card payments.");
+        
+        PaymentCard = new CreditCard(cardNumber, expiration, cvvCode);
     }
     
-    public void ChangeContactData(string firstName, string lastName, string email)
+    public void ChangeCustomerContact(string firstName, string lastName, string email)
     {
-        ContactInfo = new Contact(firstName, lastName, email);
+        if (Status == OrderStatus.Shipped)
+            throw new DomainException("Cannot modify customer contact after shipping.");
+        
+        CustomerContact = new Contact(firstName, lastName, email);
+    }
+
+    public void Cancel()
+    {
+        if (Status == OrderStatus.Shipped)
+            throw new DomainException("Cannot cancel a shipped order.");
+        
+        Status = OrderStatus.Cancelled;
+    }
+    
+    public void MarkPaymentCompleted()
+    {
+        PaymentStatus = PaymentStatus.Completed;
+        Status = OrderStatus.Paid;
     }
 }

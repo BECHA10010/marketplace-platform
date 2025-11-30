@@ -8,9 +8,9 @@ public static class InitialData
         (
             "test_account",
             new Contact("Иван", "Иванов", "ivan@test.com"),
-            new Address("Ленина 1", "Москва"),
+            new DeliveryAddress("Ленина 1", "Москва"),
             PaymentMethod.CreditCard,
-            new CardDetails("4111111111111111", "12/25", "123"),
+            new CreditCard("4111111111111111", "12/25", "123"),
             new List<OrderItem>()
             {
                 new OrderItem("Мультиварка Redmond RMC-M90", 1, 5890m),
@@ -26,7 +26,7 @@ public static class InitialData
         (
             "admin@example.com",
             new Contact("Анна", "Петрова", "anna@example.com"),
-            new Address("Тверская 12", "Москва"),
+            new DeliveryAddress("Тверская 12", "Москва"),
             PaymentMethod.BankTransfer,
             null,
             new List<OrderItem>

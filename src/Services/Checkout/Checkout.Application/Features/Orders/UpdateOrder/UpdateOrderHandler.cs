@@ -22,7 +22,7 @@ public class UpdateOrderHandler(IOrderRepository repository)
         var (contactData, addressData, paymentMethod, cardData) = updateOrderData;
         
         if (contactData is not null)
-            order.ChangeContactData(contactData.FirstName, contactData.LastName, contactData.Email);
+            order.ChangeCustomerContact(contactData.FirstName, contactData.LastName, contactData.Email);
 
         if (addressData is not null)
             order.ChangeDeliveryAddress(addressData.Street, addressData.City);
@@ -31,6 +31,6 @@ public class UpdateOrderHandler(IOrderRepository repository)
             order.ChangePaymentMethod(paymentMethod.Value);
 
         if (cardData is not null)
-            order.ChangeCardData(cardData.CardNumber, cardData.Expiration, cardData.CvvCode);
+            order.ChangeCreditCard(cardData.CardNumber, cardData.Expiration, cardData.CvvCode);
     }
 }

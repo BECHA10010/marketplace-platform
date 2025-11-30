@@ -10,6 +10,8 @@ public class DeleteOrderByIdHandler(IOrderRepository repository)
         if (order is null)
             return new DeleteOrderByIdResult(false);
         
+        order.Cancel();
+        
         await repository.DeleteAsync(order);
         
         return new DeleteOrderByIdResult(true);
