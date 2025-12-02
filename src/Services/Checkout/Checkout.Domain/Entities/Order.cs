@@ -65,7 +65,7 @@ public class Order : BaseEntity, IAggregateRoot
         
         return new Order(accountName, contactInfo, deliveryAddress, paymentMethod, cardDetails, items);
     }
-
+    
     public void ChangePaymentMethod(PaymentMethod newMethod)
     {
         if (newMethod == PaymentMethod.CreditCard && PaymentCard is null)

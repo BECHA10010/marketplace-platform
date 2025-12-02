@@ -2,18 +2,18 @@ namespace Checkout.Tests.Domain.Orders;
 
 public class OrderCreationTests
 {
-    private static List<OrderItem> CreateValidItems() => 
+    private static List<OrderItem> ValidItems() => 
     [
         new ("ProductA", 2, 10m)
     ];
     
-    private static Contact CreateValidContact() => 
+    private static Contact ValidContact() => 
         new ("Иван", "Николаевич", "ivan@gmail.com");
     
-    private static DeliveryAddress CreateValidAddress() => 
+    private static DeliveryAddress ValidAddress() => 
         new ("Северная 12", "Вологда");
     
-    private static CreditCard CreateValidCard()
+    private static CreditCard ValidCard()
         => new("4111111111111111", "12/30", "123");
     
     [Fact]
@@ -21,11 +21,11 @@ public class OrderCreationTests
     {
         var order = Order.Create(
             accountName: "johndoe",
-            contactInfo: CreateValidContact(),
-            deliveryAddress: CreateValidAddress(),
+            contactInfo: ValidContact(),
+            deliveryAddress: ValidAddress(),
             paymentMethod: PaymentMethod.CreditCard,
-            cardDetails: CreateValidCard(),
-            items: CreateValidItems()
+            cardDetails: ValidCard(),
+            items: ValidItems()
         );
         
         Assert.Equal("johndoe", order.AccountName);
@@ -42,11 +42,11 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
-                deliveryAddress: CreateValidAddress(),
+                contactInfo: ValidContact(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.CreditCard,
                 cardDetails: null,
-                items: CreateValidItems()
+                items: ValidItems()
             ));
     }
 
@@ -56,11 +56,11 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
-                deliveryAddress: CreateValidAddress(),
+                contactInfo: ValidContact(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.BankTransfer,
-                cardDetails: CreateValidCard(),
-                items: CreateValidItems()
+                cardDetails: ValidCard(),
+                items: ValidItems()
             ));
     }
     
@@ -70,8 +70,8 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
-                deliveryAddress: CreateValidAddress(),
+                contactInfo: ValidContact(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.BankTransfer,
                 cardDetails: null,
                 items: []
@@ -89,10 +89,10 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
-                deliveryAddress: CreateValidAddress(),
+                contactInfo: ValidContact(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.CreditCard,
-                cardDetails: CreateValidCard(),
+                cardDetails: ValidCard(),
                 items: invalidItems
             ));
     }
@@ -108,10 +108,10 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
-                deliveryAddress: CreateValidAddress(),
+                contactInfo: ValidContact(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.CreditCard,
-                cardDetails: CreateValidCard(),
+                cardDetails: ValidCard(),
                 items: invalidItems
             ));
     }
@@ -122,11 +122,11 @@ public class OrderCreationTests
         Assert.Throws<DomainException>(() => 
             Order.Create(
                 accountName: "johndoe",
-                contactInfo: CreateValidContact(),
+                contactInfo: ValidContact(),
                 deliveryAddress: null!,
                 paymentMethod: PaymentMethod.CreditCard,
-                cardDetails: CreateValidCard(),
-                items: CreateValidItems()
+                cardDetails: ValidCard(),
+                items: ValidItems()
             ));
     }
     
@@ -137,10 +137,10 @@ public class OrderCreationTests
             Order.Create(
                 accountName: "johndoe",
                 contactInfo: null!,
-                deliveryAddress: CreateValidAddress(),
+                deliveryAddress: ValidAddress(),
                 paymentMethod: PaymentMethod.CreditCard,
-                cardDetails: CreateValidCard(),
-                items: CreateValidItems()
+                cardDetails: ValidCard(),
+                items: ValidItems()
             ));
     }
 }
