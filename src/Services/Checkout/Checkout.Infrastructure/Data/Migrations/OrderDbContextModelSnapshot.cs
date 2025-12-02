@@ -60,9 +60,6 @@ namespace Checkout.Infrastructure.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountName");
@@ -86,16 +83,6 @@ namespace Checkout.Infrastructure.Data.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
-                            b1.Property<string>("PostalCode")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("character varying(20)");
-
-                            b1.Property<string>("Region")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)");
-
                             b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(200)
@@ -113,11 +100,6 @@ namespace Checkout.Infrastructure.Data.Migrations
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uuid");
-
-                            b1.Property<string>("CardName")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)");
 
                             b1.Property<string>("CardNumber")
                                 .IsRequired()
@@ -172,9 +154,6 @@ namespace Checkout.Infrastructure.Data.Migrations
 
                     b.OwnsMany("Checkout.Domain.ValueObjects.OrderItem", "Items", b1 =>
                         {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uuid");
-
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer");
@@ -186,13 +165,18 @@ namespace Checkout.Infrastructure.Data.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uuid");
+
                             b1.Property<int>("Quantity")
                                 .HasColumnType("integer");
 
                             b1.Property<decimal>("UnitPrice")
                                 .HasColumnType("decimal(18, 2)");
 
-                            b1.HasKey("OrderId", "Id");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("OrderId");
 
                             b1.ToTable("OrderItem");
 

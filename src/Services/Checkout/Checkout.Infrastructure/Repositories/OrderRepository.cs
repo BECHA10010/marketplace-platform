@@ -28,7 +28,6 @@ public class OrderRepository(OrderDbContext context)
     {
         var result = await DbContext.Orders
             .Include(o => o.Items)
-            .AsNoTracking()
             .FirstOrDefaultAsync(o => o.Id == id);
 
         return result;

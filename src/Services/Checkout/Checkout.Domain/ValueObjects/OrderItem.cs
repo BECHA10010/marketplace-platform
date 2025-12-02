@@ -1,3 +1,3 @@
 namespace Checkout.Domain.ValueObjects;
 
-public record OrderItem(int Id, string CatalogItemName, int Quantity, decimal UnitPrice);
+public record OrderItem(string ProductName, int Quantity, decimal UnitPrice);
