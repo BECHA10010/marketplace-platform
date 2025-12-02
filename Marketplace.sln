@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Application", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Infrastructure", "src\Services\Checkout\Checkout.Infrastructure\Checkout.Infrastructure.csproj", "{594B2056-BA47-4BC6-AC68-79FFA10F2E7E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9FC4BD9E-08E4-4FCF-9F62-9937CF93B0DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Tests", "tests\Checkout.Tests\Checkout.Tests.csproj", "{3717D891-DDB0-4D6D-969D-F6DDD52D2247}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +70,7 @@ Global
 		{11604965-74C6-4E25-846F-271E77576B53} = {472162C3-EA66-4E88-BA1D-CE5F24CA6469}
 		{8E9CB7E5-E494-44B5-B28C-6A89027481C9} = {472162C3-EA66-4E88-BA1D-CE5F24CA6469}
 		{594B2056-BA47-4BC6-AC68-79FFA10F2E7E} = {472162C3-EA66-4E88-BA1D-CE5F24CA6469}
+		{3717D891-DDB0-4D6D-969D-F6DDD52D2247} = {9FC4BD9E-08E4-4FCF-9F62-9937CF93B0DE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{840AA71B-0E52-4CC2-B46F-905E2F82E101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -112,5 +117,9 @@ Global
 		{594B2056-BA47-4BC6-AC68-79FFA10F2E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{594B2056-BA47-4BC6-AC68-79FFA10F2E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{594B2056-BA47-4BC6-AC68-79FFA10F2E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3717D891-DDB0-4D6D-969D-F6DDD52D2247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3717D891-DDB0-4D6D-969D-F6DDD52D2247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3717D891-DDB0-4D6D-969D-F6DDD52D2247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3717D891-DDB0-4D6D-969D-F6DDD52D2247}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
