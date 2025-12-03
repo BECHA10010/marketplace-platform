@@ -17,8 +17,8 @@ public class Order : BaseEntity, IAggregateRoot
     private Order() {}
     
     private Order(string accountName,
-        Contact contactInfo,
-        DeliveryAddress deliveryDeliveryAddress,
+        Contact? contactInfo,
+        DeliveryAddress? deliveryDeliveryAddress,
         PaymentMethod paymentMethod,
         CreditCard? cardDetails,
         List<OrderItem> items)
@@ -36,8 +36,8 @@ public class Order : BaseEntity, IAggregateRoot
     }
 
     public static Order Create(string accountName,
-        Contact contactInfo,
-        DeliveryAddress deliveryAddress,
+        Contact? contactInfo,
+        DeliveryAddress? deliveryAddress,
         PaymentMethod paymentMethod,
         CreditCard? cardDetails,
         List<OrderItem> items)
@@ -68,14 +68,14 @@ public class Order : BaseEntity, IAggregateRoot
     
     public void ChangePaymentMethod(PaymentMethod newMethod)
     {
+        if (PaymentStatus == PaymentStatus.Completed)
+            throw new DomainException("Cannot change payment method after payment is completed.");
+        
         if (newMethod == PaymentMethod.CreditCard && PaymentCard is null)
             throw new DomainException("Card details must be provided before switching to credit card.");
 
         if (newMethod == PaymentMethod.BankTransfer)
             PaymentCard = null;
-
-        if (PaymentStatus == PaymentStatus.Completed)
-            throw new DomainException("Cannot change payment method after payment is completed.");
         
         PaymentMethod = newMethod;
     }
@@ -90,24 +90,24 @@ public class Order : BaseEntity, IAggregateRoot
     
     public void ChangeCreditCard(string cardNumber, string expiration, string cvvCode)
     {
-        if (PaymentMethod != PaymentMethod.CreditCard)
-            throw new DomainException("Card details can be changed only for credit card payments.");
+        if (Status is OrderStatus.Shipped or OrderStatus.Cancelled)
+            throw new DomainException($"Cannot modify card details after {Status}.");
         
         PaymentCard = new CreditCard(cardNumber, expiration, cvvCode);
     }
     
     public void ChangeCustomerContact(string firstName, string lastName, string email)
     {
-        if (Status == OrderStatus.Shipped)
-            throw new DomainException("Cannot modify customer contact after shipping.");
+        if (Status is OrderStatus.Shipped or OrderStatus.Cancelled)
+            throw new DomainException($"Cannot modify customer contact after {Status}.");
         
         CustomerContact = new Contact(firstName, lastName, email);
     }
-
+    
     public void Cancel()
     {
-        if (Status == OrderStatus.Shipped)
-            throw new DomainException("Cannot cancel a shipped order.");
+        if (Status is OrderStatus.Shipped or OrderStatus.Cancelled)
+            throw new DomainException($"Cannot cancel a {Status} order.");
         
         Status = OrderStatus.Cancelled;
     }
