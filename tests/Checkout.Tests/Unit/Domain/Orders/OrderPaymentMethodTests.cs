@@ -5,7 +5,7 @@ public class OrderPaymentMethodTests
     [Fact]
     public void ChangePaymentMethod_ToBankTransfer_ShouldClearCardDetails()
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         
         order.ChangePaymentMethod(PaymentMethod.BankTransfer);
         
@@ -15,8 +15,8 @@ public class OrderPaymentMethodTests
 
     [Fact] public void ChangePaymentMethod_ToCreditCardWithCardDetails_ShouldUpdatePaymentMethod()
     {
-        var order = OrderTestFactory.CreateOrder(PaymentMethod.BankTransfer);
-        var cardDetails = OrderTestFactory.ValidCard();
+        var order = TestOrderFactory.CreateValidOrder(PaymentMethod.BankTransfer);
+        var cardDetails = TestOrderFactory.ValidCardDetails();
         order.ChangeCreditCard(cardDetails.CardNumber, cardDetails.Expiration, cardDetails.CvvCode);
         
         order.ChangePaymentMethod(PaymentMethod.CreditCard);
@@ -27,7 +27,7 @@ public class OrderPaymentMethodTests
     [Fact]
     public void ChangePaymentMethod_ToCreditCardWithoutCardDetails_ShouldThrow()
     {
-        var order = OrderTestFactory.CreateOrder(PaymentMethod.BankTransfer);
+        var order = TestOrderFactory.CreateValidOrder(PaymentMethod.BankTransfer);
 
         Assert.Throws<DomainException>(() => 
             order.ChangePaymentMethod(PaymentMethod.CreditCard));
@@ -36,7 +36,7 @@ public class OrderPaymentMethodTests
     [Fact]
     public void ChangePaymentMethod_AfterPaymentCompleted_ShouldThrow()
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.MarkPaymentCompleted();
 
         Assert.Throws<DomainException>(() =>

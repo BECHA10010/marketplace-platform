@@ -8,7 +8,7 @@ public class OrderCancelTests
     [InlineData(OrderStatus.Draft)]
     public void Cancel_WhenStatusIsSupported_ShouldCancelled(OrderStatus status)
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.SetOrderStatus(status);
         
         order.Cancel();
@@ -21,7 +21,7 @@ public class OrderCancelTests
     [InlineData(OrderStatus.Cancelled)]
     public void Cancel_WhenStatusIsUnsupported_ShouldThrow(OrderStatus status)
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.SetOrderStatus(status);
         
         Assert.Throws<DomainException>(() => 

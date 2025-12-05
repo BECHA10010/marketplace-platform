@@ -39,92 +39,41 @@ namespace Checkout.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("CurrentOrderStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("CurrentPaymentMethod")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("CurrentPaymentStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountName");
 
-                    b.HasIndex("CurrentOrderStatus");
+                    b.HasIndex("PaymentStatus");
 
-                    b.HasIndex("CurrentPaymentStatus");
+                    b.HasIndex("Status");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Checkout.Domain.Entities.Order", b =>
                 {
-                    b.OwnsOne("Checkout.Domain.ValueObjects.Address", "DeliveryAddress", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(200)
-                                .HasColumnType("character varying(200)");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.OwnsOne("Checkout.Domain.ValueObjects.CardDetails", "CardDetails", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("CardNumber")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("character varying(20)");
-
-                            b1.Property<string>("CvvCode")
-                                .IsRequired()
-                                .HasMaxLength(10)
-                                .HasColumnType("character varying(10)");
-
-                            b1.Property<string>("Expiration")
-                                .IsRequired()
-                                .HasMaxLength(10)
-                                .HasColumnType("character varying(10)");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.OwnsOne("Checkout.Domain.ValueObjects.Contact", "ContactInfo", b1 =>
+                    b.OwnsOne("Checkout.Domain.ValueObjects.Contact", "CustomerContact", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uuid");
@@ -152,21 +101,71 @@ namespace Checkout.Infrastructure.Data.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.OwnsMany("Checkout.Domain.ValueObjects.OrderItem", "Items", b1 =>
+                    b.OwnsOne("Checkout.Domain.ValueObjects.CreditCard", "PaymentCard", b1 =>
                         {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uuid");
 
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
+                            b1.Property<string>("CardNumber")
+                                .IsRequired()
+                                .HasMaxLength(20)
+                                .HasColumnType("character varying(20)");
 
-                            b1.Property<string>("CatalogItemName")
+                            b1.Property<string>("CvvCode")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("character varying(10)");
+
+                            b1.Property<string>("Expiration")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("character varying(10)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsOne("Checkout.Domain.ValueObjects.DeliveryAddress", "DeliveryAddress", b1 =>
+                        {
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("City")
                                 .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasMaxLength(200)
+                                .HasColumnType("character varying(200)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsMany("Checkout.Domain.ValueObjects.OrderItem", "Items", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uuid")
+                                .HasDefaultValueSql("gen_random_uuid()");
+
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uuid");
+
+                            b1.Property<string>("ProductName")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
 
                             b1.Property<int>("Quantity")
                                 .HasColumnType("integer");
@@ -184,15 +183,13 @@ namespace Checkout.Infrastructure.Data.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.Navigation("CardDetails");
+                    b.Navigation("CustomerContact");
 
-                    b.Navigation("ContactInfo")
-                        .IsRequired();
-
-                    b.Navigation("DeliveryAddress")
-                        .IsRequired();
+                    b.Navigation("DeliveryAddress");
 
                     b.Navigation("Items");
+
+                    b.Navigation("PaymentCard");
                 });
 #pragma warning restore 612, 618
         }

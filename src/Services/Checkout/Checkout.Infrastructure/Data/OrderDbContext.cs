@@ -20,12 +20,6 @@ public class OrderDbContext : DbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
-    public override int SaveChanges()
-    {
-        HandleAuditFields();
-        return base.SaveChanges();
-    }
-
     private void HandleAuditFields()
     {
         var currentUser = $"User {Guid.NewGuid().ToString()[..5]}";

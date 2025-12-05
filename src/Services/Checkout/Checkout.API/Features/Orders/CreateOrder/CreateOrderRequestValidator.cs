@@ -24,11 +24,14 @@ public class CreateOrderRequestValidator : AbstractValidator<CreateOrderRequest>
         When(x => Enum.TryParse<PaymentMethod>(x.PaymentMethod, out var method) 
                   && method == PaymentMethod.CreditCard, () =>
         {
-            RuleFor(x => x.CardData).NotNull();
-            
-            RuleFor(x => x.CardData!.CardNumber).NotNull();
-            RuleFor(x => x.CardData!.Expiration).NotNull();
-            RuleFor(x => x.CardData!.CvvCode).NotNull();
+            RuleFor(x => x.CardData)
+                .NotNull()
+                .DependentRules(() =>
+                {
+                    RuleFor(x => x.CardData!.CardNumber).NotEmpty();
+                    RuleFor(x => x.CardData!.Expiration).NotEmpty();
+                    RuleFor(x => x.CardData!.CvvCode).NotEmpty();
+                });
         });
         
         RuleFor(x => x.Items).NotEmpty();

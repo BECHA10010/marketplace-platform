@@ -47,11 +47,13 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.OwnsMany(o => o.Items, item =>
         {
             item.WithOwner().HasForeignKey("OrderId");
-            item.Property<int>("Id");
+            
+            item.Property<Guid>("Id").HasDefaultValueSql("gen_random_uuid()");
+            
             item.HasKey("Id");
             item.Property(i => i.ProductName).HasMaxLength(100).IsRequired();
             item.Property(i => i.Quantity).IsRequired();
-            item.Property(i => i.UnitPrice).HasColumnType("decimal(18, 2)");
+            item.Property(i => i.UnitPrice).HasColumnType("decimal(18, 2)").IsRequired();
         });
 
         builder.HasIndex(o => o.AccountName);

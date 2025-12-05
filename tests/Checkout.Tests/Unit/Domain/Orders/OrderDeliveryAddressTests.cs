@@ -5,7 +5,7 @@ public class OrderDeliveryAddressTests
     [Fact]
     public void ChangeDeliveryAddress_InDraftStatus_ShouldUpdateAddress()
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         
         order.ChangeDeliveryAddress("Новая 15", "Москва");
         
@@ -20,7 +20,7 @@ public class OrderDeliveryAddressTests
     [InlineData(OrderStatus.Cancelled)]
     public void ChangeDeliveryAddress_WhenNotDraftStatus_ShouldThrow(OrderStatus status)
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.SetOrderStatus(status);
 
         Assert.Throws<DomainException>(() => 

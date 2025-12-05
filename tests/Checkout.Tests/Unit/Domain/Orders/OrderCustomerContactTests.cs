@@ -8,7 +8,7 @@ public class OrderCustomerContactTests
     [InlineData(OrderStatus.Draft)]
     public void ChangeCustomerContact_WhenStatusIsSupported_ShouldUpdateContact(OrderStatus status)
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.SetOrderStatus(status);
         
         order.ChangeCustomerContact("Николай", "Максимов", "nick@gmail.com");
@@ -23,7 +23,7 @@ public class OrderCustomerContactTests
     [InlineData(OrderStatus.Cancelled)]
     public void ChangeCustomerContact_WhenStatusIsUnsupported_ShouldThrow(OrderStatus status)
     {
-        var order = OrderTestFactory.CreateOrder();
+        var order = TestOrderFactory.CreateValidOrder();
         order.SetOrderStatus(status);
 
         Assert.Throws<DomainException>(() => 
