@@ -1,33 +1,25 @@
 namespace Checkout.Tests.Integration.Api.Orders;
 
-[Collection("IntegrationTests")]
-public class CancelOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetime
+public class CancelOrderTests : IntegrationTestBase
 {
-    private readonly HttpClient _client;
-    private readonly OrderDbContext _context;
-    
-    public CancelOrderTests(CheckoutApiFactory factory)
-    {
-        _client = factory.CreateClient();
-        _context = factory.Services.GetRequiredService<OrderDbContext>();
-    }
+    public CancelOrderTests(PostgresContainerFixture fixture) : base(fixture) { }
     
     [Fact]
     public async Task CancelOrderById_WhenIdIsValidAndExisting_ShouldReturn204NoContent()
     {
         // Arrange
         var order = TestOrderFactory.CreateValidOrder();
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
+        await Context.Orders.AddAsync(order);
+        await Context.SaveChangesAsync();
         
         // Act
-        var response = await _client.DeleteAsync($"/orders/{order.Id}");
+        var response = await Client.DeleteAsync($"/orders/{order.Id}");
         
         // Assert - API
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         
         // Assert - Database
-        var existing = await _context.Orders
+        var existing = await Context.Orders
             .AsNoTracking()
             .FirstOrDefaultAsync(o => o.Id == order.Id);
         
@@ -41,7 +33,7 @@ public class CancelOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
         var notExistingId = Guid.NewGuid().ToString();
         
         // Act
-        var deleteOrderResponse = await _client.DeleteAsync($"/orders/{notExistingId}");
+        var deleteOrderResponse = await Client.DeleteAsync($"/orders/{notExistingId}");
         
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, deleteOrderResponse.StatusCode);
@@ -54,13 +46,9 @@ public class CancelOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
         var invalidGuid = Guid.NewGuid().ToString()[..^4];
         
         // Act
-        var response = await _client.DeleteAsync($"/orders/{invalidGuid}");
+        var response = await Client.DeleteAsync($"/orders/{invalidGuid}");
         
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
-
-    public async Task InitializeAsync() => await DatabaseCleaner.ClearAsync(_context);
-    
-    public Task DisposeAsync() => Task.CompletedTask;
 }

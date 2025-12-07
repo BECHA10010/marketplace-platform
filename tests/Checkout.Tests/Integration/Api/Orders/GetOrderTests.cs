@@ -1,27 +1,20 @@
 namespace Checkout.Tests.Integration.Api.Orders;
 
-[Collection("IntegrationTests")]
-public class GetOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetime
+public class GetOrderTests : IntegrationTestBase
 {
-    private readonly HttpClient _client;
-    private readonly OrderDbContext _context;
-    
-    public GetOrderTests(CheckoutApiFactory factory)
-    {
-        _client = factory.CreateClient();
-        _context = factory.Services.GetRequiredService<OrderDbContext>();
-    }
+    public GetOrderTests(PostgresContainerFixture fixture)
+        : base(fixture) { }
     
     [Fact]
     public async Task GetOrdersByAccount_WhenAccountIsValidAndExisting_ShouldReturn200Ok()
     {
         // Arrange
         var order = TestOrderFactory.CreateValidOrder();
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
+        await Context.Orders.AddAsync(order);
+        await Context.SaveChangesAsync();
         
         // Act
-        var response = await _client.GetAsync($"/orders?AccountName={order.AccountName}");
+        var response = await Client.GetAsync($"/orders?AccountName={order.AccountName}");
         
         // Assert
         var accountOrders = await response.Content.ReadFromJsonAsync<GetOrdersByAccountNameResponse>();
@@ -39,7 +32,7 @@ public class GetOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetime
     public async Task GetOrdersByAccount_WhenAccountIsInvalid_ShouldReturn400BadRequest(string accountName)
     {
         // Act
-        var response = await _client.GetAsync($"/orders?AccountName={accountName}");
+        var response = await Client.GetAsync($"/orders?AccountName={accountName}");
         
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -52,13 +45,9 @@ public class GetOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetime
         var accountName = Guid.NewGuid().ToString()[..^21];
         
         // Act
-        var response = await _client.GetAsync($"/orders?AccountName={accountName}");
+        var response = await Client.GetAsync($"/orders?AccountName={accountName}");
         
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-        
-    public async Task InitializeAsync() => await DatabaseCleaner.ClearAsync(_context);
-    
-    public Task DisposeAsync() => Task.CompletedTask;
 }

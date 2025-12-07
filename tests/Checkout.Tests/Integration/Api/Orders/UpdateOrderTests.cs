@@ -1,11 +1,7 @@
 namespace Checkout.Tests.Integration.Api.Orders;
 
-[Collection("IntegrationTests")]
-public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetime
+public class UpdateOrderTests : IntegrationTestBase
 {
-    private readonly HttpClient _client;
-    private readonly OrderDbContext _context;
-    
     public static IEnumerable<object[]> ValidUpdateRequests => 
         new List<object[]>
         {
@@ -17,11 +13,8 @@ public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
             new object[] { UpdateOrderRequests.ValidRequest_UpdateEverything() }
         };
     
-    public UpdateOrderTests(CheckoutApiFactory factory)
-    {
-        _client = factory.CreateClient();
-        _context = factory.Services.GetRequiredService<OrderDbContext>();
-    }
+    public UpdateOrderTests(PostgresContainerFixture fixture)
+        : base(fixture) { }
     
     [Theory]
     [MemberData(nameof(ValidUpdateRequests))]
@@ -29,13 +22,13 @@ public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
     {
         // Arrange
         var order = TestOrderFactory.CreateValidOrder();
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
+        await Context.Orders.AddAsync(order);
+        await Context.SaveChangesAsync();
         
         var content = JsonContent.Create(request);
         
         // Act
-        var response = await _client.PatchAsync($"/orders/{order.Id}", content);
+        var response = await Client.PatchAsync($"/orders/{order.Id}", content);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -50,7 +43,7 @@ public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
         var content = JsonContent.Create(request);
         
         // Act
-        var response = await _client.PatchAsync($"/orders/{invalidGuid}", content);
+        var response = await Client.PatchAsync($"/orders/{invalidGuid}", content);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -61,14 +54,14 @@ public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
     {
         // Arrange
         var order = TestOrderFactory.CreateValidOrder();
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
+        await Context.Orders.AddAsync(order);
+        await Context.SaveChangesAsync();
 
         var request = UpdateOrderRequests.InvalidRequest_UpdateToInvalidPaymentMethod();
         var content = JsonContent.Create(request);
         
         // Act
-        var response = await _client.PatchAsync($"/orders/{order.Id}", content);
+        var response = await Client.PatchAsync($"/orders/{order.Id}", content);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -83,14 +76,9 @@ public class UpdateOrderTests : IClassFixture<CheckoutApiFactory>, IAsyncLifetim
         var content = JsonContent.Create(request);
         
         // Act
-        var response = await _client.PatchAsync($"/orders/{notExistingId}", content);
+        var response = await Client.PatchAsync($"/orders/{notExistingId}", content);
         
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
-    
-        
-    public async Task InitializeAsync() => await DatabaseCleaner.ClearAsync(_context);
-    
-    public Task DisposeAsync() => Task.CompletedTask;
 }
