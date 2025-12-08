@@ -83,7 +83,7 @@ services:
     ports:
       - "7403:3306"
     volumes:
-      - mysql_promotion:/var/lib/mysql
+      - mysql_promotion_prod:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456789"]
       interval: 5s
@@ -107,8 +107,44 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+
+  checkout_api:
+    container_name: checkout-api
+    build:
+      context: .
+      dockerfile: src/Services/Checkout/Checkout.API/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=0
+    ports:
+      - "7304:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      checkout_db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  checkout_db:
+    container_name: checkout-db-prod
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=checkout-db
+    restart: always
+    ports:
+      - "7404:5432"
+    volumes:
+      - postgres_checkout_prod:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
 volumes:
   postgres_catalog_prod:
   postgres_basket_prod:
   redis_basket_prod:
-  mysql_promotion:
+  mysql_promotion_prod:
+  postgres_checkout_prod:
