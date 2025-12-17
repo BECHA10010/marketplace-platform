@@ -16,13 +16,13 @@ message GetPromoRequest {
 message PromoModel {
   string id = 1;
   string catalog_item_id = 2;
-  string title = 3;
+  string description = 3;
   double value = 4;
 }
 
 message CreatePromoRequest {
   string catalog_item_id = 1;
-  string title = 2;
+  string description = 2;
   double value = 3;
 }
 
@@ -34,13 +34,13 @@ message CreatePromoResponse {
 
 message UpdatePromoRequest {
   string id = 1;
-  string title = 2;
+  string description = 2;
   double value = 3;
 }
 
 message UpdatePromoResponse {
   bool success = 1;
-  string description = 2;
+  string message = 2;
 }
 
 message DeletePromoRequest {
@@ -49,5 +49,5 @@ message DeletePromoRequest {
 
 message DeletePromoResponse {
   bool success = 1;
-  string description = 2;
+  string message = 2;
 }

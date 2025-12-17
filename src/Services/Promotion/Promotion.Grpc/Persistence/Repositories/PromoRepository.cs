@@ -16,8 +16,8 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
     public async Task<bool> CreateAsync(Promo? promo)
     {
         const string insertPromo = """
-                                   INSERT INTO Promo (Id, CatalogItemId, Title, Value)
-                                   VALUES (@Id, @CatalogItemId, @Title, @Value);
+                                   INSERT INTO Promo (Id, CatalogItemId, Description, Value)
+                                   VALUES (@Id, @CatalogItemId, @Description, @Value);
                                    """;
 
         var result = await connection.ExecuteAsync(insertPromo, promo);
@@ -28,7 +28,7 @@ public class PromoRepository(IDbConnection connection) : IPromoRepository
     {
         const string updatePromo = """
                                    UPDATE Promo
-                                   SET Title = @Title,
+                                   SET Description = @Description,
                                        Value = @Value
                                    WHERE Id = @Id;
                                    """;

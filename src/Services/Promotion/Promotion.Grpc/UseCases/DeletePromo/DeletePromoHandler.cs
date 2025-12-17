@@ -10,7 +10,7 @@ public class DeletePromoHandler(IPromoRepository repository)
         return new DeletePromoResponse
         {
             Success = success,
-            Description = success ? "Success delete a promotion" : "Failed to delete promotion"
+            Message = success ? "Success delete a promotion" : "Failed to delete promotion"
         };
     }
 }

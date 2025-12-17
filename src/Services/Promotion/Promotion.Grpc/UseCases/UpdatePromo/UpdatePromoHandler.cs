@@ -12,7 +12,7 @@ public class UpdatePromoHandler(IPromoRepository repository)
         var result = new UpdatePromoResponse
         {
             Success = success,
-            Description = success ? "Success update a promotion" : "Failed to update promotion"
+            Message = success ? "Success update a promotion" : "Failed to update promotion"
         };
         
         return result;

@@ -30,7 +30,7 @@ public static class DatabaseExtensions
                                                CREATE TABLE IF NOT EXISTS Promo (
                                                  Id CHAR(36) NOT NULL PRIMARY KEY,
                                                  CatalogItemId VARCHAR(255) NOT NULL,
-                                                 Title VARCHAR(255) NOT NULL,
+                                                 Description VARCHAR(255) NOT NULL,
                                                  Value DECIMAL(18,2) NOT NULL
                                                );
                                                """;
@@ -40,8 +40,8 @@ public static class DatabaseExtensions
 
                 logger.LogInformation("Inserting {Count} promo records", promos.Count());
                 const string insertSql = """
-                                          INSERT INTO Promo (Id, CatalogItemId, Title, Value)
-                                          VALUES (@Id, @CatalogItemId, @Title, @Value);
+                                          INSERT INTO Promo (Id, CatalogItemId, Description, Value)
+                                          VALUES (@Id, @CatalogItemId, @Description, @Value);
                                           """;
                 await connection.ExecuteAsync(insertSql, promos);
     
