@@ -17,17 +17,5 @@ public class ShoppingCartWriteRepository(BasketDbContext context, IDistributedCa
         await context.SaveChangesAsync(ct);
 
         await cache.RemoveAsync($"basket:{cart.AccountName}", ct);
-        
-        /*var entry = context.Entry(cart);
-
-        if (entry.State == EntityState.Detached)
-        {
-            context.Attach(cart);
-            entry.State = EntityState.Modified;
-        }
-
-        await context.SaveChangesAsync(ct);
-
-        await cache.RemoveAsync($"basket:{cart.AccountName}", ct);*/
     }
 }

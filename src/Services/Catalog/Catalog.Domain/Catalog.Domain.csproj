@@ -8,4 +8,8 @@
         <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Common.Kernel\Common.Kernel.csproj" />
+    </ItemGroup>
+
 </Project>

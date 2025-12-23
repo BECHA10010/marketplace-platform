@@ -23,7 +23,6 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.Extensions.Caching.Distributed;
 global using Promotion.Grpc.Protos;
 global using Basket.API.Extensions;
-global using Basket.API.Infrastructure.Persistence.Extensions;
 global using Common.Kernel.Domain;
 global using Basket.API.Features.ShoppingCarts.Save;
 global using Basket.API.Infrastructure.Caching.DTOs;

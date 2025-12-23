@@ -1,3 +1,5 @@
+using Catalog.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -7,6 +9,6 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseApiServices();
+await app.ConfigureApiAsync();
 
 app.Run();
