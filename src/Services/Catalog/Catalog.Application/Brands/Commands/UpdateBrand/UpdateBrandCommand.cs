@@ -1,6 +1,3 @@
 namespace Catalog.Application.Brands.Commands.UpdateBrand;
 
-public class UpdateBrandCommand
-{
-    
-}
+public record UpdateBrandCommand(Guid Id, UpdateBrandDto UpdateDto) : ICommand;

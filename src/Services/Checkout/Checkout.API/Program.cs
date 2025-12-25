@@ -1,3 +1,5 @@
+using Checkout.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -7,7 +9,7 @@ builder.Services
 
 var app = builder.Build();
 
-await app.UseApiServices();
+await app.ConfigureApiAsync();
 
 app.Run();
 

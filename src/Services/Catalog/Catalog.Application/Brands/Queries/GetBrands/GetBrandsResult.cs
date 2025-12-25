@@ -1,5 +1,3 @@
-using Catalog.Domain.Brand;
+namespace Catalog.Application.Brands.Queries.GetBrands;
 
-namespace Catalog.Application.Features.Brands.Queries.GetBrands;
-
-public record GetBrandsResult(IReadOnlyList<Brand> Brands);
+public record GetBrandsResult(IReadOnlyList<BrandDto> Brands);

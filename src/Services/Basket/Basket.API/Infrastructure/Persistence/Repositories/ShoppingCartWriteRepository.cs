@@ -1,3 +1,5 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Infrastructure.Persistence.Repositories;
 
 public class ShoppingCartWriteRepository(BasketDbContext context, IDistributedCache cache) : IShoppingCartWriteRepository
@@ -17,5 +19,20 @@ public class ShoppingCartWriteRepository(BasketDbContext context, IDistributedCa
         await context.SaveChangesAsync(ct);
 
         await cache.RemoveAsync($"basket:{cart.AccountName}", ct);
+    }
+
+    public Task AddAsync(ShoppingCart entity, CancellationToken ct)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateAsync(ShoppingCart entity, CancellationToken ct)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(ShoppingCart entity, CancellationToken ct)
+    {
+        throw new NotImplementedException();
     }
 }

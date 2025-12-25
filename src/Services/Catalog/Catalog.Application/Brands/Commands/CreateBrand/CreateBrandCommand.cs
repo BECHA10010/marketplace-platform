@@ -1,3 +1,3 @@
 namespace Catalog.Application.Brands.Commands.CreateBrand;
 
-public record CreateBrandCommand();
+public record CreateBrandCommand(CreateBrandDto CreateDto) : ICommand<CreateBrandResult>;

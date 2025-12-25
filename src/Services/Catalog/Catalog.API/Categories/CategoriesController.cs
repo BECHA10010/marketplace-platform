@@ -1,11 +1,11 @@
 namespace Catalog.API.Categories;
 
-[ApiVersion("1")]
 [ApiController]
-[Route("api/v{version:apiVersion}/[controller]")]
+[Route("api/v1/categories")]
 public class CategoriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<CategoriesResponse>> GetAllAsync(CancellationToken cancellationToken)
     {
         var result = await mediator.Send(new GetCategoriesQuery(), cancellationToken);
@@ -14,7 +14,9 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
     
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetCategoryById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CategoryResponse>> GetByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var query = new GetCategoryByIdQuery(id);
@@ -25,6 +27,9 @@ public class CategoriesController(IMediator mediator) : ControllerBase
     }
     
     [HttpGet("name/{name}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CategoryResponse>> GetByNameAsync([FromRoute] string name, CancellationToken cancellationToken)
     {
         var query = new GetCategoryByNameQuery(name);
@@ -35,15 +40,21 @@ public class CategoriesController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult> CreateAsync([FromBody] CreateCategoryRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateCategoryCommand(request.ToCreateDto());
         var result = await mediator.Send(command, cancellationToken);
         
-        return CreatedAtRoute(nameof(GetByIdAsync), new { id = result.Id  }, null);
+        return CreatedAtRoute("GetCategoryById", new { id = result.Id  }, null);
     }
     
     [HttpPatch("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] UpdateCategoryRequest request, CancellationToken cancellationToken)
     {
         var command = new UpdateCategoryCommand(id, request.ToUpdateDto());
@@ -52,7 +63,9 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         return NoContent();
     }
     
-    [HttpPatch("{id:guid}")]
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> RemoveAsync([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var command = new RemoveCategoryCommand(id);

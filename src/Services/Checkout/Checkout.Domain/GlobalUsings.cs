@@ -1,6 +1,4 @@
-global using System.Linq.Expressions;
-global using Checkout.Domain.Common;
-global using Checkout.Domain.Entities;
-global using Checkout.Domain.Enums;
-global using Checkout.Domain.ValueObjects;
 global using Common.Kernel.Exceptions;
+global using Common.Kernel.Domain;
+global using Common.Kernel.Domain.Abstractions;
+global using Common.Kernel.Domain.Abstractions.Repositories;

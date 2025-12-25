@@ -16,7 +16,6 @@ public abstract class BaseRepository<T>(CatalogDbContext context) : IRepository<
     {
         return await DbSet.AsNoTracking().ToListAsync(ct);
     }
-
     
     // IWriteRepository
     public virtual async Task AddAsync(T entity, CancellationToken ct)
@@ -25,15 +24,15 @@ public abstract class BaseRepository<T>(CatalogDbContext context) : IRepository<
         await Context.SaveChangesAsync(ct);
     }
 
-    public virtual async Task<bool> UpdateAsync(T entity, CancellationToken ct)
+    public virtual async Task UpdateAsync(T entity, CancellationToken ct)
     {
         DbSet.Update(entity);
-        return await Context.SaveChangesAsync(ct) > 0;
+        await Context.SaveChangesAsync(ct);
     }
 
-    public virtual async Task<bool> DeleteAsync(T entity, CancellationToken ct)
+    public virtual async Task DeleteAsync(T entity, CancellationToken ct)
     {
         DbSet.Remove(entity);
-        return await Context.SaveChangesAsync(ct) > 0;
+        await Context.SaveChangesAsync(ct);
     }
 }

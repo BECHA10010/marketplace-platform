@@ -1,3 +1,5 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Application.Services;
 
 public interface ICartPromotionService

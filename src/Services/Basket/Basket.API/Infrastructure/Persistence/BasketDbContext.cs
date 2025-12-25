@@ -1,3 +1,5 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Infrastructure.Persistence;
 
 public class BasketDbContext : DbContext

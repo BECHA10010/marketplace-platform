@@ -1,6 +1,8 @@
+using Common.Kernel.Domain.Abstractions.Repositories;
+
 namespace Catalog.Application.Categories.Queries.GetCategories;
 
-public class GetCategoriesQueryHandler(IReadRepository<Category> repository) 
+public class GetCategoriesQueryHandler(ICategoryRepository repository) 
     : IQueryHandler<GetCategoriesQuery, GetCategoriesResult>
 {
     public async Task<GetCategoriesResult> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)

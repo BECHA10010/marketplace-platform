@@ -1,13 +1,6 @@
 global using System.Net;
 global using System.Net.Http.Json;
-global using Checkout.API.Features.Orders.Common.Requests;
 global using Checkout.API.Features.Orders.CreateOrder;
-global using Checkout.API.Features.Orders.GetOrdersByAccountName;
-global using Checkout.API.Features.Orders.UpdateOrder;
-global using Checkout.Domain.Entities;
-global using Checkout.Domain.Enums;
-global using Checkout.Domain.ValueObjects;
-global using Checkout.Infrastructure.Data;
 global using Checkout.Tests.Integration.Api;
 global using Checkout.Tests.Integration.Base;
 global using Checkout.Tests.Integration.Fixtures;

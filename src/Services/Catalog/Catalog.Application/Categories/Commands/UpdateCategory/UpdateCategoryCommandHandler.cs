@@ -10,6 +10,8 @@ public class UpdateCategoryCommandHandler(ICategoryRepository repository) : ICom
         if (category is null)
             throw new NotFoundException(nameof(Category), id);
         
+        category.ChangeName(command.UpdateDto.NewName);
+        
         await repository.UpdateAsync(category, cancellationToken);
         return default;
     }

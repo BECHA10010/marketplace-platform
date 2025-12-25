@@ -1,6 +1,3 @@
 namespace Catalog.Application.Brands.Commands.RemoveBrand;
 
-public class RemoveBrandCommand
-{
-    
-}
+public record RemoveBrandCommand(Guid Id) : ICommand;

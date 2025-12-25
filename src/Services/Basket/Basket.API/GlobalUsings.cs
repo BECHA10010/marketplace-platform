@@ -1,7 +1,6 @@
 global using System.Text.Json;
 global using Basket.API.Application.Services;
 global using Basket.API.Domain.Abstractions;
-global using Basket.API.Domain.Entities;
 global using Basket.API.Features.ShoppingCarts.Shared.DTOs;
 global using Basket.API.Features.ShoppingCarts.Shared.Mappings;
 global using Basket.API.Features.ShoppingCarts.Shared.Validators;

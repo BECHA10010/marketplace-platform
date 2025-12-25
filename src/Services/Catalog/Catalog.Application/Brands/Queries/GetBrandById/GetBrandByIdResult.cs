@@ -1,3 +1,3 @@
 namespace Catalog.Application.Brands.Queries.GetBrandById;
 
-public record GetBrandByIdResult();
+public record GetBrandByIdResult(BrandDto BrandDto);

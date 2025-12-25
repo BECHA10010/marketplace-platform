@@ -1,3 +1,3 @@
-namespace Catalog.Application.Features.Brands.Queries.GetBrands;
+namespace Catalog.Application.Brands.Queries.GetBrands;
 
 public record GetBrandsQuery() : IQuery<GetBrandsResult>;

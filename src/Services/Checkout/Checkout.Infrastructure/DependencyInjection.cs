@@ -6,7 +6,7 @@ public static class DependencyInjection
     {
         var pgConnection = configuration.GetConnectionString("PgConnection");
     
-        services.AddDbContext<OrderDbContext>(options =>
+        services.AddDbContext<CheckoutDbContext>(options =>
         {
             options.UseNpgsql(pgConnection);
         });

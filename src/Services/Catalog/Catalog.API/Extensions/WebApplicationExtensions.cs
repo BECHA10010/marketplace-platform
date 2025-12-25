@@ -1,5 +1,3 @@
-using Catalog.Infrastructure.Seeding;
-
 namespace Catalog.API.Extensions;
 
 public static class WebApplicationExtensions
@@ -27,11 +25,7 @@ public static class WebApplicationExtensions
         app.UseExceptionHandler(options => { });
         
         app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog API v1");
-            options.SwaggerEndpoint("/swagger/v2/swagger.json", "Catalog API v2");
-        });
+        app.UseSwaggerUI();
         
         app.MapControllers();
     }

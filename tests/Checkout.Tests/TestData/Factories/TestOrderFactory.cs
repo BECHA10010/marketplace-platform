@@ -1,3 +1,5 @@
+using Checkout.Domain.Order;
+
 namespace Checkout.Tests.TestData.Factories;
 
 public static class TestOrderFactory

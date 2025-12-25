@@ -1,3 +1,6 @@
+using Checkout.API.Orders.Common.Requests;
+using Checkout.API.Orders.CreateOrder;
+
 namespace Checkout.Tests.TestData.Requests;
 
 public static class CreateOrderRequests

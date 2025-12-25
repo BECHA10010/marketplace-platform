@@ -9,10 +9,14 @@
 
     <ItemGroup>
       <PackageReference Include="Carter" Version="9.0.0" />
+        
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+        
+      <PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Endpoints" Version="1.5.0" />
+        
       <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.0" />
     </ItemGroup>
 
@@ -26,10 +30,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Checkout.Infrastructure\Checkout.Infrastructure.csproj" />
       <ProjectReference Include="..\Checkout.Application\Checkout.Application.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Features\" />
     </ItemGroup>
 
 </Project>

@@ -9,3 +9,7 @@ global using Catalog.Application.CatalogItems.DTOs;
 global using Catalog.Application.CatalogItems.Services;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Common.Kernel.Domain;
+global using Catalog.Infrastructure.Persistence.Repositories;
+global using Catalog.Infrastructure.Persistence.Services;
+global using Common.Kernel.Domain.Abstractions;
+global using Common.Kernel.Domain.Abstractions.Repositories;

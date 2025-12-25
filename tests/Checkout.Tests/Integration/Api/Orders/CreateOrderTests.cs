@@ -1,3 +1,6 @@
+using Checkout.API.Orders.CreateOrder;
+using Checkout.Domain.Order;
+
 namespace Checkout.Tests.Integration.Api.Orders;
 
 public class CreateOrderTests : IntegrationTestBase

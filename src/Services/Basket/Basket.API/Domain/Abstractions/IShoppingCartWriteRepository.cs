@@ -1,7 +1,9 @@
+using Common.Kernel.Domain.Abstractions.Repositories;
+
 namespace Basket.API.Domain.Abstractions;
 
-public interface IShoppingCartWriteRepository : IWriteRepository<ShoppingCart>
+public interface IShoppingCartWriteRepository : IWriteRepository<ShoppingCart.ShoppingCart>
 {
-    Task<ShoppingCart?> GetByAccountNameAsync(string accountName, CancellationToken ct);
-    Task SaveAsync(ShoppingCart cart, CancellationToken ct);
+    Task<ShoppingCart.ShoppingCart?> GetByAccountNameAsync(string accountName, CancellationToken ct);
+    Task SaveAsync(ShoppingCart.ShoppingCart cart, CancellationToken ct);
 }

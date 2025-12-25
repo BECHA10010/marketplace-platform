@@ -10,10 +10,12 @@ public static class DependencyInjection
         {
             options.UseNpgsql(pgConnection);
         });
-
-        /*services.AddScoped<IBrandRepository, BrandRepository>();
-        services.AddScoped<ICatalogItemRepository, CatalogRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();*/
+        
+        services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        
+        services.AddScoped<ICatalogItemQueryService, CatalogItemQueryService>();
         
         return services;
     }

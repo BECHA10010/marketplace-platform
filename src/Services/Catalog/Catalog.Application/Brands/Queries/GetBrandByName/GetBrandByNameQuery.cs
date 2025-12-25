@@ -1,6 +1,3 @@
 namespace Catalog.Application.Brands.Queries.GetBrandByName;
 
-public class GetBrandByNameQuery
-{
-    
-}
+public record GetBrandByNameQuery(string Name) : IQuery<GetBrandByNameResult>;

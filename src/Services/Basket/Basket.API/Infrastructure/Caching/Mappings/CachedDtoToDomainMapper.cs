@@ -1,3 +1,5 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Infrastructure.Caching.Mappings;
 
 public static class CachedDtoToDomainMapper

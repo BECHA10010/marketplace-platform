@@ -1,3 +1,5 @@
+using Common.Kernel.Domain.Abstractions;
+
 namespace Catalog.Domain.CatalogItem;
 
 public class CatalogItem : BaseEntity, IAggregateRoot

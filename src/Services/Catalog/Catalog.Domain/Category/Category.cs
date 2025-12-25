@@ -1,3 +1,5 @@
+using Common.Kernel.Domain.Abstractions;
+
 namespace Catalog.Domain.Category;
 
 public class Category : BaseEntity, IAggregateRoot

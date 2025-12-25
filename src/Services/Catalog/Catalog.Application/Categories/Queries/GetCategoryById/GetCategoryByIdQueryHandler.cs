@@ -1,6 +1,6 @@
 namespace Catalog.Application.Categories.Queries.GetCategoryById;
 
-public class GetCategoryByIdQueryHandler(IReadRepository<Category> repository) 
+public class GetCategoryByIdQueryHandler(ICategoryRepository repository) 
     : IQueryHandler<GetCategoryByIdQuery, GetCategoryByIdResult>
 {
     public async Task<GetCategoryByIdResult> Handle(GetCategoryByIdQuery query, CancellationToken cancellationToken)

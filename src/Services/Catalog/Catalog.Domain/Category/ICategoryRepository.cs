@@ -1,3 +1,5 @@
+using Common.Kernel.Domain.Abstractions.Repositories;
+
 namespace Catalog.Domain.Category;
 
 public interface ICategoryRepository : IRepository<Category>

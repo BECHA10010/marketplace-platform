@@ -1,3 +1,5 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Features.ShoppingCarts.Shared.Mappings;
 
 public static class DomainToResponseMapper

@@ -1,3 +1,5 @@
+using Common.Kernel.Domain.Abstractions;
+
 namespace Catalog.Domain.Brand;
 
 public class Brand : BaseEntity, IAggregateRoot
