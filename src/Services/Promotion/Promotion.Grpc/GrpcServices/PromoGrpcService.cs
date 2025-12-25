@@ -1,10 +1,15 @@
+using Promotion.Grpc.Promos.CreatePromo;
+using Promotion.Grpc.Promos.DeletePromo;
+using Promotion.Grpc.Promos.GetPromoByCatalogItem;
+using Promotion.Grpc.Promos.UpdatePromo;
+
 namespace Promotion.Grpc.GrpcServices;  
   
 public class PromoGrpcService(IMediator mediator) : PromoService.PromoServiceBase  
 {  
     public override async Task<PromoModel> GetPromo(GetPromoRequest request, ServerCallContext context)  
     {  
-        var query = new GetPromoByCatalogItemIdQuery(request.CatalogItemId);  
+        var query = new GetPromoByCatalogItemQuery(request.CatalogItemId);  
         var result = await mediator.Send(query);  
         return result;  
     }

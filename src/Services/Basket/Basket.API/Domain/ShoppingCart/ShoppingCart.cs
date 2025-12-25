@@ -2,11 +2,10 @@ using Common.Kernel.Domain.Abstractions;
 
 namespace Basket.API.Domain.ShoppingCart;
 
-public class ShoppingCart : IAggregateRoot
+public class ShoppingCart : BaseEntity, IAggregateRoot
 {
     private readonly List<CartItem> _items = [];
     
-    public Guid Id { get; private set; }   
     public string AccountName { get; private set; } = default!;
     
     public decimal TotalAmount => _items.Sum(i => i.FinalPrice);
@@ -18,7 +17,6 @@ public class ShoppingCart : IAggregateRoot
     
     private ShoppingCart(string accountName)
     {
-        Id = Guid.NewGuid();
         AccountName = accountName;
     }
     

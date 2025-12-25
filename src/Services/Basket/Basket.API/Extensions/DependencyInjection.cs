@@ -18,9 +18,11 @@ public static class DependencyInjection
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(assembly);
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
         
         services.AddValidatorsFromAssembly(assembly);
+        services.AddFluentValidationAutoValidation();
         
         services.AddGrpcClient<PromoService.PromoServiceClient>(options =>
         {
@@ -35,13 +37,14 @@ public static class DependencyInjection
             options.UseNpgsql(pgConnection);
         });
         
-        services.AddScoped<IShoppingCartReadRepository, ShoppingCartReadRepository>();
-        services.AddScoped<IShoppingCartWriteRepository, ShoppingCartWriteRepository>();
-        
         services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = redisConnection;
+            options.InstanceName = "basket: ";
         });
+        
+        services.AddScoped<IShoppingCartReadRepository, ShoppingCartReadRepository>();
+        services.AddScoped<IShoppingCartWriteRepository, ShoppingCartWriteRepository>();
         
         services.Decorate<IShoppingCartReadRepository, CachedShoppingCartReadRepository>();
         

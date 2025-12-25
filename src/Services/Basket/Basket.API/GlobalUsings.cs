@@ -1,9 +1,4 @@
 global using System.Text.Json;
-global using Basket.API.Application.Services;
-global using Basket.API.Domain.Abstractions;
-global using Basket.API.Features.ShoppingCarts.Shared.DTOs;
-global using Basket.API.Features.ShoppingCarts.Shared.Mappings;
-global using Basket.API.Features.ShoppingCarts.Shared.Validators;
 global using Basket.API.Infrastructure.Caching;
 global using Basket.API.Infrastructure.Caching.Mappings;
 global using Basket.API.Infrastructure.ExternalServices;
@@ -23,5 +18,7 @@ global using Microsoft.Extensions.Caching.Distributed;
 global using Promotion.Grpc.Protos;
 global using Basket.API.Extensions;
 global using Common.Kernel.Domain;
-global using Basket.API.Features.ShoppingCarts.Save;
 global using Basket.API.Infrastructure.Caching.DTOs;
+global using Basket.API.Domain.ShoppingCart;
+global using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
+global using Common.Kernel.Behaviors;
