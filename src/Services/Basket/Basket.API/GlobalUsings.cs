@@ -22,3 +22,6 @@ global using Basket.API.Infrastructure.Caching.DTOs;
 global using Basket.API.Domain.ShoppingCart;
 global using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 global using Common.Kernel.Behaviors;
+global using Common.Messaging.Extensions;
+global using Mapster;
+global using MapsterMapper;

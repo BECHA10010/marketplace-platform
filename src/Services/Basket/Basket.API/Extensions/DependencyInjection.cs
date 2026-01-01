@@ -47,6 +47,13 @@ public static class DependencyInjection
         services.AddScoped<IShoppingCartWriteRepository, ShoppingCartWriteRepository>();
         
         services.Decorate<IShoppingCartReadRepository, CachedShoppingCartReadRepository>();
+
+        services.AddBroker(configuration);
+        
+        TypeAdapterConfig.GlobalSettings.Scan(assembly);
+        
+        services.AddSingleton(TypeAdapterConfig.GlobalSettings);
+        services.AddScoped<IMapper, ServiceMapper>();
         
         return services;
     }

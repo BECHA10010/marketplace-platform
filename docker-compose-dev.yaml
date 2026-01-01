@@ -56,23 +56,6 @@ services:
       timeout: 5s
       retries: 10
 
-  promotion_api:
-    container_name: promotion-api-dev
-    build:
-      context: .
-      dockerfile: src/Services/Promotion/Promotion.Grpc/Dockerfile
-      args:
-        - BUILDKIT_INLINE_CACHE=0
-    ports:
-      - "7003:8080"
-      - "7013:8081"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    depends_on:
-      promotion_db:
-        condition: service_healthy
-    restart: unless-stopped
-
   checkout_db:
     container_name: checkout-db-dev
     image: postgres
@@ -86,9 +69,28 @@ services:
     volumes:
       - postgres_checkout:/var/lib/postgresql/data/
 
+  rabbit_mq:
+    container_name: rabbit-mq-dev
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+
 volumes:
   postgres_catalog:
   postgres_basket:
   redis_basket:
   mysql_promotion:
   postgres_checkout:
+  rabbitmq_data:
