@@ -5,7 +5,7 @@ public class ClearCartCommandHandler(IShoppingCartWriteRepository writeRepositor
 {
     public async Task<ClearCartResult> Handle(ClearCartCommand command, CancellationToken ct)
     {
-        var cart = await writeRepository.GetByIdAsync(command.Id, ct);
+        var cart = await writeRepository.GetByAccountNameAsync(command.AccountName, ct);
 
         if (cart is null)
             return new ClearCartResult(false);
@@ -18,5 +18,5 @@ public class ClearCartCommandHandler(IShoppingCartWriteRepository writeRepositor
     }
 }
 
-public record ClearCartCommand(Guid Id) : ICommand<ClearCartResult>;
+public record ClearCartCommand(string AccountName) : ICommand<ClearCartResult>;
 public record ClearCartResult(bool IsSuccess);

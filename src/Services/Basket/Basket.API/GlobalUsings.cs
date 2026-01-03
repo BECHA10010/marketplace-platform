@@ -25,3 +25,4 @@ global using Common.Kernel.Behaviors;
 global using Common.Messaging.Extensions;
 global using Mapster;
 global using MapsterMapper;
+global using MassTransit;

@@ -4,9 +4,9 @@ public class ClearCartEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/basket/clear/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapPost("/basket/clear/{account}", async (string account, ISender sender) =>
         {
-            var command = new ClearCartCommand(id);
+            var command = new ClearCartCommand(account);
             var result = await sender.Send(command);
 
             return result.IsSuccess
