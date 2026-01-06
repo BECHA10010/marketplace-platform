@@ -13,6 +13,8 @@ public static class DependencyInjection
 
         services.AddScoped<IOrderRepository, OrderRepository>();
         
+        services.AddBroker(configuration, Assembly.GetExecutingAssembly());
+        
         return services;
     }
 }

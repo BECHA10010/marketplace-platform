@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Checkout.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CheckoutDbContext))]
-    [Migration("20251224213506_InitialCreate")]
+    [Migration("20260106110347_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -153,13 +153,13 @@ namespace Checkout.Infrastructure.Persistence.Migrations
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("ProductName")
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Title")
                                 .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
-
-                            b1.Property<int>("Quantity")
-                                .HasColumnType("integer");
 
                             b1.Property<decimal>("UnitPrice")
                                 .HasColumnType("decimal(18, 2)");

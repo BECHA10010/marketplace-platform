@@ -150,13 +150,13 @@ namespace Checkout.Infrastructure.Persistence.Migrations
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("ProductName")
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Title")
                                 .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
-
-                            b1.Property<int>("Quantity")
-                                .HasColumnType("integer");
 
                             b1.Property<decimal>("UnitPrice")
                                 .HasColumnType("decimal(18, 2)");
