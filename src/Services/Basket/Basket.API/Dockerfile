@@ -7,6 +7,7 @@ WORKDIR /src
 
 COPY ["src/Services/Basket/Basket.API/Basket.API.csproj", "src/Services/Basket/Basket.API/"]
 COPY ["src/Common/Common.Kernel/Common.Kernel.csproj", "src/Common/Common.Kernel/"]
+COPY ["src/Common/Common.Messaging/Common.Messaging.csproj", "src/Common/Common.Messaging/"]
 
 RUN dotnet restore "src/Services/Basket/Basket.API/Basket.API.csproj"
 

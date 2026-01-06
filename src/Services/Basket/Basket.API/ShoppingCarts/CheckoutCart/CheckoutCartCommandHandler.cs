@@ -14,10 +14,10 @@ public class CheckoutCartCommandHandler(IPublishEndpoint publishEndpoint, ISende
         var submittedEvent = command.ToEvent(getCartResult.Cart);
         await publishEndpoint.Publish(submittedEvent, cancellationToken);
 
-        /*var clearCartCommand = new ClearCartCommand(command.AccountName);
-        var clearCartResult = await sender.Send(clearCartCommand, cancellationToken);*/
+        var clearCartCommand = new ClearCartCommand(command.AccountName);
+        var clearCartResult = await sender.Send(clearCartCommand, cancellationToken);
 
-        return new CheckoutCartResult(command.CorrelationId, true); //clearCartResult.IsSuccess);
+        return new CheckoutCartResult(command.CorrelationId, clearCartResult.IsSuccess);
     }
 }
 

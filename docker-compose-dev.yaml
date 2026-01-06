@@ -1,5 +1,5 @@
-# docker compose -f docker-compose-dev.yaml up -d --build
-# docker compose -f docker-compose-dev.yaml down -v
+# docker compose -p marketplace-dev -f docker-compose-dev.yaml up -d --build
+# docker compose -p marketplace-dev -f docker-compose-dev.yaml down -v
 
 services:
   
