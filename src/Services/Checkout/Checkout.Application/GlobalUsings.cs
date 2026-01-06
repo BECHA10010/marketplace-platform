@@ -1,12 +1,12 @@
 global using System.Reflection;
-global using Checkout.Application.Features.Orders.Common.DTOs;
-global using Checkout.Domain.Entities;
-global using Checkout.Domain.Enums;
-global using Checkout.Domain.Repositories;
-global using Checkout.Domain.ValueObjects;
 global using Common.Kernel.CQRS.Commands;
 global using Common.Kernel.CQRS.Queries;
 global using Mapster;
 global using MapsterMapper;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
+global using Checkout.Domain.Order;
+global using Checkout.Application.Orders.DTOs;
+global using MediatR;
+global using FluentValidation;
+global using Common.Kernel.Behaviors;

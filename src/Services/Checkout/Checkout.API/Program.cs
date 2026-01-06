@@ -7,7 +7,7 @@ builder.Services
 
 var app = builder.Build();
 
-await app.UseApiServices();
+await app.ConfigureApiAsync();
 
 app.Run();
 

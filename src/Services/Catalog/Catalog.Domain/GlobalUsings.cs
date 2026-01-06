@@ -1,2 +1,2 @@
-global using Catalog.Domain.Entities;
-global using Catalog.Domain.Specifications;
+global using Common.Kernel.Domain;
+global using Common.Kernel.Exceptions;

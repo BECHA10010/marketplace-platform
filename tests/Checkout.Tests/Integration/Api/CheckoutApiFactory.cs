@@ -1,3 +1,5 @@
+using Checkout.Infrastructure.Persistence;
+
 namespace Checkout.Tests.Integration.Api;
 
 public class CheckoutApiFactory : WebApplicationFactory<Program>
@@ -14,12 +16,12 @@ public class CheckoutApiFactory : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             var descriptor = services
-                .FirstOrDefault(s => s.ServiceType == typeof(DbContextOptions<OrderDbContext>));
+                .FirstOrDefault(s => s.ServiceType == typeof(DbContextOptions<CheckoutDbContext>));
 
             if (descriptor is not null)
                 services.Remove(descriptor);
 
-            services.AddDbContext<OrderDbContext>(options =>
+            services.AddDbContext<CheckoutDbContext>(options =>
             {
                 options.UseNpgsql(_connectionString);
             });

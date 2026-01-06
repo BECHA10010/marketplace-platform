@@ -1,3 +1,5 @@
+using Checkout.Infrastructure.Persistence;
+
 namespace Checkout.Tests.Integration.Base;
 
 [Collection("IntegrationTests")]
@@ -6,7 +8,7 @@ public abstract class IntegrationTestBase : IAsyncLifetime
     private readonly IServiceScope _scope;
  
     protected readonly HttpClient Client;
-    protected readonly OrderDbContext Context;
+    protected readonly CheckoutDbContext Context;
     
     protected IntegrationTestBase(PostgresContainerFixture fixture)
     {
@@ -14,7 +16,7 @@ public abstract class IntegrationTestBase : IAsyncLifetime
 
         Client = factory.CreateClient();
         _scope = factory.Services.CreateScope();
-        Context = _scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+        Context = _scope.ServiceProvider.GetRequiredService<CheckoutDbContext>();
     }
 
     public async Task InitializeAsync()

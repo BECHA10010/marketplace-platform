@@ -1,3 +1,5 @@
+using Checkout.API.Orders.Responses;
+
 namespace Checkout.Tests.Integration.Api.Orders;
 
 public class GetOrderTests : IntegrationTestBase
@@ -14,10 +16,10 @@ public class GetOrderTests : IntegrationTestBase
         await Context.SaveChangesAsync();
         
         // Act
-        var response = await Client.GetAsync($"/orders?AccountName={order.AccountName}");
+        var response = await Client.GetAsync($"/orders/{order.AccountName}");
         
         // Assert
-        var accountOrders = await response.Content.ReadFromJsonAsync<GetOrdersByAccountNameResponse>();
+        var accountOrders = await response.Content.ReadFromJsonAsync<GetOrdersByAccountResponse>();
         
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(accountOrders!.Orders);
@@ -25,14 +27,13 @@ public class GetOrderTests : IntegrationTestBase
     }
     
     [Theory]
-    [InlineData("")]
     [InlineData("ab")]
     [InlineData("ab132ab132ab132ab1321")]
     [InlineData("ab132ab13$")]
     public async Task GetOrdersByAccount_WhenAccountIsInvalid_ShouldReturn400BadRequest(string accountName)
     {
         // Act
-        var response = await Client.GetAsync($"/orders?AccountName={accountName}");
+        var response = await Client.GetAsync($"/orders/{accountName}");
         
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -45,7 +46,7 @@ public class GetOrderTests : IntegrationTestBase
         var accountName = Guid.NewGuid().ToString()[..^21];
         
         // Act
-        var response = await Client.GetAsync($"/orders?AccountName={accountName}");
+        var response = await Client.GetAsync($"/orders/{accountName}");
         
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);

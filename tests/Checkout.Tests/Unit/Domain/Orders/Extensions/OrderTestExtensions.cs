@@ -1,3 +1,5 @@
+using Checkout.Domain.Order;
+
 namespace Checkout.Tests.Unit.Domain.Orders.Extensions;
 
 public static class OrderTestExtensions

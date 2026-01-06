@@ -4,7 +4,7 @@ public class ShoppingCartReadRepository(BasketDbContext context) : IShoppingCart
 {
     public async Task<ShoppingCart?> GetByAccountNameAsync(string accountName, CancellationToken ct)
     {
-        return await context.ShoppingCarts
+        return await context.Carts
             .AsNoTracking()
             .Include("_items")
             .FirstOrDefaultAsync(x => x.AccountName == accountName, ct);

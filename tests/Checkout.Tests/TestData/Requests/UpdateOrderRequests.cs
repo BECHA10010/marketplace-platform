@@ -1,3 +1,5 @@
+using Checkout.API.Orders.Requests;
+
 namespace Checkout.Tests.TestData.Requests;
 
 public static class UpdateOrderRequests

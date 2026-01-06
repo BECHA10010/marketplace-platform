@@ -1,11 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApiServices(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 
-await app.MigrateDatabaseAsync();
-
-app.UseApiServices();
+await app.ConfigureApiAsync();
 
 app.Run();

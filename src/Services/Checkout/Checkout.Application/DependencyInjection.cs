@@ -5,10 +5,13 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         var assembly = Assembly.GetExecutingAssembly();
+
+        services.AddValidatorsFromAssembly(assembly);
         
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(assembly);
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
         TypeAdapterConfig.GlobalSettings.Scan(assembly);

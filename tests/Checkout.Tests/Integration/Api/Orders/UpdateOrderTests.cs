@@ -1,3 +1,5 @@
+using Checkout.API.Orders.Requests;
+
 namespace Checkout.Tests.Integration.Api.Orders;
 
 public class UpdateOrderTests : IntegrationTestBase
@@ -18,7 +20,7 @@ public class UpdateOrderTests : IntegrationTestBase
     
     [Theory]
     [MemberData(nameof(ValidUpdateRequests))]
-    public async Task UpdateOrder_WhenRequestIsValid_ShouldReturn200Ok(UpdateOrderRequest request)
+    public async Task UpdateOrder_WhenRequestIsValid_ShouldReturn204NoContent(UpdateOrderRequest request)
     {
         // Arrange
         var order = TestOrderFactory.CreateValidOrder();
@@ -31,11 +33,11 @@ public class UpdateOrderTests : IntegrationTestBase
         var response = await Client.PatchAsync($"/orders/{order.Id}", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
     }
     
     [Fact]
-    public async Task UpdateOrder_WhenIdIsInvalidGuid_ShouldReturn400BadRequest()
+    public async Task UpdateOrder_WhenIdIsInvalidGuid_ShouldReturn404NotFound()
     {
         // Arrange
         var invalidGuid = Guid.NewGuid().ToString()[..^10];
@@ -46,7 +48,7 @@ public class UpdateOrderTests : IntegrationTestBase
         var response = await Client.PatchAsync($"/orders/{invalidGuid}", content);
 
         // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
     
     [Fact]

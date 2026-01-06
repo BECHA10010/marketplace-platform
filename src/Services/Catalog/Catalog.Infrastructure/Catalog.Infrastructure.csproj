@@ -7,13 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <PackageReference Include="Marten" Version="8.11.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+      <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj" />
     </ItemGroup>
 
 </Project>

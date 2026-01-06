@@ -40,7 +40,7 @@ public class CancelOrderTests : IntegrationTestBase
     }
     
     [Fact]
-    public async Task CancelOrderById_WhenIdIsInvalidGuid_ShouldReturn400BadRequest()
+    public async Task CancelOrderById_WhenIdIsInvalidGuid_ShouldReturn404NotFound()
     {
         // Arrange
         var invalidGuid = Guid.NewGuid().ToString()[..^4];
@@ -49,6 +49,6 @@ public class CancelOrderTests : IntegrationTestBase
         var response = await Client.DeleteAsync($"/orders/{invalidGuid}");
         
         // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }

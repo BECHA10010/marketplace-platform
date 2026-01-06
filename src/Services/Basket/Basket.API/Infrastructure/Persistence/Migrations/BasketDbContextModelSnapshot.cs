@@ -22,7 +22,7 @@ namespace Basket.API.Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Basket.API.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Basket.API.Domain.ShoppingCart.ShoppingCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,9 +41,9 @@ namespace Basket.API.Infrastructure.Persistence.Migrations
                     b.ToTable("Carts", (string)null);
                 });
 
-            modelBuilder.Entity("Basket.API.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Basket.API.Domain.ShoppingCart.ShoppingCart", b =>
                 {
-                    b.OwnsMany("Basket.API.Domain.Entities.CartItem", "_items", b1 =>
+                    b.OwnsMany("Basket.API.Domain.ShoppingCart.CartItem", "_items", b1 =>
                         {
                             b1.Property<Guid>("CartId")
                                 .HasColumnType("uuid");

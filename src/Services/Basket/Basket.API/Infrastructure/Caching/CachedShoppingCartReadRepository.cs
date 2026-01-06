@@ -1,7 +1,8 @@
+using Basket.API.Domain.ShoppingCart;
+
 namespace Basket.API.Infrastructure.Caching;
 
-public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner, IDistributedCache cache)
-    : IShoppingCartReadRepository
+public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner, IDistributedCache cache) : IShoppingCartReadRepository
 {
     private static DistributedCacheEntryOptions CacheOptions => new()
     {
@@ -15,8 +16,7 @@ public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner,
 
     public async Task<ShoppingCart?> GetByAccountNameAsync(string accountName, CancellationToken ct)
     {
-        var key = CacheKey(accountName);
-        var cached = await cache.GetStringAsync(key, ct);
+        var cached = await cache.GetStringAsync(accountName, ct);
 
         if (cached is not null)
         {
@@ -26,7 +26,7 @@ public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner,
             }
             catch
             {
-                await cache.RemoveAsync(key, ct);
+                await cache.RemoveAsync(accountName, ct);
             }
         }
         
@@ -37,13 +37,11 @@ public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner,
 
         return cart;
     }
-    
-    private static string CacheKey(string accountName) => $"basket:{accountName}";
 
     private Task SetCacheAsync(ShoppingCart cart, CancellationToken ct)
     { 
         return cache.SetStringAsync(
-            CacheKey(cart.AccountName), 
+            cart.AccountName, 
             JsonSerializer.Serialize(cart.ToCachedDto(), JsonOptions), 
             CacheOptions,
             ct

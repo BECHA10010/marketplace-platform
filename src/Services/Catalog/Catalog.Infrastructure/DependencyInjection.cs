@@ -4,16 +4,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("PgConnection")!;
-
-        services.AddMarten(options =>
+        var pgConnection = configuration.GetConnectionString("PgConnection");
+    
+        services.AddDbContext<CatalogDbContext>(options =>
         {
-            options.Connection(connectionString);
-        }).UseLightweightSessions();//.InitializeWith<InitializeDatabaseAsync>();
-
+            options.UseNpgsql(pgConnection);
+        });
+        
         services.AddScoped<IBrandRepository, BrandRepository>();
-        services.AddScoped<ICatalogItemRepository, CatalogRepository>();
+        services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        
+        services.AddScoped<ICatalogItemQueryService, CatalogItemQueryService>();
         
         return services;
     }

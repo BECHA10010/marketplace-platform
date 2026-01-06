@@ -6,12 +6,14 @@ public static class DependencyInjection
     {
         var pgConnection = configuration.GetConnectionString("PgConnection");
     
-        services.AddDbContext<OrderDbContext>(options =>
+        services.AddDbContext<CheckoutDbContext>(options =>
         {
             options.UseNpgsql(pgConnection);
         });
 
         services.AddScoped<IOrderRepository, OrderRepository>();
+        
+        services.AddBroker(configuration, Assembly.GetExecutingAssembly());
         
         return services;
     }
