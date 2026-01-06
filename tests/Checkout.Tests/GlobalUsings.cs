@@ -1,6 +1,5 @@
 global using System.Net;
 global using System.Net.Http.Json;
-global using Checkout.API.Features.Orders.CreateOrder;
 global using Checkout.Tests.Integration.Api;
 global using Checkout.Tests.Integration.Base;
 global using Checkout.Tests.Integration.Fixtures;

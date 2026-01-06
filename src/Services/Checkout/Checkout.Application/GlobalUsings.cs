@@ -7,4 +7,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Checkout.Domain.Order;
 global using Checkout.Application.Orders.DTOs;
-
+global using MediatR;
+global using FluentValidation;
+global using Common.Kernel.Behaviors;

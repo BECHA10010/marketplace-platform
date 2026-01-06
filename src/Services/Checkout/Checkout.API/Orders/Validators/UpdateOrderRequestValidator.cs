@@ -1,6 +1,6 @@
-using Checkout.Domain.Order;
+using Checkout.API.Orders.Requests;
 
-namespace Checkout.API.Orders.UpdateOrder;
+namespace Checkout.API.Orders.Validators;
 
 public class UpdateOrderRequestValidator : AbstractValidator<UpdateOrderRequest>
 {

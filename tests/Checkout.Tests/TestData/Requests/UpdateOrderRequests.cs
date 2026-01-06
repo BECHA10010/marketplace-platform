@@ -1,5 +1,4 @@
-using Checkout.API.Orders.Common.Requests;
-using Checkout.API.Orders.UpdateOrder;
+using Checkout.API.Orders.Requests;
 
 namespace Checkout.Tests.TestData.Requests;
 

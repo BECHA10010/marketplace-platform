@@ -1,8 +1,8 @@
 namespace Checkout.Application.Orders.Commands.UpdateOrder;
 
 public record UpdateOrderDto(
-    ContactDto? ContactData,
-    AddressDto? AddressData,
+    CustomerContactDto? ContactData,
+    CustomerAddressDto? AddressData,
     PaymentMethod? PaymentMethod,
-    CardDataDto? CardData
+    CardDetailsDto? CardData
 );

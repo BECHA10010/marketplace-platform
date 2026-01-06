@@ -1,4 +1,4 @@
-using Checkout.API.Orders.UpdateOrder;
+using Checkout.API.Orders.Requests;
 
 namespace Checkout.Tests.Integration.Api.Orders;
 

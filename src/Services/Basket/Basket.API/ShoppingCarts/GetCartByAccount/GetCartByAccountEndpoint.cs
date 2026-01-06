@@ -4,9 +4,9 @@ public class GetCartByAccountEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/basket/{accountName}", async (string accountName, ISender sender) =>
+        app.MapGet("/basket/{account}", async (string account, ISender sender) =>
         {
-            var query = new GetCartByAccountQuery(accountName);
+            var query = new GetCartByAccountQuery(account);
             var result = await sender.Send(query);
             var response = result.Cart?.ToResponse();
             

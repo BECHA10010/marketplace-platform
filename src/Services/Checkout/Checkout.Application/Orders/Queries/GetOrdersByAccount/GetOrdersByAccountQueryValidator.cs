@@ -1,5 +1,3 @@
-using FluentValidation;
-
 namespace Checkout.Application.Orders.Queries.GetOrdersByAccount;
 
 public class GetOrdersByAccountQueryValidator : AbstractValidator<GetOrdersByAccountQuery>

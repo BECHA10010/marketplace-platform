@@ -1,6 +1,3 @@
-using Common.Kernel.Behaviors;
-using FluentValidation;
-
 namespace Checkout.Application;
 
 public static class DependencyInjection

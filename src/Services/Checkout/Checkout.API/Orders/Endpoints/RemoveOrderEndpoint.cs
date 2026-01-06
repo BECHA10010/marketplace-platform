@@ -1,6 +1,4 @@
-using Checkout.Application.Orders.Commands.RemoveOrder;
-
-namespace Checkout.API.Orders.RemoveOrder;
+namespace Checkout.API.Orders.Endpoints;
 
 public class RemoveOrderEndpoint : ICarterModule
 {

@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Common.Messaging\Common.Messaging.csproj" />
+      <ProjectReference Include="..\Checkout.Application\Checkout.Application.csproj" />
       <ProjectReference Include="..\Checkout.Domain\Checkout.Domain.csproj" />
     </ItemGroup>
 

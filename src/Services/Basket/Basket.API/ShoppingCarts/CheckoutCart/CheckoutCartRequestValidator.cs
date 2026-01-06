@@ -1,5 +1,3 @@
-using Basket.API.ShoppingCarts.Shared.Validators;
-
 namespace Basket.API.ShoppingCarts.CheckoutCart;
 
 public class CheckoutCartRequestValidator : AbstractValidator<CheckoutCartRequest>

@@ -3,11 +3,10 @@ namespace Checkout.Application.Orders.DTOs;
 public record OrderDto(
     Guid Id,
     string AccountName,
-    decimal Amount,
+    decimal TotalAmount,
     string Status,
-    AddressDto Address,
+    CustomerAddressDto Address,
     string PaymentMethod,
     string PaymentStatus,
-    List<OrderItemDto> Items,
-    DateTime CreatedAt
+    List<OrderItemDto> Items
 );

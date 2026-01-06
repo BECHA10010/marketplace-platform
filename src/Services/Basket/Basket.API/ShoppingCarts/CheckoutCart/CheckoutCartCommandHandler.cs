@@ -1,6 +1,3 @@
-using Basket.API.ShoppingCarts.ClearCart;
-using Basket.API.ShoppingCarts.GetCartByAccount;
-
 namespace Basket.API.ShoppingCarts.CheckoutCart;
 
 public class CheckoutCartCommandHandler(IPublishEndpoint publishEndpoint, ISender sender) 
@@ -8,43 +5,20 @@ public class CheckoutCartCommandHandler(IPublishEndpoint publishEndpoint, ISende
 {
     public async Task<CheckoutCartResult> Handle(CheckoutCartCommand command, CancellationToken cancellationToken)
     {
-        var accountName = command.AccountName;
-        
-        var getCartQuery = new GetCartByAccountQuery(accountName);
+        var getCartQuery = new GetCartByAccountQuery(command.AccountName);
         var getCartResult = await sender.Send(getCartQuery, cancellationToken);
 
         if (getCartResult.Cart is null)
-            throw new NotFoundException(nameof(ShoppingCart), accountName);
+            throw new NotFoundException(nameof(ShoppingCart), command.AccountName);
 
-        var orderId = Guid.NewGuid();
         var submittedEvent = command.ToEvent(getCartResult.Cart);
-        submittedEvent.OrderId = orderId;
-        
         await publishEndpoint.Publish(submittedEvent, cancellationToken);
 
-        var clearCartCommand = new ClearCartCommand(command.AccountName);
-        var clearCartResult = await sender.Send(clearCartCommand, cancellationToken);
+        /*var clearCartCommand = new ClearCartCommand(command.AccountName);
+        var clearCartResult = await sender.Send(clearCartCommand, cancellationToken);*/
 
-        return new CheckoutCartResult(
-            orderId, 
-            command.CorrelationId, 
-            clearCartResult.IsSuccess
-        );
+        return new CheckoutCartResult(command.CorrelationId, true); //clearCartResult.IsSuccess);
     }
 }
 
-public record CheckoutCartCommand(
-    string AccountName,
-    string FirstName,
-    string LastName,
-    string Email,
-    string Street,
-    string City,
-    int PaymentMethod,
-    string? CardNumber,
-    string? Expiration,
-    string? CvvCode,
-    string CorrelationId
-) : ICommand<CheckoutCartResult>;
-
-public record CheckoutCartResult(Guid OrderId, string CorrelationId, bool Removed);
+public record CheckoutCartResult(Guid CorrelationId, bool Removed);

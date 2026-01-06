@@ -2,8 +2,7 @@ namespace Basket.API.ShoppingCarts.Shared.Validators;
 
 public static class AccountNameValidationExtensions
 {
-    public static IRuleBuilderOptions<T, string> ValidAccountName<T>(
-        this IRuleBuilder<T, string> ruleBuilder)
+    public static IRuleBuilderOptions<T, string> ValidAccountName<T>(this IRuleBuilder<T, string> ruleBuilder)
     {
         return ruleBuilder
             .NotEmpty().WithMessage("Account name is required")

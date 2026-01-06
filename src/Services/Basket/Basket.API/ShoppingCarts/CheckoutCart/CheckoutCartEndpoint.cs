@@ -6,7 +6,9 @@ public class CheckoutCartEndpoint : ICarterModule
     {
         app.MapPost("/basket/checkout", async ([FromBody] CheckoutCartRequest request, ISender sender) =>
         {
-            var command = request.Adapt<CheckoutCartCommand>();
+            var correlationId = Guid.NewGuid();
+            
+            var command = request.ToCommand(correlationId);
             var result = await sender.Send(command);
             var response = result.ToResponse();
 
@@ -15,17 +17,4 @@ public class CheckoutCartEndpoint : ICarterModule
     }
 }
 
-public record CheckoutCartRequest(
-    string AccountName,
-    string FirstName,
-    string LastName,
-    string Email,
-    string Street,
-    string City,
-    int PaymentMethod,
-    string? CardNumber,
-    string? Expiration,
-    string? CvvCode
-);
-
-public record CheckoutCartResponse(Guid OrderId, string CorrelationId, string Message);
+public record CheckoutCartResponse(Guid CorrelationId, string Message);
