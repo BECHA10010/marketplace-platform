@@ -1,4 +1,4 @@
-using Checkout.API.Orders.GetOrdersByAccount;
+using Checkout.API.Orders.Responses;
 
 namespace Checkout.Tests.Integration.Api.Orders;
 

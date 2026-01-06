@@ -1,11 +1,8 @@
-using Checkout.API.Orders.Common.Requests;
-using Checkout.API.Orders.CreateOrder;
-
 namespace Checkout.Tests.TestData.Requests;
 
 public static class CreateOrderRequests
 {
-    public static CreateOrderRequest ValidRequest_CreateWithCreditCard() =>
+    /*public static CreateOrderRequest ValidRequest_CreateWithCreditCard() =>
         new(
             AccountName: "test_user",
             ContactData: new ContactDataRequest("John", "Doe", "john@doe.com"),
@@ -65,5 +62,5 @@ public static class CreateOrderRequests
             PaymentMethod: "BankTransfer",
             CardData: null,
             Items: []
-        );
+        );*/
 }

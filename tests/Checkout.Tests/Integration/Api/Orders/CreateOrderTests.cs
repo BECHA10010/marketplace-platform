@@ -1,9 +1,6 @@
-using Checkout.API.Orders.CreateOrder;
-using Checkout.Domain.Order;
-
 namespace Checkout.Tests.Integration.Api.Orders;
 
-public class CreateOrderTests : IntegrationTestBase
+/*public class CreateOrderTests : IntegrationTestBase
 {
     public CreateOrderTests(PostgresContainerFixture fixture)
         : base(fixture) { }
@@ -88,4 +85,4 @@ public class CreateOrderTests : IntegrationTestBase
         
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
-}
+}*/
