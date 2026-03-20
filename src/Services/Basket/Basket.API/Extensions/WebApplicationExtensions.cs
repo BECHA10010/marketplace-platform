@@ -1,3 +1,5 @@
+using Common.Logging.Middlewares;
+
 namespace Basket.API.Extensions;
 
 public static class WebApplicationExtensions
@@ -20,6 +22,8 @@ public static class WebApplicationExtensions
     
     private static void UseApiServices(this WebApplication app)
     {
+        app.UseMiddleware<RequestLoggingMiddleware>();
+        
         app.UseExceptionHandler(options => { });
         
         app.MapCarter();

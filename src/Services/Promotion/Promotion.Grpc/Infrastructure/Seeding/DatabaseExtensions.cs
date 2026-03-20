@@ -2,7 +2,7 @@ namespace Promotion.Grpc.Infrastructure.Seeding;
 
 public static class DatabaseExtensions
 {
-    public static async Task SeedAsync(this IDbConnection connection, ILogger logger, int maxRetries = 5)
+    public static async Task SeedAsync<T>(this IDbConnection connection, ILogger<T> logger, int maxRetries = 5)
     {
         var delay = TimeSpan.FromSeconds(1);
         Exception? lastException = default;

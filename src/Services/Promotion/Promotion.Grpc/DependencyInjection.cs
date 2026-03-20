@@ -7,9 +7,15 @@ public static class DependencyInjection
         var mySqlConnection = configuration.GetConnectionString("MySqlConnection");
 
         services.AddScoped<IDbConnection>(_ => new MySqlConnection(mySqlConnection));
+
+        services.AddSingleton<RequestLoggingInterceptor>();
         
         services.AddGrpcReflection();
-        services.AddGrpc();
+        services.AddGrpc(options =>
+        {
+            options.Interceptors.Add<RequestLoggingInterceptor>();
+            options.EnableDetailedErrors = true;
+        });
 
         services.AddMediatR(config =>
         {
@@ -17,6 +23,8 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IPromoRepository, PromoRepository>();
+
+        services.AddCommonLogging(configuration);
         
         PromoMappingConfig.Configure();
         

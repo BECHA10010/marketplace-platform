@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\Common.Kernel\Common.Kernel.csproj" />
+      <ProjectReference Include="..\..\..\Common\Common.Logging\Common.Logging.csproj" />
     </ItemGroup>
 
     <ItemGroup>

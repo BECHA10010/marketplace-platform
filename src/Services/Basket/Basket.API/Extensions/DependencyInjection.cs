@@ -1,3 +1,5 @@
+using Common.Logging.Extensions;
+
 namespace Basket.API.Extensions;
 
 public static class DependencyInjection
@@ -49,6 +51,8 @@ public static class DependencyInjection
         services.Decorate<IShoppingCartReadRepository, CachedShoppingCartReadRepository>();
 
         services.AddBroker(configuration);
+        
+        services.AddCommonLogging(configuration);
         
         return services;
     }

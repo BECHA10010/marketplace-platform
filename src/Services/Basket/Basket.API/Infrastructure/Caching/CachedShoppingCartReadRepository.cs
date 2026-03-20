@@ -1,5 +1,3 @@
-using Basket.API.Domain.ShoppingCart;
-
 namespace Basket.API.Infrastructure.Caching;
 
 public class CachedShoppingCartReadRepository(IShoppingCartReadRepository inner, IDistributedCache cache) : IShoppingCartReadRepository

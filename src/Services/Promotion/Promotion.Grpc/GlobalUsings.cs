@@ -13,3 +13,6 @@ global using Promotion.Grpc.GrpcServices;
 global using Promotion.Grpc.Infrastructure.Persistence.Repositories;
 global using Promotion.Grpc.Infrastructure.Seeding;
 global using Promotion.Grpc.Promos.Mappings;
+global using Serilog;
+global using Common.Logging.Extensions;
+global using Promotion.Grpc.Interceptors;
