@@ -29,6 +29,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\Common.Logging\Common.Logging.csproj" />
+      <ProjectReference Include="..\..\..\Common\Common.Metrics\Common.Metrics.csproj" />
       <ProjectReference Include="..\Checkout.Infrastructure\Checkout.Infrastructure.csproj" />
       <ProjectReference Include="..\Checkout.Application\Checkout.Application.csproj" />
     </ItemGroup>

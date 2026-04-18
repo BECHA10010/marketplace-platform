@@ -227,6 +227,60 @@ services:
         condition: service_healthy
     restart: always
 
+  k6-catalog-load:
+    container_name: k6-catalog-load-prod
+    image: grafana/k6:latest
+    volumes:
+      - ./k6:/scripts
+    working_dir: /scripts
+    entrypoint: ["k6", "run", "catalog-api-load-test.js"]
+    environment:
+      - BASE_URL_CATALOG=http://catalog_api:8080
+    depends_on:
+      - catalog_api
+
+  k6-catalog-create:
+    container_name: k6-catalog-create-prod
+    image: grafana/k6:latest
+    volumes:
+      - ./k6:/scripts
+    working_dir: /scripts
+    entrypoint: ["k6", "run", "catalog-api-create-items-test.js"]
+    environment:
+      - BASE_URL_CATALOG=http://catalog_api:8080
+    depends_on:
+      catalog_api:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  portainer:
+    container_name: portainer-prod
+    image: portainer/portainer-ce:latest
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 
 volumes:
   postgres_catalog_prod:
@@ -236,3 +290,6 @@ volumes:
   postgres_checkout_prod:
   rabbitmq_data_prod:
   elasticsearch_data_prod:
+  prometheus_data:
+  grafana_data:
+  portainer_data:

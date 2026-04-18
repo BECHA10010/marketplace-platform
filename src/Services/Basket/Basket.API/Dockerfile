@@ -9,6 +9,7 @@ COPY ["src/Services/Basket/Basket.API/Basket.API.csproj", "src/Services/Basket/B
 COPY ["src/Common/Common.Kernel/Common.Kernel.csproj", "src/Common/Common.Kernel/"]
 COPY ["src/Common/Common.Messaging/Common.Messaging.csproj", "src/Common/Common.Messaging/"]
 COPY ["src/Common/Common.Logging/Common.Logging.csproj", "src/Common/Common.Logging/"]
+COPY ["src/Common/Common.Metrics/Common.Metrics.csproj", "src/Common/Common.Metrics/"]
 
 RUN dotnet restore "src/Services/Basket/Basket.API/Basket.API.csproj"
 

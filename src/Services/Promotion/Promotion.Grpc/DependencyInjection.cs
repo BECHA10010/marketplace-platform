@@ -1,3 +1,5 @@
+using Common.Metrics.Extensions;
+
 namespace Promotion.Grpc;
 
 public static class DependencyInjection
@@ -33,6 +35,8 @@ public static class DependencyInjection
     
     public static async Task<WebApplication> UseApiServices(this WebApplication app)
     {
+        app.UsePrometheusMetrics();
+        
         using var scope = app.Services.CreateScope();
         var connection = scope.ServiceProvider.GetRequiredService<IDbConnection>();
         

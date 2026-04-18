@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose-dev.yaml = docker-compose-dev.yaml
 		docker-compose-prod.yaml = docker-compose-prod.yaml
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		prometheus\prometheus.yml = prometheus\prometheus.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{08FF5D94-7041-4A56-9F14-F9D6F1F0C278}"
@@ -52,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Messaging", "src\Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "src\Common\Common.Logging\Common.Logging.csproj", "{9724D4DD-284E-4ADE-9310-4A59E2EA8F45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Metrics", "src\Common\Common.Metrics\Common.Metrics.csproj", "{7A7AD61D-48CA-4C59-86D9-C572304BF171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +81,7 @@ Global
 		{3717D891-DDB0-4D6D-969D-F6DDD52D2247} = {9FC4BD9E-08E4-4FCF-9F62-9937CF93B0DE}
 		{58A762DB-BD0D-4C73-8DE6-0ADC2ABFFEB2} = {F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004}
 		{9724D4DD-284E-4ADE-9310-4A59E2EA8F45} = {F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004}
+		{7A7AD61D-48CA-4C59-86D9-C572304BF171} = {F6CEE02B-70C1-4B1F-9BA2-5DE5BA425004}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{840AA71B-0E52-4CC2-B46F-905E2F82E101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -136,5 +140,9 @@ Global
 		{9724D4DD-284E-4ADE-9310-4A59E2EA8F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9724D4DD-284E-4ADE-9310-4A59E2EA8F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9724D4DD-284E-4ADE-9310-4A59E2EA8F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7AD61D-48CA-4C59-86D9-C572304BF171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7AD61D-48CA-4C59-86D9-C572304BF171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7AD61D-48CA-4C59-86D9-C572304BF171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7AD61D-48CA-4C59-86D9-C572304BF171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

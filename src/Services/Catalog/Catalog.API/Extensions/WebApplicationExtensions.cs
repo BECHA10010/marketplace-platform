@@ -1,4 +1,5 @@
 using Common.Logging.Middlewares;
+using Common.Metrics.Extensions;
 
 namespace Catalog.API.Extensions;
 
@@ -24,6 +25,8 @@ public static class WebApplicationExtensions
     
     private static void UseApiServices(this WebApplication app)
     {
+        app.UsePrometheusMetrics();
+        
         app.UseMiddleware<RequestLoggingMiddleware>();
         
         app.UseExceptionHandler(options => { });
